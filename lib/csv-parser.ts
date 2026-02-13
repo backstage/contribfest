@@ -38,7 +38,18 @@ export async function parseIssuesCSV(): Promise<IssueRow[]> {
               })
               .filter((issue): issue is IssueRow => issue !== null)
 
-            resolve(issues)
+            // Remove duplicates based on repository + issueId combination
+            const seen = new Set<string>()
+            const uniqueIssues = issues.filter(issue => {
+              const key = `${issue.repository}:${issue.issueId}`
+              if (seen.has(key)) {
+                return false
+              }
+              seen.add(key)
+              return true
+            })
+
+            resolve(uniqueIssues)
           } catch (error) {
             reject(error)
           }
