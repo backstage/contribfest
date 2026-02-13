@@ -15,6 +15,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  checks: read  # Required for wait-on-check-action to query CI status
 
 jobs:
   # Wait for CI to complete before deploying
