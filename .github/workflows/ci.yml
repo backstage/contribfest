@@ -35,3 +35,6 @@ jobs:
           key: ${{ runner.os }}-nextjs-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-nextjs-
+
+      - name: Install dependencies
+        run: yarn install --immutable
