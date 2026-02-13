@@ -1,6 +1,7 @@
 'use client'
 
 import type { ChecklistItem as ChecklistItemType } from '@/lib/types'
+import { RiExternalLinkLine } from '@remixicon/react'
 
 interface ChecklistItemProps {
   item: ChecklistItemType
@@ -67,9 +68,11 @@ export function ChecklistItem({ item, onToggle }: ChecklistItemProps) {
               fontSize: '14px',
               color: 'var(--link-active, #1976d2)',
               fontWeight: 500,
+              display: 'inline-flex',
+              alignItems: 'center',
             }}
           >
-            →
+            <RiExternalLinkLine size={16} />
           </a>
         )}
       </div>

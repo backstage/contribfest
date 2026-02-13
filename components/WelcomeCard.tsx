@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import type { ResourceCard } from '@/lib/types'
+import { RiArrowRightLine, RiExternalLinkLine } from '@remixicon/react'
 
 export function WelcomeCard({ title, description, url, isExternal }: ResourceCard) {
   const cardStyle = {
@@ -49,9 +50,22 @@ export function WelcomeCard({ title, description, url, isExternal }: ResourceCar
           fontSize: '14px',
           fontWeight: 500,
           color: 'var(--link-active, #1976d2)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '4px',
         }}
       >
-        {isExternal ? 'View Resource →' : 'View →'}
+        {isExternal ? (
+          <>
+            View Resource
+            <RiExternalLinkLine size={16} />
+          </>
+        ) : (
+          <>
+            View
+            <RiArrowRightLine size={16} />
+          </>
+        )}
       </div>
     </>
   )

@@ -17,7 +17,6 @@ export function Sidebar() {
     <aside
       style={{
         width: '250px',
-        minHeight: '100vh',
         padding: '24px 16px',
         borderRight: '1px solid var(--border-color, #e0e0e0)',
         display: 'flex',
@@ -44,7 +43,7 @@ export function Sidebar() {
             color: 'var(--text-secondary, #666)',
           }}
         >
-          Backstage Contribution Guide
+          Backstage Contributions
         </p>
       </div>
 
