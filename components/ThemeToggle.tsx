@@ -1,6 +1,7 @@
 'use client'
 
 import { useTheme } from '@/hooks/useTheme'
+import { RiMoonLine, RiSunLine } from '@remixicon/react'
 
 export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme()
@@ -16,10 +17,23 @@ export function ThemeToggle() {
         cursor: 'pointer',
         fontSize: '14px',
         fontWeight: 500,
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
       }}
       aria-label="Toggle theme"
     >
-      {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
+      {theme === 'light' ? (
+        <>
+          <RiMoonLine size={16} />
+          Dark Mode
+        </>
+      ) : (
+        <>
+          <RiSunLine size={16} />
+          Light Mode
+        </>
+      )}
     </button>
   )
 }

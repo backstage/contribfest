@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ThemeProvider>
-          <div style={{ display: 'flex', minHeight: '100vh' }}>
+          <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
             <Sidebar />
             <main
               style={{

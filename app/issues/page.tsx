@@ -2,9 +2,12 @@
 
 import { useIssues } from '@/hooks/useIssues'
 import { IssueTable } from '@/components/IssueTable'
+import { useSearchParams } from 'next/navigation'
 
 export default function IssuesPage() {
   const { issues, loading, error, progress } = useIssues()
+  const searchParams = useSearchParams()
+  const initialRepository = searchParams.get('repository') || undefined
 
   return (
     <div>
@@ -104,7 +107,9 @@ export default function IssuesPage() {
       )}
 
       {/* Issues Table */}
-      {!loading && !error && issues.length > 0 && <IssueTable issues={issues} />}
+      {!loading && !error && issues.length > 0 && (
+        <IssueTable issues={issues} initialRepository={initialRepository} />
+      )}
 
       {/* No Issues State */}
       {!loading && !error && issues.length === 0 && (

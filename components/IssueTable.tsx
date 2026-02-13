@@ -7,12 +7,13 @@ import type { FilterOptions } from '@/lib/filters'
 
 interface IssueTableProps {
   issues: EnrichedIssue[]
+  initialRepository?: string
 }
 
-export function IssueTable({ issues }: IssueTableProps) {
+export function IssueTable({ issues, initialRepository }: IssueTableProps) {
   const [filters, setFilters] = useState<FilterOptions>({
     search: '',
-    repository: 'all',
+    repository: initialRepository || 'all',
     state: 'all',
     author: 'all',
   })
