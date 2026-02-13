@@ -6,6 +6,9 @@ import { Sidebar } from '@/components/Sidebar'
 export const metadata = {
   title: 'ContribFest',
   description: 'Backstage ContribFest Resources',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({
