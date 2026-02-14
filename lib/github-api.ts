@@ -1,48 +1,6 @@
 import type { GitHubIssue, IssueRow, EnrichedIssue } from './types'
 
 const GITHUB_API_BASE = 'https://api.github.com'
-const RATE_LIMIT_DELAY = 100 // 100ms delay between requests
-
-// Helper to delay between requests
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-
-export async function fetchIssueMetadata(
-  repository: string,
-  issueNumber: number
-): Promise<GitHubIssue | null> {
-  try {
-    const [owner, repo] = repository.split('/')
-    const url = `${GITHUB_API_BASE}/repos/${owner}/${repo}/issues/${issueNumber}`
-
-    const headers: HeadersInit = {
-      Accept: 'application/vnd.github.v3+json',
-    }
-
-    // Add authentication token if available
-    const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN
-    if (token && token !== 'your_github_personal_access_token_here') {
-      headers.Authorization = `Bearer ${token}`
-    }
-
-    const response = await fetch(url, {
-      headers,
-      cache: 'force-cache', // Cache responses for performance
-    })
-
-    if (!response.ok) {
-      console.error(
-        `Failed to fetch issue ${repository}#${issueNumber}: ${response.status} ${response.statusText} -${response.text()}`
-      )
-      return null
-    }
-
-    const data = await response.json()
-    return data as GitHubIssue
-  } catch (error) {
-    console.error(`Error fetching issue ${repository}#${issueNumber}:`, error)
-    return null
-  }
-}
 
 export async function fetchContribfestIssues(
   owner: string,
@@ -128,16 +86,30 @@ export async function enrichIssuesWithGitHubData(
 ): Promise<EnrichedIssue[]> {
   const enrichedIssues: EnrichedIssue[] = []
 
-  for (let i = 0; i < issues.length; i++) {
-    const issue = issues[i]
+  // Report initial progress
+  if (onProgress) {
+    onProgress(0, issues.length)
+  }
 
-    // Report progress
-    if (onProgress) {
-      onProgress(i + 1, issues.length)
-    }
+  try {
+    // Step 1: Bulk fetch all contribfest issues from both repos
+    console.log('Fetching contribfest issues from GitHub...')
 
-    try {
-      const githubData = await fetchIssueMetadata(issue.repository, issue.issueId)
+    const [backstageIssues, communityPluginsIssues] = await Promise.all([
+      fetchContribfestIssues('backstage', 'backstage'),
+      fetchContribfestIssues('backstage', 'community-plugins'),
+    ])
+
+    console.log(`Total issues fetched: ${backstageIssues.length + communityPluginsIssues.length}`)
+
+    // Step 2: Build lookup map
+    const issueMap = buildIssueLookupMap(backstageIssues, communityPluginsIssues)
+
+    // Step 3: Match CSV issues with GitHub data
+    for (let i = 0; i < issues.length; i++) {
+      const issue = issues[i]
+      const lookupKey = `${issue.repository}#${issue.issueId}`
+      const githubData = issueMap.get(lookupKey)
 
       enrichedIssues.push({
         rowNumber: issue.rowNumber,
@@ -145,21 +117,29 @@ export async function enrichIssuesWithGitHubData(
         level: issue.level,
         issueId: issue.issueId,
         githubData: githubData || undefined,
-        error: githubData ? undefined : 'Failed to fetch issue data',
+        error: githubData ? undefined : 'Issue not found in GitHub or missing contribfest label',
       })
-    } catch (error) {
+
+      // Report progress
+      if (onProgress) {
+        onProgress(i + 1, issues.length)
+      }
+    }
+
+    console.log(`Matched ${enrichedIssues.filter(e => e.githubData).length}/${issues.length} issues with GitHub data`)
+  } catch (error) {
+    console.error('Error enriching issues with GitHub data:', error)
+
+    // Fallback: return CSV data only
+    for (let i = 0; i < issues.length; i++) {
+      const issue = issues[i]
       enrichedIssues.push({
         rowNumber: issue.rowNumber,
         repository: issue.repository,
         level: issue.level,
         issueId: issue.issueId,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: error instanceof Error ? error.message : 'Failed to fetch GitHub data',
       })
-    }
-
-    // Add delay between requests to respect rate limits
-    if (i < issues.length - 1) {
-      await delay(RATE_LIMIT_DELAY)
     }
   }
 
