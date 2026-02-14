@@ -16,6 +16,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
     repository: initialRepository || 'all',
     state: 'all',
     author: 'all',
+    level: 'all',
   })
 
   // Get unique values for filters

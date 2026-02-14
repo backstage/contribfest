@@ -5,6 +5,7 @@ export interface FilterOptions {
   repository: string // 'all' | 'backstage/backstage' | 'backstage/community-plugins'
   state: string // 'all' | 'open' | 'closed'
   author: string // 'all' | specific author login
+  level: string // 'all' | 'Beginner' | 'Intermediate' | 'Advanced'
 }
 
 export function filterIssues(
@@ -38,6 +39,13 @@ export function filterIssues(
     // Filter by author
     if (filters.author !== 'all' && issue.githubData) {
       if (issue.githubData.user.login !== filters.author) {
+        return false
+      }
+    }
+
+    // Filter by level
+    if (filters.level !== 'all') {
+      if (issue.level !== filters.level) {
         return false
       }
     }
@@ -80,4 +88,20 @@ export function getUniqueRepositories(issues: EnrichedIssue[]): string[] {
   })
 
   return Array.from(repositories).sort()
+}
+
+export function getUniqueLevels(issues: EnrichedIssue[]): string[] {
+  const levels = new Set<string>()
+
+  issues.forEach((issue) => {
+    if (issue.level) {
+      levels.add(issue.level)
+    }
+  })
+
+  // Sort by difficulty order, not alphabetically
+  const levelOrder = ['Beginner', 'Intermediate', 'Advanced']
+  return Array.from(levels).sort((a, b) =>
+    levelOrder.indexOf(a) - levelOrder.indexOf(b)
+  )
 }
