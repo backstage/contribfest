@@ -2,12 +2,28 @@
 
 import { useIssues } from '@/hooks/useIssues'
 import { IssueTable } from '@/components/IssueTable'
+import { CountdownModal } from '@/components/CountdownModal'
 import { useSearchParams } from 'next/navigation'
+import { useMemo } from 'react'
 
 export default function IssuesPage() {
-  const { issues, loading, error, progress, refresh, lastUpdated } = useIssues()
   const searchParams = useSearchParams()
   const initialRepository = searchParams.get('repository') || undefined
+  const isAdmin = searchParams.get('admin') === 'true'
+
+  // Check if access is allowed (after March 26, 2026 or admin bypass)
+  const { accessAllowed, targetDate } = useMemo(() => {
+    const target = new Date('2026-03-26T00:00:00')
+    const now = new Date()
+    const allowed = now >= target || isAdmin
+
+    return {
+      accessAllowed: allowed,
+      targetDate: target,
+    }
+  }, [isAdmin])
+
+  const { issues, loading, error, progress, refresh, lastUpdated } = useIssues(accessAllowed)
 
   const formatLastUpdated = (date: Date | null) => {
     if (!date) return 'Never'
@@ -176,6 +192,9 @@ export default function IssuesPage() {
           No issues found.
         </div>
       )}
+
+      {/* Countdown Modal - shown if access is not allowed */}
+      {!accessAllowed && <CountdownModal targetDate={targetDate} />}
     </div>
   )
 }

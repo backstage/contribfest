@@ -22,15 +22,19 @@ interface CachedData {
 const CACHE_KEY = 'github-issues-cache'
 const CACHE_DURATION = 10 * 60 * 1000 // 10 minutes in milliseconds
 
-export function useIssues(): UseIssuesResult {
+export function useIssues(shouldLoad = true): UseIssuesResult {
   const [issues, setIssues] = useState<EnrichedIssue[]>([])
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(shouldLoad)
   const [error, setError] = useState<string | null>(null)
   const [progress, setProgress] = useState<{ current: number; total: number } | null>(null)
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
   const [refreshTrigger, setRefreshTrigger] = useState(0)
 
   const loadIssues = useCallback(async (forceRefresh = false) => {
+    if (!shouldLoad) {
+      setLoading(false)
+      return
+    }
     try {
       setLoading(true)
       setError(null)
@@ -80,8 +84,10 @@ export function useIssues(): UseIssuesResult {
   }, [])
 
   useEffect(() => {
-    loadIssues(refreshTrigger > 0)
-  }, [loadIssues, refreshTrigger])
+    if (shouldLoad) {
+      loadIssues(refreshTrigger > 0)
+    }
+  }, [loadIssues, refreshTrigger, shouldLoad])
 
   const refresh = useCallback(() => {
     setRefreshTrigger(prev => prev + 1)

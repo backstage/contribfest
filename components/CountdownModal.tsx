@@ -1,0 +1,185 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+
+interface CountdownModalProps {
+  targetDate: Date
+}
+
+interface TimeRemaining {
+  days: number
+  hours: number
+  minutes: number
+  seconds: number
+}
+
+export function CountdownModal({ targetDate }: CountdownModalProps) {
+  const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  })
+
+  useEffect(() => {
+    const calculateTimeRemaining = () => {
+      const now = new Date().getTime()
+      const target = targetDate.getTime()
+      const difference = target - now
+
+      if (difference <= 0) {
+        return {
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+        }
+      }
+
+      return {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((difference % (1000 * 60)) / 1000),
+      }
+    }
+
+    // Initial calculation
+    setTimeRemaining(calculateTimeRemaining())
+
+    // Update every second
+    const interval = setInterval(() => {
+      setTimeRemaining(calculateTimeRemaining())
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [targetDate])
+
+  const TimeUnit = ({ value, label }: { value: number; label: string }) => (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '8px',
+      }}
+    >
+      <div
+        style={{
+          width: '100px',
+          height: '100px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'var(--bui-bg-solid, #1f5493)',
+          borderRadius: '12px',
+          fontSize: '48px',
+          fontWeight: 700,
+          color: '#fff',
+          transition: 'transform 0.3s ease',
+          animation: 'pulse 2s ease-in-out infinite',
+        }}
+      >
+        {String(value).padStart(2, '0')}
+      </div>
+      <div
+        style={{
+          fontSize: '14px',
+          fontWeight: 600,
+          color: 'var(--bui-fg-secondary, #666)',
+          textTransform: 'uppercase',
+          letterSpacing: '0.5px',
+        }}
+      >
+        {label}
+      </div>
+    </div>
+  )
+
+  return (
+    <>
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+      `}</style>
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0, 0, 0, 0.8)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999,
+          animation: 'fadeIn 0.3s ease-in-out',
+        }}
+      >
+        <div
+          style={{
+            background: 'var(--bui-bg-app, #f8f8f8)',
+            borderRadius: '16px',
+            padding: '48px',
+            maxWidth: '600px',
+            textAlign: 'center',
+            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+          }}
+        >
+          <h2
+            style={{
+              fontSize: '32px',
+              fontWeight: 700,
+              marginBottom: '16px',
+              color: 'var(--bui-fg-primary, #000)',
+            }}
+          >
+            ContribFest Coming Soon!
+          </h2>
+          <p
+            style={{
+              fontSize: '18px',
+              color: 'var(--bui-fg-secondary, #666)',
+              marginBottom: '48px',
+              lineHeight: '1.6',
+            }}
+          >
+            The curated issues list will be available on<br />
+            <strong>March 26, 2026</strong>
+          </p>
+
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: '24px',
+              marginBottom: '32px',
+            }}
+          >
+            <TimeUnit value={timeRemaining.days} label="Days" />
+            <TimeUnit value={timeRemaining.hours} label="Hours" />
+            <TimeUnit value={timeRemaining.minutes} label="Minutes" />
+            <TimeUnit value={timeRemaining.seconds} label="Seconds" />
+          </div>
+
+          <p
+            style={{
+              fontSize: '14px',
+              color: 'var(--bui-fg-secondary, #666)',
+              fontStyle: 'italic',
+            }}
+          >
+            Check back soon to explore issues and start contributing!
+          </p>
+        </div>
+      </div>
+    </>
+  )
+}
