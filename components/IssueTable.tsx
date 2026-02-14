@@ -30,11 +30,11 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
 
   const inputStyle = {
     padding: '8px 12px',
-    border: '1px solid var(--border-color, #e0e0e0)',
+    border: '1px solid var(--bui-border-1, #d5d5d5)',
     borderRadius: '4px',
     fontSize: '14px',
-    background: 'var(--bg-secondary, #f5f5f5)',
-    color: 'var(--text-primary, #000)',
+    background: 'var(--bui-bg-app, #f8f8f8)',
+    color: 'var(--bui-fg-primary, #000)',
   }
 
   return (
@@ -47,7 +47,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
           gap: '16px',
           marginBottom: '24px',
           padding: '20px',
-          background: 'var(--bg-secondary, #f5f5f5)',
+          background: 'var(--bui-bg-app, #f8f8f8)',
           borderRadius: '8px',
         }}
       >
@@ -59,7 +59,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
               marginBottom: '8px',
               fontSize: '14px',
               fontWeight: 500,
-              color: 'var(--text-primary, #000)',
+              color: 'var(--bui-fg-primary, #000)',
             }}
           >
             Search
@@ -82,7 +82,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
               marginBottom: '8px',
               fontSize: '14px',
               fontWeight: 500,
-              color: 'var(--text-primary, #000)',
+              color: 'var(--bui-fg-primary, #000)',
             }}
           >
             Repository
@@ -110,7 +110,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
               marginBottom: '8px',
               fontSize: '14px',
               fontWeight: 500,
-              color: 'var(--text-primary, #000)',
+              color: 'var(--bui-fg-primary, #000)',
             }}
           >
             State
@@ -135,7 +135,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
               marginBottom: '8px',
               fontSize: '14px',
               fontWeight: 500,
-              color: 'var(--text-primary, #000)',
+              color: 'var(--bui-fg-primary, #000)',
             }}
           >
             Author
@@ -162,7 +162,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
           marginBottom: '16px',
           fontSize: '14px',
           fontWeight: 500,
-          color: 'var(--text-secondary, #666)',
+          color: 'var(--bui-fg-secondary, #666)',
         }}
       >
         Showing {filteredIssues.length} of {issues.length} issues
@@ -174,13 +174,13 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
           style={{
             width: '100%',
             borderCollapse: 'collapse',
-            background: 'var(--bg-secondary, #f5f5f5)',
+            background: 'var(--bui-bg-app, #f8f8f8)',
             borderRadius: '8px',
             overflow: 'hidden',
           }}
         >
           <thead>
-            <tr style={{ background: 'var(--bg-active, #e3f2fd)' }}>
+            <tr style={{ background: 'var(--bui-bg-info, #dbeafe)' }}>
               <th style={thStyle}>Row #</th>
               <th style={thStyle}>Repository</th>
               <th style={thStyle}>Issue #</th>
@@ -195,7 +195,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
               <tr
                 key={`${issue.repository}-${issue.issueId}`}
                 style={{
-                  borderBottom: '1px solid var(--border-color, #e0e0e0)',
+                  borderBottom: '1px solid var(--bui-border-1, #d5d5d5)',
                 }}
               >
                 <td style={tdStyle}>{issue.rowNumber}</td>
@@ -209,7 +209,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{
-                        color: 'var(--link-active, #1976d2)',
+                        color: 'var(--bui-bg-solid, #1f5493)',
                         fontWeight: 500,
                       }}
                     >
@@ -221,7 +221,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
                 </td>
                 <td style={tdStyle}>
                   {issue.githubData?.title || (
-                    <span style={{ color: 'var(--text-secondary, #666)' }}>
+                    <span style={{ color: 'var(--bui-fg-secondary, #666)' }}>
                       {issue.error || 'Loading...'}
                     </span>
                   )}
@@ -267,7 +267,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
                       <span
                         style={{
                           fontSize: '11px',
-                          color: 'var(--text-secondary, #666)',
+                          color: 'var(--bui-fg-secondary, #666)',
                         }}
                       >
                         +{issue.githubData.labels.length - 3}
@@ -286,7 +286,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
           style={{
             padding: '32px',
             textAlign: 'center',
-            color: 'var(--text-secondary, #666)',
+            color: 'var(--bui-fg-secondary, #666)',
           }}
         >
           No issues found matching your filters.
@@ -301,13 +301,13 @@ const thStyle: React.CSSProperties = {
   textAlign: 'left',
   fontSize: '14px',
   fontWeight: 600,
-  color: 'var(--text-primary, #000)',
+  color: 'var(--bui-fg-primary, #000)',
 }
 
 const tdStyle: React.CSSProperties = {
   padding: '12px',
   fontSize: '14px',
-  color: 'var(--text-primary, #000)',
+  color: 'var(--bui-fg-primary, #000)',
 }
 
 // Helper to get contrasting text color for label backgrounds

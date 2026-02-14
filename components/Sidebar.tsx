@@ -19,10 +19,10 @@ export function Sidebar() {
       style={{
         width: '250px',
         padding: '24px 16px',
-        borderRight: '1px solid var(--border-color, #e0e0e0)',
+        borderRight: '1px solid var(--bui-border-1, #d5d5d5)',
         display: 'flex',
         flexDirection: 'column',
-        background: 'var(--bg-primary, #ffffff)',
+        background: 'var(--bui-bg-popover, #ffffff)',
       }}
     >
       {/* Backstage Logo */}
@@ -37,7 +37,7 @@ export function Sidebar() {
             fontSize: '20px',
             fontWeight: 700,
             margin: 0,
-            color: 'var(--text-primary, #000)',
+            color: 'var(--bui-fg-primary, #000)',
           }}
         >
           ContribFest
@@ -46,7 +46,7 @@ export function Sidebar() {
           style={{
             fontSize: '12px',
             margin: '4px 0 0 0',
-            color: 'var(--text-secondary, #666)',
+            color: 'var(--bui-fg-secondary, #666)',
           }}
         >
           Backstage Contributions
@@ -74,10 +74,10 @@ export function Sidebar() {
                     borderRadius: '4px',
                     textDecoration: 'none',
                     color: isActive
-                      ? 'var(--link-active, #1976d2)'
-                      : 'var(--text-primary, #000)',
+                      ? 'var(--bui-bg-solid, #1f5493)'
+                      : 'var(--bui-fg-primary, #000)',
                     background: isActive
-                      ? 'var(--bg-active, #e3f2fd)'
+                      ? 'var(--bui-bg-info, #dbeafe)'
                       : 'transparent',
                     fontWeight: isActive ? 600 : 400,
                     fontSize: '14px',

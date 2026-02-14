@@ -57,7 +57,7 @@ export default function GettingStartedPage() {
             fontSize: '32px',
             fontWeight: 700,
             marginBottom: '12px',
-            color: 'var(--text-primary, #000)',
+            color: 'var(--bui-fg-primary, #000)',
           }}
         >
           Getting Started
@@ -65,7 +65,7 @@ export default function GettingStartedPage() {
         <p
           style={{
             fontSize: '16px',
-            color: 'var(--text-secondary, #666)',
+            color: 'var(--bui-fg-secondary, #666)',
             lineHeight: '1.6',
             marginBottom: '16px',
           }}
@@ -76,11 +76,11 @@ export default function GettingStartedPage() {
         <div
           style={{
             padding: '16px',
-            background: 'var(--bg-active, #e3f2fd)',
+            background: 'var(--bui-bg-info, #dbeafe)',
             borderRadius: '8px',
             fontSize: '18px',
             fontWeight: 600,
-            color: 'var(--text-primary, #000)',
+            color: 'var(--bui-fg-primary, #000)',
           }}
         >
           Progress: {completedCount} / {totalCount} ({percentage}%)

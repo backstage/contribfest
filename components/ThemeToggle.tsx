@@ -11,9 +11,9 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       style={{
         padding: '8px 16px',
-        border: '1px solid var(--border-color, #ccc)',
+        border: '1px solid var(--bui-border-1, #d5d5d5)',
         borderRadius: '4px',
-        background: 'var(--bg-secondary, #f5f5f5)',
+        background: 'var(--bui-bg-app, #f8f8f8)',
         cursor: 'pointer',
         fontSize: '14px',
         fontWeight: 500,
