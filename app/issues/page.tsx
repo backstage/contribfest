@@ -17,7 +17,7 @@ export default function IssuesPage() {
             fontSize: '32px',
             fontWeight: 700,
             marginBottom: '12px',
-            color: 'var(--text-primary, #000)',
+            color: 'var(--bui-fg-primary, #000)',
           }}
         >
           Curated Issues
@@ -25,7 +25,7 @@ export default function IssuesPage() {
         <p
           style={{
             fontSize: '16px',
-            color: 'var(--text-secondary, #666)',
+            color: 'var(--bui-fg-secondary, #666)',
             lineHeight: '1.6',
           }}
         >
@@ -40,7 +40,7 @@ export default function IssuesPage() {
           style={{
             padding: '32px',
             textAlign: 'center',
-            background: 'var(--bg-secondary, #f5f5f5)',
+            background: 'var(--bui-bg-app, #f8f8f8)',
             borderRadius: '8px',
           }}
         >
@@ -49,7 +49,7 @@ export default function IssuesPage() {
               fontSize: '18px',
               fontWeight: 600,
               marginBottom: '12px',
-              color: 'var(--text-primary, #000)',
+              color: 'var(--bui-fg-primary, #000)',
             }}
           >
             Loading Issues...
@@ -59,7 +59,7 @@ export default function IssuesPage() {
               <div
                 style={{
                   fontSize: '14px',
-                  color: 'var(--text-secondary, #666)',
+                  color: 'var(--bui-fg-secondary, #666)',
                   marginBottom: '12px',
                 }}
               >
@@ -69,7 +69,7 @@ export default function IssuesPage() {
                 style={{
                   width: '100%',
                   height: '8px',
-                  background: 'var(--bg-primary, #fff)',
+                  background: 'var(--bui-bg-popover, #fff)',
                   borderRadius: '4px',
                   overflow: 'hidden',
                 }}
@@ -78,7 +78,7 @@ export default function IssuesPage() {
                   style={{
                     width: `${(progress.current / progress.total) * 100}%`,
                     height: '100%',
-                    background: 'var(--link-active, #1976d2)',
+                    background: 'var(--bui-bg-solid, #1f5493)',
                     transition: 'width 0.3s ease',
                   }}
                 />
@@ -117,9 +117,9 @@ export default function IssuesPage() {
           style={{
             padding: '32px',
             textAlign: 'center',
-            background: 'var(--bg-secondary, #f5f5f5)',
+            background: 'var(--bui-bg-app, #f8f8f8)',
             borderRadius: '8px',
-            color: 'var(--text-secondary, #666)',
+            color: 'var(--bui-fg-secondary, #666)',
           }}
         >
           No issues found.

@@ -26,7 +26,7 @@ export default function RootLayout({
               style={{
                 flex: 1,
                 padding: '32px',
-                background: 'var(--bg-primary, #ffffff)',
+                background: 'var(--bui-bg-popover, #ffffff)',
                 overflowY: 'auto',
               }}
             >

@@ -20,18 +20,18 @@ export function ChecklistItem({ item, onToggle }: ChecklistItemProps) {
         display: 'flex',
         alignItems: 'center',
         padding: '16px',
-        border: '1px solid var(--border-color, #e0e0e0)',
+        border: '1px solid var(--bui-border-1, #d5d5d5)',
         borderRadius: '8px',
-        background: 'var(--bg-secondary, #f5f5f5)',
+        background: 'var(--bui-bg-app, #f8f8f8)',
         cursor: 'pointer',
         transition: 'all 0.2s',
         marginBottom: '12px',
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.background = 'var(--bg-active, #e3f2fd)'
+        e.currentTarget.style.background = 'var(--bui-bg-info, #dbeafe)'
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.background = 'var(--bg-secondary, #f5f5f5)'
+        e.currentTarget.style.background = 'var(--bui-bg-app, #f8f8f8)'
       }}
     >
       <input
@@ -50,7 +50,7 @@ export function ChecklistItem({ item, onToggle }: ChecklistItemProps) {
         <span
           style={{
             fontSize: '16px',
-            color: 'var(--text-primary, #000)',
+            color: 'var(--bui-fg-primary, #000)',
             textDecoration: item.completed ? 'line-through' : 'none',
             fontWeight: item.completed ? 400 : 500,
           }}
@@ -66,7 +66,7 @@ export function ChecklistItem({ item, onToggle }: ChecklistItemProps) {
             style={{
               marginLeft: '8px',
               fontSize: '14px',
-              color: 'var(--link-active, #1976d2)',
+              color: 'var(--bui-bg-solid, #1f5493)',
               fontWeight: 500,
               display: 'inline-flex',
               alignItems: 'center',

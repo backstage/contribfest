@@ -72,7 +72,7 @@ export default function Page() {
             fontSize: '32px',
             fontWeight: 700,
             marginBottom: '12px',
-            color: 'var(--text-primary, #000)',
+            color: 'var(--bui-fg-primary, #000)',
           }}
         >
           Welcome to the Backstage ContribFest!
@@ -80,7 +80,7 @@ export default function Page() {
         <p
           style={{
             fontSize: '16px',
-            color: 'var(--text-secondary, #666)',
+            color: 'var(--bui-fg-secondary, #666)',
             lineHeight: '1.6',
           }}
         >
@@ -95,7 +95,7 @@ export default function Page() {
             fontSize: '24px',
             fontWeight: 700,
             marginBottom: '12px',
-            color: 'var(--text-primary, #000)',
+            color: 'var(--bui-fg-primary, #000)',
           }}
         >
           Contrib-What?
@@ -103,7 +103,7 @@ export default function Page() {
         <p
           style={{
             fontSize: '16px',
-            color: 'var(--text-secondary, #666)',
+            color: 'var(--bui-fg-secondary, #666)',
             lineHeight: '1.6',
           }}
         >
@@ -115,7 +115,7 @@ export default function Page() {
         <p
           style={{
             fontSize: '16px',
-            color: 'var(--text-secondary, #666)',
+            color: 'var(--bui-fg-secondary, #666)',
             lineHeight: '1.6',
             marginTop: '12px',
           }}
@@ -132,7 +132,7 @@ export default function Page() {
           style={{
             fontSize: '24px',
             fontWeight: 700,
-            color: 'var(--text-primary, #000)',
+            color: 'var(--bui-fg-primary, #000)',
           }}
         >
           Session Resources
@@ -156,7 +156,7 @@ export default function Page() {
           style={{
             fontSize: '24px',
             fontWeight: 700,
-            color: 'var(--text-primary, #000)',
+            color: 'var(--bui-fg-primary, #000)',
           }}
         >
           Repository Resources

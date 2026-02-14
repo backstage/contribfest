@@ -6,10 +6,10 @@ import { RiArrowRightLine, RiExternalLinkLine } from '@remixicon/react'
 
 export function WelcomeCard({ title, description, url, isExternal }: ResourceCard) {
   const cardStyle = {
-    border: '1px solid var(--border-color, #e0e0e0)',
+    border: '1px solid var(--bui-border-1, #d5d5d5)',
     borderRadius: '8px',
     padding: '24px',
-    background: 'var(--bg-secondary, #f5f5f5)',
+    background: 'var(--bui-bg-app, #f8f8f8)',
     transition: 'all 0.2s',
     cursor: 'pointer',
     height: '100%',
@@ -29,7 +29,7 @@ export function WelcomeCard({ title, description, url, isExternal }: ResourceCar
           fontSize: '18px',
           fontWeight: 600,
           marginBottom: '12px',
-          color: 'var(--text-primary, #000)',
+          color: 'var(--bui-fg-primary, #000)',
         }}
       >
         {title}
@@ -37,7 +37,7 @@ export function WelcomeCard({ title, description, url, isExternal }: ResourceCar
       <p
         style={{
           fontSize: '14px',
-          color: 'var(--text-secondary, #666)',
+          color: 'var(--bui-fg-secondary, #666)',
           lineHeight: '1.6',
           flex: 1,
         }}
@@ -49,7 +49,7 @@ export function WelcomeCard({ title, description, url, isExternal }: ResourceCar
           marginTop: '16px',
           fontSize: '14px',
           fontWeight: 500,
-          color: 'var(--link-active, #1976d2)',
+          color: 'var(--bui-bg-solid, #1f5493)',
           display: 'flex',
           alignItems: 'center',
           gap: '4px',
