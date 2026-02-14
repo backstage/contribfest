@@ -6,14 +6,14 @@ const sessionResources: ResourceCard[] = [
     title: 'ContribFest Slide Deck',
     description:
       'Presentation slides with workshop overview, contribution tips, and resources. Reference this for workshop structure and guidance.',
-    url: '#',
+    url: '/KubeCon-Amsterdam-Backstage-ContribFest-2026.pdf',
     isExternal: true,
   },
   {
     title: 'Assignment Sheet',
     description:
       'Google Sheet for participants to assign themselves to issues they want to work on. Claim your issue and track progress during the session.',
-    url: '#',
+    url: 'https://docs.google.com/spreadsheets/d/1lltOy3A25zWUXb3XdtkHBD5CHzrmfm8DRaWt7vh0WKU/edit?gid=232343915#gid=232343915',
     isExternal: true,
   },
 ]

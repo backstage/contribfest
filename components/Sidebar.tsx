@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { BackstageLogo } from './BackstageLogo'
 import { ThemeToggle } from './ThemeToggle'
 
 const navigationLinks = [
@@ -24,6 +25,11 @@ export function Sidebar() {
         background: 'var(--bg-primary, #ffffff)',
       }}
     >
+      {/* Backstage Logo */}
+      <div style={{ marginBottom: '24px', padding: '0 4px' }}>
+        <BackstageLogo />
+      </div>
+
       {/* Header */}
       <div style={{ marginBottom: '32px' }}>
         <h1
