@@ -44,6 +44,63 @@ export async function fetchIssueMetadata(
   }
 }
 
+export async function fetchContribfestIssues(
+  owner: string,
+  repo: string
+): Promise<GitHubIssue[]> {
+  const allIssues: GitHubIssue[] = []
+  let page = 1
+  const perPage = 100
+
+  try {
+    const headers: HeadersInit = {
+      Accept: 'application/vnd.github.v3+json',
+    }
+
+    const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN
+    if (token && token !== 'your_github_personal_access_token_here') {
+      headers.Authorization = `Bearer ${token}`
+    }
+
+    while (true) {
+      const url = `${GITHUB_API_BASE}/repos/${owner}/${repo}/issues?labels=contribfest&state=all&per_page=${perPage}&page=${page}`
+
+      const response = await fetch(url, {
+        headers,
+        cache: 'force-cache',
+      })
+
+      if (!response.ok) {
+        console.error(
+          `Failed to fetch contribfest issues from ${owner}/${repo}: ${response.status} ${response.statusText}`
+        )
+        break
+      }
+
+      const issues = await response.json() as GitHubIssue[]
+
+      if (issues.length === 0) {
+        break
+      }
+
+      allIssues.push(...issues)
+
+      // If we got fewer than perPage results, we've reached the end
+      if (issues.length < perPage) {
+        break
+      }
+
+      page++
+    }
+
+    console.log(`Fetched ${allIssues.length} contribfest issues from ${owner}/${repo}`)
+    return allIssues
+  } catch (error) {
+    console.error(`Error fetching contribfest issues from ${owner}/${repo}:`, error)
+    return []
+  }
+}
+
 export async function enrichIssuesWithGitHubData(
   issues: IssueRow[],
   onProgress?: (current: number, total: number) => void
