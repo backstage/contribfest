@@ -48,11 +48,11 @@ export default function IssuesPage() {
               onClick={refresh}
               disabled={loading}
               style={{
-                padding: '12px 24px',
+                padding: '8px 16px',
                 background: 'var(--bui-bg-app, #f8f8f8)',
                 border: '1px solid var(--bui-border-1, #d5d5d5)',
-                borderRadius: '8px',
-                fontSize: '16px',
+                borderRadius: '6px',
+                fontSize: '14px',
                 fontWeight: 500,
                 color: 'var(--bui-fg-primary, #000)',
                 cursor: loading ? 'not-allowed' : 'pointer',
