@@ -2,31 +2,98 @@
 
 import { useIssues } from '@/hooks/useIssues'
 import { IssueTable } from '@/components/IssueTable'
+import { CountdownModal } from '@/components/CountdownModal'
 import { useSearchParams } from 'next/navigation'
+import { useMemo } from 'react'
 
 export default function IssuesPage() {
-  const { issues, loading, error, progress } = useIssues()
   const searchParams = useSearchParams()
   const initialRepository = searchParams.get('repository') || undefined
+  const isAdmin = searchParams.get('admin') === 'true'
+
+  // Check if access is allowed (after March 26, 2026 or admin bypass)
+  const { accessAllowed, targetDate } = useMemo(() => {
+    const target = new Date('2026-03-26T00:00:00')
+    const now = new Date()
+    const allowed = now >= target || isAdmin
+
+    return {
+      accessAllowed: allowed,
+      targetDate: target,
+    }
+  }, [isAdmin])
+
+  const { issues, loading, error, progress, refresh, lastUpdated } = useIssues(accessAllowed)
+
+  const formatLastUpdated = (date: Date | null) => {
+    if (!date) return 'Never'
+    const now = new Date()
+    const diffMs = now.getTime() - date.getTime()
+    const diffMins = Math.floor(diffMs / 60000)
+
+    if (diffMins < 1) return 'Just now'
+    if (diffMins === 1) return '1 minute ago'
+    if (diffMins < 60) return `${diffMins} minutes ago`
+
+    const diffHours = Math.floor(diffMins / 60)
+    if (diffHours === 1) return '1 hour ago'
+    return `${diffHours} hours ago`
+  }
 
   return (
     <div>
       <div style={{ marginBottom: '32px' }}>
-        <h1
-          style={{
-            fontSize: '32px',
-            fontWeight: 700,
-            marginBottom: '12px',
-            color: 'var(--bui-fg-primary, #000)',
-          }}
-        >
-          Curated Issues
-        </h1>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+          <h1
+            style={{
+              fontSize: '32px',
+              fontWeight: 700,
+              margin: 0,
+              color: 'var(--bui-fg-primary, #000)',
+            }}
+          >
+            Curated Issues
+          </h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            {lastUpdated && (
+              <span style={{ fontSize: '14px', color: 'var(--bui-fg-secondary, #666)' }}>
+                Last updated: {formatLastUpdated(lastUpdated)}
+              </span>
+            )}
+            <button
+              onClick={refresh}
+              disabled={loading}
+              style={{
+                padding: '8px 16px',
+                background: 'var(--bui-bg-app, #f8f8f8)',
+                border: '1px solid var(--bui-border-1, #d5d5d5)',
+                borderRadius: '6px',
+                fontSize: '14px',
+                fontWeight: 500,
+                color: 'var(--bui-fg-primary, #000)',
+                cursor: loading ? 'not-allowed' : 'pointer',
+                transition: 'all 0.2s',
+                opacity: loading ? 0.6 : 1,
+              }}
+              onMouseEnter={(e) => {
+                if (!loading) {
+                  e.currentTarget.style.background = 'var(--bui-bg-info, #dbeafe)'
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'var(--bui-bg-app, #f8f8f8)'
+              }}
+            >
+              {loading ? 'Refreshing...' : 'Refresh'}
+            </button>
+          </div>
+        </div>
         <p
           style={{
             fontSize: '16px',
             color: 'var(--bui-fg-secondary, #666)',
             lineHeight: '1.6',
+            margin: 0,
           }}
         >
           Browse 86 hand-picked GitHub issues from Backstage and Community Plugins
@@ -125,6 +192,9 @@ export default function IssuesPage() {
           No issues found.
         </div>
       )}
+
+      {/* Countdown Modal - shown if access is not allowed */}
+      {!accessAllowed && <CountdownModal targetDate={targetDate} />}
     </div>
   )
 }

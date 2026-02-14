@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import type { EnrichedIssue } from '@/lib/types'
-import { filterIssues, getUniqueAuthors, getUniqueRepositories } from '@/lib/filters'
+import { filterIssues, getUniqueRepositories, getUniqueLevels, getUniqueLabels } from '@/lib/filters'
 import type { FilterOptions } from '@/lib/filters'
 
 interface IssueTableProps {
@@ -15,12 +15,14 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
     search: '',
     repository: initialRepository || 'all',
     state: 'all',
-    author: 'all',
+    level: 'all',
+    label: 'all',
   })
 
   // Get unique values for filters
-  const uniqueAuthors = useMemo(() => getUniqueAuthors(issues), [issues])
   const uniqueRepositories = useMemo(() => getUniqueRepositories(issues), [issues])
+  const uniqueLevels = useMemo(() => getUniqueLevels(issues), [issues])
+  const uniqueLabels = useMemo(() => getUniqueLabels(issues), [issues])
 
   // Apply filters
   const filteredIssues = useMemo(
@@ -104,6 +106,34 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
 
         <div>
           <label
+            htmlFor="level"
+            style={{
+              display: 'block',
+              marginBottom: '8px',
+              fontSize: '14px',
+              fontWeight: 500,
+              color: 'var(--bui-fg-primary, #000)',
+            }}
+          >
+            Level
+          </label>
+          <select
+            id="level"
+            value={filters.level}
+            onChange={(e) => setFilters({ ...filters, level: e.target.value })}
+            style={{ ...inputStyle, width: '100%' }}
+          >
+            <option value="all">All</option>
+            {uniqueLevels.map((level) => (
+              <option key={level} value={level}>
+                {level}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label
             htmlFor="state"
             style={{
               display: 'block',
@@ -129,7 +159,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
 
         <div>
           <label
-            htmlFor="author"
+            htmlFor="label"
             style={{
               display: 'block',
               marginBottom: '8px',
@@ -138,18 +168,18 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
               color: 'var(--bui-fg-primary, #000)',
             }}
           >
-            Author
+            Label
           </label>
           <select
-            id="author"
-            value={filters.author}
-            onChange={(e) => setFilters({ ...filters, author: e.target.value })}
+            id="label"
+            value={filters.label}
+            onChange={(e) => setFilters({ ...filters, label: e.target.value })}
             style={{ ...inputStyle, width: '100%' }}
           >
             <option value="all">All</option>
-            {uniqueAuthors.map((author) => (
-              <option key={author} value={author}>
-                {author}
+            {uniqueLabels.map((label) => (
+              <option key={label} value={label}>
+                {label}
               </option>
             ))}
           </select>
@@ -183,10 +213,10 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
             <tr style={{ background: 'var(--bui-bg-info, #dbeafe)' }}>
               <th style={thStyle}>Row #</th>
               <th style={thStyle}>Repository</th>
+              <th style={thStyle}>Level</th>
               <th style={thStyle}>Issue #</th>
               <th style={thStyle}>Title</th>
               <th style={thStyle}>State</th>
-              <th style={thStyle}>Author</th>
               <th style={thStyle}>Labels</th>
             </tr>
           </thead>
@@ -201,6 +231,19 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
                 <td style={tdStyle}>{issue.rowNumber}</td>
                 <td style={tdStyle}>
                   <code style={{ fontSize: '12px' }}>{issue.repository}</code>
+                </td>
+                <td style={tdStyle}>
+                  <span
+                    style={{
+                      padding: '4px 8px',
+                      borderRadius: '4px',
+                      fontSize: '12px',
+                      fontWeight: 500,
+                      ...getLevelBadgeColor(issue.level),
+                    }}
+                  >
+                    {issue.level}
+                  </span>
                 </td>
                 <td style={tdStyle}>
                   {issue.githubData ? (
@@ -246,7 +289,6 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
                     </span>
                   )}
                 </td>
-                <td style={tdStyle}>{issue.githubData?.user.login || '-'}</td>
                 <td style={tdStyle}>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                     {issue.githubData?.labels.slice(0, 3).map((label) => (
@@ -317,4 +359,18 @@ function getContrastColor(hexColor: string): string {
   const b = parseInt(hexColor.substring(4, 6), 16)
   const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
   return luminance > 0.5 ? '#000000' : '#ffffff'
+}
+
+// Helper to get badge colors for level
+function getLevelBadgeColor(level: string): { background: string; color: string } {
+  switch (level) {
+    case 'Beginner':
+      return { background: '#d4edda', color: '#155724' }
+    case 'Intermediate':
+      return { background: '#dbeafe', color: '#1e40af' }
+    case 'Advanced':
+      return { background: '#fed7aa', color: '#c2410c' }
+    default:
+      return { background: '#e5e7eb', color: '#374151' }
+  }
 }
