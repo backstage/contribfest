@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import type { EnrichedIssue } from '@/lib/types'
-import { filterIssues, getUniqueAuthors, getUniqueRepositories, getUniqueLevels } from '@/lib/filters'
+import { filterIssues, getUniqueRepositories, getUniqueLevels } from '@/lib/filters'
 import type { FilterOptions } from '@/lib/filters'
 
 interface IssueTableProps {
@@ -15,12 +15,10 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
     search: '',
     repository: initialRepository || 'all',
     state: 'all',
-    author: 'all',
     level: 'all',
   })
 
   // Get unique values for filters
-  const uniqueAuthors = useMemo(() => getUniqueAuthors(issues), [issues])
   const uniqueRepositories = useMemo(() => getUniqueRepositories(issues), [issues])
   const uniqueLevels = useMemo(() => getUniqueLevels(issues), [issues])
 
@@ -156,34 +154,6 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
             <option value="closed">Closed</option>
           </select>
         </div>
-
-        <div>
-          <label
-            htmlFor="author"
-            style={{
-              display: 'block',
-              marginBottom: '8px',
-              fontSize: '14px',
-              fontWeight: 500,
-              color: 'var(--bui-fg-primary, #000)',
-            }}
-          >
-            Author
-          </label>
-          <select
-            id="author"
-            value={filters.author}
-            onChange={(e) => setFilters({ ...filters, author: e.target.value })}
-            style={{ ...inputStyle, width: '100%' }}
-          >
-            <option value="all">All</option>
-            {uniqueAuthors.map((author) => (
-              <option key={author} value={author}>
-                {author}
-              </option>
-            ))}
-          </select>
-        </div>
       </div>
 
       {/* Issue Count */}
@@ -217,7 +187,6 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
               <th style={thStyle}>Issue #</th>
               <th style={thStyle}>Title</th>
               <th style={thStyle}>State</th>
-              <th style={thStyle}>Author</th>
               <th style={thStyle}>Labels</th>
             </tr>
           </thead>
@@ -290,7 +259,6 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
                     </span>
                   )}
                 </td>
-                <td style={tdStyle}>{issue.githubData?.user.login || '-'}</td>
                 <td style={tdStyle}>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                     {issue.githubData?.labels.slice(0, 3).map((label) => (

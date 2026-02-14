@@ -4,7 +4,6 @@ export interface FilterOptions {
   search: string
   repository: string // 'all' | 'backstage/backstage' | 'backstage/community-plugins'
   state: string // 'all' | 'open' | 'closed'
-  author: string // 'all' | specific author login
   level: string // 'all' | 'Beginner' | 'Intermediate' | 'Advanced'
 }
 
@@ -36,13 +35,6 @@ export function filterIssues(
       }
     }
 
-    // Filter by author
-    if (filters.author !== 'all' && issue.githubData) {
-      if (issue.githubData.user.login !== filters.author) {
-        return false
-      }
-    }
-
     // Filter by level
     if (filters.level !== 'all') {
       if (issue.level !== filters.level) {
@@ -52,18 +44,6 @@ export function filterIssues(
 
     return true
   })
-}
-
-export function getUniqueAuthors(issues: EnrichedIssue[]): string[] {
-  const authors = new Set<string>()
-
-  issues.forEach((issue) => {
-    if (issue.githubData?.user.login) {
-      authors.add(issue.githubData.user.login)
-    }
-  })
-
-  return Array.from(authors).sort()
 }
 
 export function getUniqueLabels(issues: EnrichedIssue[]): string[] {
