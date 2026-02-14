@@ -11,28 +11,37 @@ export async function parseIssuesCSV(): Promise<IssueRow[]> {
     const csvText = await response.text()
 
     return new Promise((resolve, reject) => {
-      Papa.parse<string[]>(csvText, {
+      Papa.parse<Record<string, string>>(csvText, {
+        header: true,  // Parse first row as column headers
         complete: (results) => {
           try {
             const issues: IssueRow[] = results.data
               .map((row, index) => {
                 // Skip empty rows
-                if (!row || row.length === 0 || !row[0]) {
+                if (!row || !row.repo) {
                   return null
                 }
 
-                // Format: repository,issue_id
-                const repository = row[0].trim()
-                const issueId = parseInt(row[1]?.trim() || '0', 10)
+                // Format: repo,level,issueId (with header row)
+                const repository = row.repo?.trim()
+                const level = row.level?.trim()
+                const issueId = parseInt(row.issueId?.trim() || '0', 10)
 
-                if (!repository || !issueId) {
-                  console.warn(`Skipping invalid row ${index + 1}:`, row)
+                if (!repository || !level || !issueId) {
+                  console.warn(`Skipping invalid row ${index + 2}:`, row)
                   return null
+                }
+
+                // Validate level value
+                const validLevels = ['Beginner', 'Intermediate', 'Advanced']
+                if (!validLevels.includes(level)) {
+                  console.warn(`Unexpected level value "${level}" at row ${index + 2}`)
                 }
 
                 return {
-                  rowNumber: index + 1,
+                  rowNumber: index + 2, // +2 because header is row 1, and 0-indexed
                   repository,
+                  level,
                   issueId,
                 }
               })
