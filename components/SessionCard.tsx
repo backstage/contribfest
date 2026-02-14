@@ -33,6 +33,18 @@ export function SessionCard({ session }: SessionCardProps) {
       >
         {session.location}
       </h3>
+      {session.subtitle && (
+        <p
+          style={{
+            fontSize: '13px',
+            color: 'var(--bui-fg-secondary, #666)',
+            marginBottom: '4px',
+            fontStyle: 'italic',
+          }}
+        >
+          {session.subtitle}
+        </p>
+      )}
       <p
         style={{
           fontSize: '14px',

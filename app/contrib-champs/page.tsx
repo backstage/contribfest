@@ -8,23 +8,25 @@ import type { ContribFestSession } from '@/lib/types'
 const sessions: ContribFestSession[] = [
   {
     location: 'Amsterdam',
+    subtitle: 'KubeCon + CloudNativeCon Europe',
     date: 'March 2026',
     blogUrl: '#',
   },
   {
     location: 'Atlanta',
     date: 'November 2025',
-    blogUrl: '#',
+    blogUrl: 'https://backstage.io/blog/2025/11/25/backstagecon-kubecon-25-atlanta/#our-third-backstage-contribfest',
   },
   {
     location: 'London',
+    subtitle: 'KubeCon + CloudNativeCon Europe',
     date: 'April 2025',
-    blogUrl: '#',
+    blogUrl: 'https://backstage.io/blog/2025/04/29/backstagecon-kubecon-25-london/#backstage-contribfest-goes-across-the-pond',
   },
   {
     location: 'Salt Lake City',
     date: 'November 2024',
-    blogUrl: '#',
+    blogUrl: 'https://backstage.io/blog/2024/12/09/kubecon-slc-24/#contribfest-its-all-about-community',
   },
 ]
 

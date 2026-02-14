@@ -80,6 +80,7 @@ export interface GitHubPullRequest {
 // ContribFest session information
 export interface ContribFestSession {
   location: string
+  subtitle?: string
   date: string
   blogUrl: string
 }
