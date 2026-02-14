@@ -101,6 +101,27 @@ export async function fetchContribfestIssues(
   }
 }
 
+function buildIssueLookupMap(
+  backstageIssues: GitHubIssue[],
+  communityPluginsIssues: GitHubIssue[]
+): Map<string, GitHubIssue> {
+  const map = new Map<string, GitHubIssue>()
+
+  // Add backstage/backstage issues
+  backstageIssues.forEach((issue) => {
+    const key = `backstage/backstage#${issue.number}`
+    map.set(key, issue)
+  })
+
+  // Add backstage/community-plugins issues
+  communityPluginsIssues.forEach((issue) => {
+    const key = `backstage/community-plugins#${issue.number}`
+    map.set(key, issue)
+  })
+
+  return map
+}
+
 export async function enrichIssuesWithGitHubData(
   issues: IssueRow[],
   onProgress?: (current: number, total: number) => void
