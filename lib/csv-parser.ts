@@ -58,7 +58,13 @@ export async function parseIssuesCSV(): Promise<IssueRow[]> {
               return true
             })
 
-            resolve(uniqueIssues)
+            // Reassign row numbers sequentially starting from 1 for display purposes
+            const issuesWithSequentialRows = uniqueIssues.map((issue, index) => ({
+              ...issue,
+              rowNumber: index + 1,
+            }))
+
+            resolve(issuesWithSequentialRows)
           } catch (error) {
             reject(error)
           }
