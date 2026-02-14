@@ -93,7 +93,7 @@ export function Celebration({ onClose }: CelebrationProps) {
             lineHeight: '1.6',
           }}
         >
-          You've completed all the setup steps! You're ready to start contributing to Backstage!
+          You&apos;ve completed all the setup steps! You&apos;re ready to start contributing to Backstage!
         </p>
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
           <button
