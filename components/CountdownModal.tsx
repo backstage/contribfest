@@ -55,54 +55,97 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
     return () => clearInterval(interval)
   }, [targetDate])
 
-  const TimeUnit = ({ value, label }: { value: number; label: string }) => (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '8px',
-      }}
-    >
+  const TimeUnit = ({
+    value,
+    label,
+    max
+  }: {
+    value: number;
+    label: string;
+    max: number
+  }) => {
+    const percentage = (value / max) * 100
+    const circumference = 2 * Math.PI * 45 // radius of 45
+    const offset = circumference - (percentage / 100) * circumference
+
+    return (
       <div
         style={{
-          width: '100px',
-          height: '100px',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
-          background: 'var(--bui-bg-solid, #1f5493)',
-          borderRadius: '12px',
-          fontSize: '48px',
-          fontWeight: 700,
-          color: '#fff',
-          transition: 'transform 0.3s ease',
-          animation: 'pulse 2s ease-in-out infinite',
+          gap: '12px',
         }}
       >
-        {String(value).padStart(2, '0')}
+        <div style={{ position: 'relative', width: '120px', height: '120px' }}>
+          {/* Background circle */}
+          <svg
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              transform: 'rotate(-90deg)',
+              width: '100%',
+              height: '100%',
+            }}
+          >
+            <circle
+              cx="60"
+              cy="60"
+              r="45"
+              fill="none"
+              stroke="var(--bui-border-1, #d5d5d5)"
+              strokeWidth="8"
+            />
+            {/* Progress circle */}
+            <circle
+              cx="60"
+              cy="60"
+              r="45"
+              fill="none"
+              stroke="var(--bui-bg-solid, #1f5493)"
+              strokeWidth="8"
+              strokeDasharray={circumference}
+              strokeDashoffset={offset}
+              strokeLinecap="round"
+              style={{
+                transition: 'stroke-dashoffset 1s ease',
+              }}
+            />
+          </svg>
+          {/* Center number */}
+          <div
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              fontSize: '36px',
+              fontWeight: 700,
+              color: 'var(--bui-fg-primary, #000)',
+            }}
+          >
+            {String(value).padStart(2, '0')}
+          </div>
+        </div>
+        <div
+          style={{
+            fontSize: '14px',
+            fontWeight: 600,
+            color: 'var(--bui-fg-secondary, #666)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px',
+          }}
+        >
+          {label}
+        </div>
       </div>
-      <div
-        style={{
-          fontSize: '14px',
-          fontWeight: 600,
-          color: 'var(--bui-fg-secondary, #666)',
-          textTransform: 'uppercase',
-          letterSpacing: '0.5px',
-        }}
-      >
-        {label}
-      </div>
-    </div>
-  )
+    )
+  }
 
   return (
     <>
       <style>{`
-        @keyframes pulse {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.05); }
-        }
         @keyframes fadeIn {
           from { opacity: 0; }
           to { opacity: 1; }
@@ -159,14 +202,14 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
             style={{
               display: 'flex',
               justifyContent: 'center',
-              gap: '24px',
+              gap: '32px',
               marginBottom: '32px',
             }}
           >
-            <TimeUnit value={timeRemaining.days} label="Days" />
-            <TimeUnit value={timeRemaining.hours} label="Hours" />
-            <TimeUnit value={timeRemaining.minutes} label="Minutes" />
-            <TimeUnit value={timeRemaining.seconds} label="Seconds" />
+            <TimeUnit value={timeRemaining.days} label="Days" max={365} />
+            <TimeUnit value={timeRemaining.hours} label="Hours" max={24} />
+            <TimeUnit value={timeRemaining.minutes} label="Minutes" max={60} />
+            <TimeUnit value={timeRemaining.seconds} label="Seconds" max={60} />
           </div>
 
           <p
