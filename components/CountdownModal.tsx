@@ -185,7 +185,7 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
             background: 'var(--bui-bg-app, #f8f8f8)',
             borderRadius: '16px',
             padding: '48px',
-            maxWidth: '600px',
+            maxWidth: '720px',
             textAlign: 'center',
             boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
           }}
