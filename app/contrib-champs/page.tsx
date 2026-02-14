@@ -14,6 +14,7 @@ const sessions: ContribFestSession[] = [
   },
   {
     location: 'Atlanta',
+    subtitle: 'KubeCon + CloudNativeCon North America',
     date: 'November 2025',
     blogUrl: 'https://backstage.io/blog/2025/11/25/backstagecon-kubecon-25-atlanta/#our-third-backstage-contribfest',
   },
@@ -25,6 +26,7 @@ const sessions: ContribFestSession[] = [
   },
   {
     location: 'Salt Lake City',
+    subtitle: 'KubeCon + CloudNativeCon North America',
     date: 'November 2024',
     blogUrl: 'https://backstage.io/blog/2024/12/09/kubecon-slc-24/#contribfest-its-all-about-community',
   },
