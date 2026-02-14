@@ -128,6 +128,7 @@ const initialChecklist: ChecklistItemType[] = [
   {
     id: 'fork-plugins',
     label: 'Fork and Clone the Community Plugins Repository',
+    description: 'Follow these steps to get the Community Plugins repo ready for contributing.',
     completed: false,
     children: [
       {
