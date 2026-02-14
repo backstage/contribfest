@@ -39,7 +39,9 @@ export interface ChecklistItem {
   id: string
   label: string
   link?: string
+  description?: string
   completed: boolean
+  children?: ChecklistItem[]
 }
 
 // Theme type
