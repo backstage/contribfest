@@ -27,7 +27,9 @@ export function Sidebar() {
     >
       {/* Backstage Logo */}
       <div style={{ marginBottom: '24px', padding: '0 4px' }}>
-        <BackstageLogo />
+        <Link href="/" style={{ display: 'block', cursor: 'pointer' }}>
+          <BackstageLogo />
+        </Link>
       </div>
 
       {/* Header */}
