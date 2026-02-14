@@ -322,7 +322,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
                 key={`${issue.repository}-${issue.issueId}`}
                 style={{
                   borderBottom: '1px solid var(--bui-border-1, #d5d5d5)',
-                  background: index % 2 === 0 ? 'var(--bui-bg-app, #f8f8f8)' : 'transparent',
+                  background: index % 2 === 0 ? '#ffffff' : '#e8e8e8',
                 }}
               >
                 <td style={tdStyle}>{issue.rowNumber}</td>
