@@ -68,6 +68,10 @@ export interface GitHubPullRequest {
     login: string
     html_url: string
   }
+  labels?: Array<{
+    name: string
+    color: string
+  }>
   created_at: string
   merged_at: string | null
   repository: string  // Added during processing to identify source repo
