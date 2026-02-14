@@ -52,9 +52,11 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
 
     // Update every second
     const interval = setInterval(() => {
-      const newTime = calculateTimeRemaining()
-      prevTimeRef.current = timeRemaining
-      setTimeRemaining(newTime)
+      setTimeRemaining(prevTime => {
+        const newTime = calculateTimeRemaining()
+        prevTimeRef.current = prevTime
+        return newTime
+      })
     }, 1000)
 
     return () => clearInterval(interval)
