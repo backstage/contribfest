@@ -55,18 +55,52 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
     return () => clearInterval(interval)
   }, [targetDate])
 
-  const TimeUnit = ({
-    value,
-    label,
-    max
-  }: {
-    value: number;
-    label: string;
-    max: number
-  }) => {
-    const percentage = (value / max) * 100
-    const circumference = 2 * Math.PI * 45 // radius of 45
-    const offset = circumference - (percentage / 100) * circumference
+  const FlipCard = ({ digit }: { digit: string }) => (
+    <div
+      style={{
+        position: 'relative',
+        width: '60px',
+        height: '80px',
+        perspective: '300px',
+      }}
+    >
+      {/* Card container */}
+      <div
+        key={digit}
+        style={{
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          background: '#2d2d2d',
+          borderRadius: '8px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '56px',
+          fontWeight: 700,
+          color: '#fff',
+          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+          animation: 'flip 0.6s ease-out',
+        }}
+      >
+        {digit}
+        {/* Divider line */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: 0,
+            right: 0,
+            height: '2px',
+            background: 'rgba(0, 0, 0, 0.2)',
+          }}
+        />
+      </div>
+    </div>
+  )
+
+  const TimeUnit = ({ value, label }: { value: number; label: string }) => {
+    const digits = String(value).padStart(2, '0').split('')
 
     return (
       <div
@@ -77,56 +111,9 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
           gap: '12px',
         }}
       >
-        <div style={{ position: 'relative', width: '120px', height: '120px' }}>
-          {/* Background circle */}
-          <svg
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              transform: 'rotate(-90deg)',
-              width: '100%',
-              height: '100%',
-            }}
-          >
-            <circle
-              cx="60"
-              cy="60"
-              r="45"
-              fill="none"
-              stroke="var(--bui-border-1, #d5d5d5)"
-              strokeWidth="8"
-            />
-            {/* Progress circle */}
-            <circle
-              cx="60"
-              cy="60"
-              r="45"
-              fill="none"
-              stroke="var(--bui-bg-solid, #1f5493)"
-              strokeWidth="8"
-              strokeDasharray={circumference}
-              strokeDashoffset={offset}
-              strokeLinecap="round"
-              style={{
-                transition: 'stroke-dashoffset 1s ease',
-              }}
-            />
-          </svg>
-          {/* Center number */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              fontSize: '36px',
-              fontWeight: 700,
-              color: 'var(--bui-fg-primary, #000)',
-            }}
-          >
-            {String(value).padStart(2, '0')}
-          </div>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <FlipCard digit={digits[0]} />
+          <FlipCard digit={digits[1]} />
         </div>
         <div
           style={{
@@ -149,6 +136,17 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
         @keyframes fadeIn {
           from { opacity: 0; }
           to { opacity: 1; }
+        }
+        @keyframes flip {
+          0% {
+            transform: rotateX(0deg);
+          }
+          50% {
+            transform: rotateX(-90deg);
+          }
+          100% {
+            transform: rotateX(0deg);
+          }
         }
       `}</style>
       <div
@@ -206,10 +204,10 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
               marginBottom: '32px',
             }}
           >
-            <TimeUnit value={timeRemaining.days} label="Days" max={365} />
-            <TimeUnit value={timeRemaining.hours} label="Hours" max={24} />
-            <TimeUnit value={timeRemaining.minutes} label="Minutes" max={60} />
-            <TimeUnit value={timeRemaining.seconds} label="Seconds" max={60} />
+            <TimeUnit value={timeRemaining.days} label="Days" />
+            <TimeUnit value={timeRemaining.hours} label="Hours" />
+            <TimeUnit value={timeRemaining.minutes} label="Minutes" />
+            <TimeUnit value={timeRemaining.seconds} label="Seconds" />
           </div>
 
           <p
