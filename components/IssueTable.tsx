@@ -21,7 +21,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
     level: 'all',
     label: 'all',
   })
-  const [sortColumn, setSortColumn] = useState<SortColumn>('rowNumber')
+  const [sortColumn, setSortColumn] = useState<SortColumn>('level')
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
 
   // Get unique values for filters
@@ -64,8 +64,9 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
           bValue = b.repository
           break
         case 'level':
-          aValue = a.level
-          bValue = b.level
+          // Use custom order for levels: Beginner (1), Intermediate (2), Advanced (3)
+          aValue = getLevelSortOrder(a.level)
+          bValue = getLevelSortOrder(b.level)
           break
         case 'issueId':
           aValue = a.issueId
@@ -463,5 +464,19 @@ function getLevelBadgeColor(level: string): { background: string; color: string 
       return { background: '#fed7aa', color: '#c2410c' }
     default:
       return { background: '#e5e7eb', color: '#374151' }
+  }
+}
+
+// Helper to get sort order for levels (Beginner first, then Intermediate, then Advanced)
+function getLevelSortOrder(level: string): number {
+  switch (level) {
+    case 'Beginner':
+      return 1
+    case 'Intermediate':
+      return 2
+    case 'Advanced':
+      return 3
+    default:
+      return 4
   }
 }
