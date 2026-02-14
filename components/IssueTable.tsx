@@ -246,21 +246,17 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
                   </span>
                 </td>
                 <td style={tdStyle}>
-                  {issue.githubData ? (
-                    <a
-                      href={issue.githubData.html_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        color: 'var(--bui-bg-solid, #1f5493)',
-                        fontWeight: 500,
-                      }}
-                    >
-                      #{issue.issueId}
-                    </a>
-                  ) : (
-                    `#${issue.issueId}`
-                  )}
+                  <a
+                    href={`https://github.com/${issue.repository}/issues/${issue.issueId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      color: 'var(--bui-bg-solid, #1f5493)',
+                      fontWeight: 500,
+                    }}
+                  >
+                    #{issue.issueId}
+                  </a>
                 </td>
                 <td style={tdStyle}>
                   {issue.githubData?.title || (
