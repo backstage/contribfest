@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import type { EnrichedIssue } from '@/lib/types'
-import { filterIssues, getUniqueRepositories, getUniqueLevels } from '@/lib/filters'
+import { filterIssues, getUniqueRepositories, getUniqueLevels, getUniqueLabels } from '@/lib/filters'
 import type { FilterOptions } from '@/lib/filters'
 
 interface IssueTableProps {
@@ -16,11 +16,13 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
     repository: initialRepository || 'all',
     state: 'all',
     level: 'all',
+    label: 'all',
   })
 
   // Get unique values for filters
   const uniqueRepositories = useMemo(() => getUniqueRepositories(issues), [issues])
   const uniqueLevels = useMemo(() => getUniqueLevels(issues), [issues])
+  const uniqueLabels = useMemo(() => getUniqueLabels(issues), [issues])
 
   // Apply filters
   const filteredIssues = useMemo(
@@ -152,6 +154,34 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
             <option value="all">All</option>
             <option value="open">Open</option>
             <option value="closed">Closed</option>
+          </select>
+        </div>
+
+        <div>
+          <label
+            htmlFor="label"
+            style={{
+              display: 'block',
+              marginBottom: '8px',
+              fontSize: '14px',
+              fontWeight: 500,
+              color: 'var(--bui-fg-primary, #000)',
+            }}
+          >
+            Label
+          </label>
+          <select
+            id="label"
+            value={filters.label}
+            onChange={(e) => setFilters({ ...filters, label: e.target.value })}
+            style={{ ...inputStyle, width: '100%' }}
+          >
+            <option value="all">All</option>
+            {uniqueLabels.map((label) => (
+              <option key={label} value={label}>
+                {label}
+              </option>
+            ))}
           </select>
         </div>
       </div>

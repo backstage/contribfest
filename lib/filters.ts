@@ -5,6 +5,7 @@ export interface FilterOptions {
   repository: string // 'all' | 'backstage/backstage' | 'backstage/community-plugins'
   state: string // 'all' | 'open' | 'closed'
   level: string // 'all' | 'Beginner' | 'Intermediate' | 'Advanced'
+  label: string // 'all' | specific label name
 }
 
 export function filterIssues(
@@ -38,6 +39,16 @@ export function filterIssues(
     // Filter by level
     if (filters.level !== 'all') {
       if (issue.level !== filters.level) {
+        return false
+      }
+    }
+
+    // Filter by label
+    if (filters.label !== 'all' && issue.githubData) {
+      const hasLabel = issue.githubData.labels.some(
+        (label) => label.name === filters.label
+      )
+      if (!hasLabel) {
         return false
       }
     }
