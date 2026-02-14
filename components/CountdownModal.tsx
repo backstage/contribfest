@@ -176,7 +176,8 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
               marginTop: '32px',
             }}
           >
-            While you wait make sure you've completed the{' '}
+            While you wait make sure you've completed<br />
+            the{' '}
             <a
               href="/getting-started"
               style={{
