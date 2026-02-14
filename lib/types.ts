@@ -1,7 +1,8 @@
-// CSV row format: {row_number}→{repository},{issue_id}
+// CSV row format: {row_number}→{repo},{level},{issue_id}
 export interface IssueRow {
   rowNumber: number
   repository: string
+  level: string
   issueId: number
 }
 
@@ -29,6 +30,7 @@ export interface GitHubIssue {
 export interface EnrichedIssue {
   rowNumber: number
   repository: string
+  level: string
   issueId: number
   githubData?: GitHubIssue
   error?: string
