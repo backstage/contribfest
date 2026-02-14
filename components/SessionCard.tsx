@@ -1,4 +1,5 @@
 import type { ContribFestSession } from '@/lib/types'
+import { RiExternalLinkLine } from '@remixicon/react'
 
 interface SessionCardProps {
   session: ContribFestSession
@@ -59,14 +60,17 @@ export function SessionCard({ session }: SessionCardProps) {
         target="_blank"
         rel="noopener noreferrer"
         style={{
-          display: 'inline-block',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '4px',
           fontSize: '14px',
           color: 'var(--bui-bg-solid, #1f5493)',
           textDecoration: 'none',
           fontWeight: 500,
         }}
       >
-        View Blog Post →
+        View Blog Post
+        <RiExternalLinkLine size={16} />
       </a>
     </div>
   )
