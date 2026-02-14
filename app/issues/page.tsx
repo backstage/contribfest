@@ -48,15 +48,24 @@ export default function IssuesPage() {
               onClick={refresh}
               disabled={loading}
               style={{
-                padding: '8px 16px',
-                background: loading ? 'var(--bui-bg-app, #f8f8f8)' : 'var(--bui-bg-solid, #1f5493)',
-                color: loading ? 'var(--bui-fg-secondary, #666)' : '#fff',
-                border: 'none',
-                borderRadius: '4px',
-                fontSize: '14px',
+                padding: '12px 24px',
+                background: 'var(--bui-bg-app, #f8f8f8)',
+                border: '1px solid var(--bui-border-1, #d5d5d5)',
+                borderRadius: '8px',
+                fontSize: '16px',
                 fontWeight: 500,
+                color: 'var(--bui-fg-primary, #000)',
                 cursor: loading ? 'not-allowed' : 'pointer',
-                transition: 'background 0.2s',
+                transition: 'all 0.2s',
+                opacity: loading ? 0.6 : 1,
+              }}
+              onMouseEnter={(e) => {
+                if (!loading) {
+                  e.currentTarget.style.background = 'var(--bui-bg-info, #dbeafe)'
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'var(--bui-bg-app, #f8f8f8)'
               }}
             >
               {loading ? 'Refreshing...' : 'Refresh'}
