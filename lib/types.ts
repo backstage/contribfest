@@ -83,4 +83,6 @@ export interface ContribFestSession {
   subtitle?: string
   date: string
   blogUrl: string
+  comingSoon?: boolean
+  linkText?: string
 }

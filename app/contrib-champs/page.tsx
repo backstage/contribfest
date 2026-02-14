@@ -11,6 +11,8 @@ const sessions: ContribFestSession[] = [
     subtitle: 'KubeCon + CloudNativeCon Europe',
     date: 'March 2026',
     blogUrl: '#',
+    comingSoon: true,
+    linkText: 'Add to Schedule',
   },
   {
     location: 'Atlanta',

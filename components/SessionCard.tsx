@@ -24,6 +24,24 @@ export function SessionCard({ session }: SessionCardProps) {
         e.currentTarget.style.boxShadow = 'none'
       }}
     >
+      {session.comingSoon && (
+        <div
+          style={{
+            display: 'inline-block',
+            background: 'var(--bui-bg-solid, #1f5493)',
+            color: '#fff',
+            fontSize: '11px',
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px',
+            padding: '4px 8px',
+            borderRadius: '4px',
+            marginBottom: '12px',
+          }}
+        >
+          Coming Soon
+        </div>
+      )}
       <h3
         style={{
           fontSize: '18px',
@@ -69,7 +87,7 @@ export function SessionCard({ session }: SessionCardProps) {
           fontWeight: 500,
         }}
       >
-        View Blog Post
+        {session.linkText || 'View Blog Post'}
         <RiExternalLinkLine size={16} />
       </a>
     </div>
