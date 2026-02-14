@@ -317,11 +317,12 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
             </tr>
           </thead>
           <tbody>
-            {sortedIssues.map((issue) => (
+            {sortedIssues.map((issue, index) => (
               <tr
                 key={`${issue.repository}-${issue.issueId}`}
                 style={{
                   borderBottom: '1px solid var(--bui-border-1, #d5d5d5)',
+                  background: index % 2 === 0 ? 'var(--bui-bg-app, #f8f8f8)' : 'transparent',
                 }}
               >
                 <td style={tdStyle}>{issue.rowNumber}</td>
