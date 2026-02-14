@@ -10,6 +10,9 @@ interface IssueTableProps {
   initialRepository?: string
 }
 
+type SortColumn = 'rowNumber' | 'repository' | 'level' | 'issueId' | 'title' | 'state'
+type SortDirection = 'asc' | 'desc'
+
 export function IssueTable({ issues, initialRepository }: IssueTableProps) {
   const [filters, setFilters] = useState<FilterOptions>({
     search: '',
@@ -18,6 +21,8 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
     level: 'all',
     label: 'all',
   })
+  const [sortColumn, setSortColumn] = useState<SortColumn>('rowNumber')
+  const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
 
   // Get unique values for filters
   const uniqueRepositories = useMemo(() => getUniqueRepositories(issues), [issues])
@@ -29,6 +34,66 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
     () => filterIssues(issues, filters),
     [issues, filters]
   )
+
+  // Handle column sort
+  const handleSort = (column: SortColumn) => {
+    if (sortColumn === column) {
+      // Toggle direction if clicking the same column
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
+    } else {
+      // Set new column and default to ascending
+      setSortColumn(column)
+      setSortDirection('asc')
+    }
+  }
+
+  // Apply sorting
+  const sortedIssues = useMemo(() => {
+    const sorted = [...filteredIssues]
+    sorted.sort((a, b) => {
+      let aValue: string | number = ''
+      let bValue: string | number = ''
+
+      switch (sortColumn) {
+        case 'rowNumber':
+          aValue = a.rowNumber
+          bValue = b.rowNumber
+          break
+        case 'repository':
+          aValue = a.repository
+          bValue = b.repository
+          break
+        case 'level':
+          aValue = a.level
+          bValue = b.level
+          break
+        case 'issueId':
+          aValue = a.issueId
+          bValue = b.issueId
+          break
+        case 'title':
+          aValue = a.githubData?.title || ''
+          bValue = b.githubData?.title || ''
+          break
+        case 'state':
+          aValue = a.githubData?.state || ''
+          bValue = b.githubData?.state || ''
+          break
+      }
+
+      if (typeof aValue === 'number' && typeof bValue === 'number') {
+        return sortDirection === 'asc' ? aValue - bValue : bValue - aValue
+      }
+
+      // String comparison
+      const aStr = String(aValue).toLowerCase()
+      const bStr = String(bValue).toLowerCase()
+      if (aStr < bStr) return sortDirection === 'asc' ? -1 : 1
+      if (aStr > bStr) return sortDirection === 'asc' ? 1 : -1
+      return 0
+    })
+    return sorted
+  }, [filteredIssues, sortColumn, sortDirection])
 
   const inputStyle = {
     padding: '8px 12px',
@@ -195,7 +260,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
           color: 'var(--bui-fg-secondary, #666)',
         }}
       >
-        Showing {filteredIssues.length} of {issues.length} issues
+        Showing {sortedIssues.length} of {issues.length} issues
       </div>
 
       {/* Table */}
@@ -211,17 +276,47 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
         >
           <thead>
             <tr style={{ background: 'var(--bui-bg-info, #dbeafe)' }}>
-              <th style={thStyle}>Row #</th>
-              <th style={thStyle}>Repository</th>
-              <th style={thStyle}>Level</th>
-              <th style={thStyle}>Issue #</th>
-              <th style={thStyle}>Title</th>
-              <th style={thStyle}>State</th>
+              <th
+                style={{ ...thStyle, cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => handleSort('rowNumber')}
+              >
+                Row # {sortColumn === 'rowNumber' && (sortDirection === 'asc' ? '↑' : '↓')}
+              </th>
+              <th
+                style={{ ...thStyle, cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => handleSort('repository')}
+              >
+                Repository {sortColumn === 'repository' && (sortDirection === 'asc' ? '↑' : '↓')}
+              </th>
+              <th
+                style={{ ...thStyle, cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => handleSort('level')}
+              >
+                Level {sortColumn === 'level' && (sortDirection === 'asc' ? '↑' : '↓')}
+              </th>
+              <th
+                style={{ ...thStyle, cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => handleSort('issueId')}
+              >
+                Issue # {sortColumn === 'issueId' && (sortDirection === 'asc' ? '↑' : '↓')}
+              </th>
+              <th
+                style={{ ...thStyle, cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => handleSort('title')}
+              >
+                Title {sortColumn === 'title' && (sortDirection === 'asc' ? '↑' : '↓')}
+              </th>
+              <th
+                style={{ ...thStyle, cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => handleSort('state')}
+              >
+                State {sortColumn === 'state' && (sortDirection === 'asc' ? '↑' : '↓')}
+              </th>
               <th style={thStyle}>Labels</th>
             </tr>
           </thead>
           <tbody>
-            {filteredIssues.map((issue) => (
+            {sortedIssues.map((issue) => (
               <tr
                 key={`${issue.repository}-${issue.issueId}`}
                 style={{
@@ -319,7 +414,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
         </table>
       </div>
 
-      {filteredIssues.length === 0 && (
+      {sortedIssues.length === 0 && (
         <div
           style={{
             padding: '32px',
