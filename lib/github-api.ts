@@ -64,6 +64,7 @@ export async function enrichIssuesWithGitHubData(
       enrichedIssues.push({
         rowNumber: issue.rowNumber,
         repository: issue.repository,
+        level: issue.level,
         issueId: issue.issueId,
         githubData: githubData || undefined,
         error: githubData ? undefined : 'Failed to fetch issue data',
@@ -72,6 +73,7 @@ export async function enrichIssuesWithGitHubData(
       enrichedIssues.push({
         rowNumber: issue.rowNumber,
         repository: issue.repository,
+        level: issue.level,
         issueId: issue.issueId,
         error: error instanceof Error ? error.message : 'Unknown error',
       })
