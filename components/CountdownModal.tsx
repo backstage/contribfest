@@ -171,12 +171,31 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
 
           <p
             style={{
-              fontSize: '14px',
+              fontSize: '16px',
               color: 'var(--bui-fg-secondary, #666)',
-              fontStyle: 'italic',
+              marginTop: '32px',
             }}
           >
-            Check back soon to explore issues and start contributing!
+            While you wait make sure you've completed the{' '}
+            <a
+              href="/getting-started"
+              style={{
+                color: 'var(--bui-bg-solid, #1f5493)',
+                fontWeight: 600,
+                textDecoration: 'none',
+                borderBottom: '2px solid var(--bui-bg-solid, #1f5493)',
+                transition: 'opacity 0.2s',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.opacity = '0.7'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.opacity = '1'
+              }}
+            >
+              Getting Started checklist
+            </a>
+            !
           </p>
         </div>
       </div>
