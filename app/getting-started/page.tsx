@@ -107,6 +107,7 @@ const initialChecklist: ChecklistItemType[] = [
   {
     id: 'fork-backstage',
     label: 'Fork and Clone the Backstage Repository',
+    description: 'Follow these steps to get the Backstage repo ready for contributing.',
     completed: false,
     children: [
       {
