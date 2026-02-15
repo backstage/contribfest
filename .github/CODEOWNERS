@@ -1,0 +1,19 @@
+# CODEOWNERS file
+# Each line is a file pattern followed by one or more owners.
+# Owners can be @users, @org/teams, or email addresses.
+
+# Default owners for everything in the repo
+*                  @awanlin @backstage/framework-maintainers
+
+# Frontend components
+/components/       @backstage/framework-maintainers
+/app/              @backstage/framework-maintainers
+
+# Configuration files
+/package.json      @backstage/framework-maintainers
+/renovate.json     @backstage/framework-maintainers
+/.github/          @backstage/framework-maintainers
+
+# Documentation
+/docs/             @backstage/framework-maintainers
+/README.md         @backstage/framework-maintainers
