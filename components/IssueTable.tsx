@@ -270,13 +270,13 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
           style={{
             width: '100%',
             borderCollapse: 'collapse',
-            background: 'var(--bui-bg-app, #f8f8f8)',
+            background: 'var(--bui-bg-popover, #fff)',
             borderRadius: '8px',
             overflow: 'hidden',
           }}
         >
           <thead>
-            <tr style={{ background: 'var(--bui-bg-info, #dbeafe)' }}>
+            <tr style={{ background: 'rgba(31, 84, 147, 0.08)' }}>
               <th
                 style={{ ...thStyle, cursor: 'pointer', userSelect: 'none' }}
                 onClick={() => handleSort('rowNumber')}
@@ -322,7 +322,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
                 key={`${issue.repository}-${issue.issueId}`}
                 style={{
                   borderBottom: '1px solid var(--bui-border-1, #d5d5d5)',
-                  background: index % 2 === 0 ? '#ffffff' : '#f0f0f0',
+                  background: index % 2 === 0 ? 'transparent' : 'rgba(128, 128, 128, 0.1)',
                 }}
               >
                 <td style={tdStyle}>{issue.rowNumber}</td>
