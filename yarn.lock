@@ -3061,7 +3061,7 @@ __metadata:
     "@types/papaparse": "npm:^5.5.2"
     "@types/react": "npm:^18.3.28"
     "@types/react-dom": "npm:^18.3.7"
-    eslint: "npm:^9"
+    eslint: "npm:^9.39.2"
     eslint-config-next: "npm:^15.1.6"
     next: "npm:^15.1.6"
     papaparse: "npm:^5.5.3"
@@ -3554,7 +3554,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^9":
+"eslint@npm:^9.39.2":
   version: 9.39.2
   resolution: "eslint@npm:9.39.2"
   dependencies:
