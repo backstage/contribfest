@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import type { GitHubPullRequest } from '@/lib/types'
-import { fetchAllContribfestPullRequests } from '@/lib/github-pr-api'
 
 interface UsePullRequestsReturn {
   pullRequests: GitHubPullRequest[]
@@ -11,24 +10,118 @@ interface UsePullRequestsReturn {
   refresh: () => void
 }
 
+async function fetchContribfestPullRequests(
+  owner: string,
+  repo: string
+): Promise<GitHubPullRequest[]> {
+  const allPRs: GitHubPullRequest[] = []
+  let page = 1
+  const perPage = 100
+
+  console.log(`Fetching PRs from ${owner}/${repo}...`)
+
+  try {
+    const headers: HeadersInit = {
+      Accept: 'application/vnd.github.v3+json',
+    }
+
+    // Token is optional - works without it but with lower rate limits
+    const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN
+    if (token && token !== 'your_github_personal_access_token_here') {
+      headers.Authorization = `Bearer ${token}`
+      console.log('Using GitHub token for authentication')
+    } else {
+      console.log('No GitHub token - using unauthenticated requests (lower rate limits)')
+    }
+
+    while (true) {
+      const url = `https://api.github.com/repos/${owner}/${repo}/pulls?state=closed&per_page=${perPage}&page=${page}`
+      console.log(`Fetching page ${page} from ${owner}/${repo}`)
+
+      const response = await fetch(url, {
+        headers,
+        cache: 'no-store',
+      })
+
+      if (!response.ok) {
+        console.error(
+          `Failed to fetch PRs from ${owner}/${repo}: ${response.status} ${response.statusText}`
+        )
+        break
+      }
+
+      const prs = await response.json() as GitHubPullRequest[]
+      console.log(`Received ${prs.length} PRs from ${owner}/${repo} page ${page}`)
+
+      if (prs.length === 0) {
+        break
+      }
+
+      // Filter to only merged PRs with contribfest label
+      const mergedContribfestPRs = prs.filter(pr => {
+        const hasContribfestLabel = pr.labels?.some(label =>
+          label.name === 'contribfest'
+        )
+        return pr.merged_at !== null && hasContribfestLabel
+      })
+
+      console.log(`Found ${mergedContribfestPRs.length} merged contribfest PRs on page ${page}`)
+
+      // Add repository identifier
+      mergedContribfestPRs.forEach(pr => {
+        pr.repository = `${owner}/${repo}`
+      })
+
+      allPRs.push(...mergedContribfestPRs)
+
+      // If we got fewer than perPage results, we've reached the end
+      if (prs.length < perPage) {
+        break
+      }
+
+      page++
+    }
+
+    console.log(`Total merged contribfest PRs from ${owner}/${repo}: ${allPRs.length}`)
+    return allPRs
+  } catch (error) {
+    console.error(`Error fetching PRs from ${owner}/${repo}:`, error)
+    return []
+  }
+}
+
 export function usePullRequests(): UsePullRequestsReturn {
   const [pullRequests, setPullRequests] = useState<GitHubPullRequest[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   const fetchPRs = useCallback(async () => {
+    console.log('Starting to fetch pull requests...')
     setLoading(true)
     setError(null)
 
     try {
-      const prs = await fetchAllContribfestPullRequests()
-      setPullRequests(prs)
+      const [backstagePRs, communityPluginsPRs] = await Promise.all([
+        fetchContribfestPullRequests('backstage', 'backstage'),
+        fetchContribfestPullRequests('backstage', 'community-plugins'),
+      ])
+
+      const allPRs = [...backstagePRs, ...communityPluginsPRs]
+
+      // Sort by created_at descending (newest first)
+      allPRs.sort((a, b) => {
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      })
+
+      console.log(`Total PRs after combining and sorting: ${allPRs.length}`)
+      setPullRequests(allPRs)
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to fetch pull requests'
       setError(errorMessage)
       console.error('Error fetching PRs:', err)
     } finally {
       setLoading(false)
+      console.log('Finished fetching pull requests')
     }
   }, [])
 
