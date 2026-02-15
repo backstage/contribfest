@@ -4,7 +4,7 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 import { Sidebar } from '@/components/Sidebar'
 
 export const metadata = {
-  title: 'ContribFest',
+  title: 'Backstage ContribFest',
   description: 'Backstage ContribFest Resources',
   icons: {
     icon: '/favicon.ico',
