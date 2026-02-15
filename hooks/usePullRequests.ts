@@ -35,7 +35,7 @@ async function fetchContribfestPullRequests(
     }
 
     while (true) {
-      const url = `https://api.github.com/repos/${owner}/${repo}/pulls?state=closed&per_page=${perPage}&page=${page}`
+      const url = `https://api.github.com/repos/${owner}/${repo}/pulls?state=closed&labels=contribfest&per_page=${perPage}&page=${page}`
       console.log(`Fetching page ${page} from ${owner}/${repo}`)
 
       const response = await fetch(url, {
@@ -57,22 +57,17 @@ async function fetchContribfestPullRequests(
         break
       }
 
-      // Filter to only merged PRs with contribfest label
-      const mergedContribfestPRs = prs.filter(pr => {
-        const hasContribfestLabel = pr.labels?.some(label =>
-          label.name === 'contribfest'
-        )
-        return pr.merged_at !== null && hasContribfestLabel
-      })
+      // Filter to only merged PRs (API already filtered by contribfest label)
+      const mergedPRs = prs.filter(pr => pr.merged_at !== null)
 
-      console.log(`Found ${mergedContribfestPRs.length} merged contribfest PRs on page ${page}`)
+      console.log(`Found ${mergedPRs.length} merged PRs on page ${page} (API filtered for contribfest label)`)
 
       // Add repository identifier
-      mergedContribfestPRs.forEach(pr => {
+      mergedPRs.forEach(pr => {
         pr.repository = `${owner}/${repo}`
       })
 
-      allPRs.push(...mergedContribfestPRs)
+      allPRs.push(...mergedPRs)
 
       // If we got fewer than perPage results, we've reached the end
       if (prs.length < perPage) {
