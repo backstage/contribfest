@@ -241,7 +241,7 @@ export default function GettingStartedPage() {
             color: 'var(--bui-fg-primary, #000)',
           }}
         >
-          Getting Started
+          🚀 Getting Started
         </h1>
         <p
           style={{

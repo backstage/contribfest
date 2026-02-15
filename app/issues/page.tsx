@@ -52,7 +52,7 @@ export default function IssuesPage() {
               color: 'var(--bui-fg-primary, #000)',
             }}
           >
-            Curated Issues
+            🔍 Curated Issues
           </h1>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             {lastUpdated && (

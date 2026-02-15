@@ -75,7 +75,7 @@ export default function Page() {
             color: 'var(--bui-fg-primary, #000)',
           }}
         >
-          Welcome to the Backstage ContribFest!
+          👋 Welcome to the Backstage ContribFest!
         </h1>
         <p
           style={{
