@@ -18,7 +18,7 @@ async function fetchContribfestPullRequests(
   let page = 1
   const perPage = 100
 
-  console.log(`Fetching PRs from ${owner}/${repo}...`)
+  console.log(`Searching for merged contribfest PRs in ${owner}/${repo}...`)
 
   try {
     const headers: HeadersInit = {
@@ -35,8 +35,10 @@ async function fetchContribfestPullRequests(
     }
 
     while (true) {
-      const url = `https://api.github.com/repos/${owner}/${repo}/pulls?state=closed&labels=contribfest&per_page=${perPage}&page=${page}`
-      console.log(`Fetching page ${page} from ${owner}/${repo}`)
+      // Use search API to filter for merged PRs with contribfest label
+      const query = `repo:${owner}/${repo}+is:pr+is:merged+label:contribfest`
+      const url = `https://api.github.com/search/issues?q=${encodeURIComponent(query)}&per_page=${perPage}&page=${page}`
+      console.log(`Searching page ${page} from ${owner}/${repo}`)
 
       const response = await fetch(url, {
         headers,
@@ -45,29 +47,25 @@ async function fetchContribfestPullRequests(
 
       if (!response.ok) {
         console.error(
-          `Failed to fetch PRs from ${owner}/${repo}: ${response.status} ${response.statusText}`
+          `Failed to search PRs from ${owner}/${repo}: ${response.status} ${response.statusText}`
         )
         break
       }
 
-      const prs = await response.json() as GitHubPullRequest[]
-      console.log(`Received ${prs.length} PRs from ${owner}/${repo} page ${page}`)
+      const data = await response.json() as { total_count: number; items: GitHubPullRequest[] }
+      const prs = data.items
+      console.log(`Found ${prs.length} PRs from ${owner}/${repo} page ${page} (total: ${data.total_count})`)
 
       if (prs.length === 0) {
         break
       }
 
-      // Filter to only merged PRs (API already filtered by contribfest label)
-      const mergedPRs = prs.filter(pr => pr.merged_at !== null)
-
-      console.log(`Found ${mergedPRs.length} merged PRs on page ${page} (API filtered for contribfest label)`)
-
       // Add repository identifier
-      mergedPRs.forEach(pr => {
+      prs.forEach(pr => {
         pr.repository = `${owner}/${repo}`
       })
 
-      allPRs.push(...mergedPRs)
+      allPRs.push(...prs)
 
       // If we got fewer than perPage results, we've reached the end
       if (prs.length < perPage) {
@@ -80,7 +78,7 @@ async function fetchContribfestPullRequests(
     console.log(`Total merged contribfest PRs from ${owner}/${repo}: ${allPRs.length}`)
     return allPRs
   } catch (error) {
-    console.error(`Error fetching PRs from ${owner}/${repo}:`, error)
+    console.error(`Error searching PRs from ${owner}/${repo}:`, error)
     return []
   }
 }
