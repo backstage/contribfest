@@ -2,6 +2,7 @@ import '@backstage/ui/css/styles.css'
 import './globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { Sidebar } from '@/components/Sidebar'
+import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 
 export const metadata = {
   title: 'Backstage ContribFest',
@@ -19,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <GoogleAnalytics />
         <ThemeProvider>
           <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
             <Sidebar />
