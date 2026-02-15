@@ -2406,12 +2406,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.19.33":
-  version: 20.19.33
-  resolution: "@types/node@npm:20.19.33"
+"@types/node@npm:^24.10.13":
+  version: 24.10.13
+  resolution: "@types/node@npm:24.10.13"
   dependencies:
-    undici-types: "npm:~6.21.0"
-  checksum: 10/8aff7b1acba98a724659b228cbfb21aaabffaf377e914dd117c8f0b1fce2ee18a2e578f701fd43bffa4e2ca32e6a9f6d011e86c63c2efed2d17d2865b1eaac77
+    undici-types: "npm:~7.16.0"
+  checksum: 10/c779d14cf17758a9d603e0c0978c8045bd070e259617ec16f4ddac419ec11aac0e0cf2bb013dab008fdbd2f46c39f82397884662bbdfabeb19bef0079679ea48
   languageName: node
   linkType: hard
 
@@ -3057,7 +3057,7 @@ __metadata:
   resolution: "contribfest@workspace:."
   dependencies:
     "@backstage/ui": "npm:^0.11.2"
-    "@types/node": "npm:^20.19.33"
+    "@types/node": "npm:^24.10.13"
     "@types/papaparse": "npm:^5.5.2"
     "@types/react": "npm:^18.3.28"
     "@types/react-dom": "npm:^18.3.7"
@@ -5564,13 +5564,6 @@ __metadata:
     has-symbols: "npm:^1.1.0"
     which-boxed-primitive: "npm:^1.1.1"
   checksum: 10/fadb347020f66b2c8aeacf8b9a79826fa34cc5e5457af4eb0bbc4e79bd87fed0fa795949825df534320f7c13f199259516ad30abc55a6e7b91d8d996ca069e50
-  languageName: node
-  linkType: hard
-
-"undici-types@npm:~6.21.0":
-  version: 6.21.0
-  resolution: "undici-types@npm:6.21.0"
-  checksum: 10/ec8f41aa4359d50f9b59fa61fe3efce3477cc681908c8f84354d8567bb3701fafdddf36ef6bff307024d3feb42c837cf6f670314ba37fc8145e219560e473d14
   languageName: node
   linkType: hard
 
