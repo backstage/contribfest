@@ -9,13 +9,24 @@ ContribFest is a web application built with Next.js, React, and TypeScript.
 
 ## Development
 
-Install dependencies:
+### Setup
+
+1. Copy the example environment file:
+
+```bash
+cp .env.example .env.local
+```
+
+2. Configure your environment variables in `.env.local`:
+   - `NEXT_PUBLIC_GA_ID`: Your Google Analytics GA4 Measurement ID (optional)
+
+3. Install dependencies:
 
 ```bash
 yarn install
 ```
 
-Run the development server:
+4. Run the development server:
 
 ```bash
 yarn dev
@@ -28,6 +39,17 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 ```bash
 yarn build
 ```
+
+## Deployment
+
+This project is configured to deploy to GitHub Pages via GitHub Actions. To enable Google Analytics in production:
+
+1. Go to your repository's **Settings** > **Secrets and variables** > **Actions**
+2. Add a new repository secret:
+   - Name: `NEXT_PUBLIC_GA_ID`
+   - Value: Your Google Analytics GA4 Measurement ID (e.g., `G-XXXXXXXXXX`)
+
+The CD workflow will automatically include this in production builds.
 
 ## License
 
