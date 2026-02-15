@@ -6,10 +6,10 @@ import { BackstageLogo } from './BackstageLogo'
 import { ThemeToggle } from './ThemeToggle'
 
 const navigationLinks = [
-  { href: '/', label: 'Welcome' },
-  { href: '/getting-started/', label: 'Getting Started' },
-  { href: '/issues/', label: 'Curated Issues' },
-  { href: '/contrib-champs/', label: 'Contrib Champs' },
+  { href: '/', label: 'Welcome', emoji: '👋' },
+  { href: '/getting-started/', label: 'Getting Started', emoji: '🚀' },
+  { href: '/issues/', label: 'Curated Issues', emoji: '🔍' },
+  { href: '/contrib-champs/', label: 'Contrib Champs', emoji: '🏆' },
 ]
 
 export function Sidebar() {
@@ -87,6 +87,7 @@ export function Sidebar() {
                     transition: 'all 0.2s',
                   }}
                 >
+                  <span style={{ marginRight: '8px' }}>{link.emoji}</span>
                   {link.label}
                 </Link>
               </li>

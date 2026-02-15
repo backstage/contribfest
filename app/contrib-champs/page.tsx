@@ -57,7 +57,7 @@ export default function ContribChampsPage() {
                 color: 'var(--bui-fg-primary, #000)',
               }}
             >
-              Contrib Champs
+              🏆 Contrib Champs
             </h1>
             <button
               onClick={refresh}
