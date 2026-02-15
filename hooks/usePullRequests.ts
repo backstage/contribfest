@@ -36,7 +36,7 @@ async function fetchContribfestPullRequests(
 
     while (true) {
       // Use search API to filter for merged PRs with contribfest label
-      const query = `repo:${owner}/${repo}+is:pr+is:merged+label:contribfest`
+      const query = `repo:${owner}/${repo} is:pr is:merged label:contribfest`
       const url = `https://api.github.com/search/issues?q=${encodeURIComponent(query)}&per_page=${perPage}&page=${page}`
       console.log(`Searching page ${page} from ${owner}/${repo}`)
 
