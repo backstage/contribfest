@@ -8,7 +8,8 @@ import { ThemeToggle } from './ThemeToggle'
 const navigationLinks = [
   { href: '/', label: 'Welcome' },
   { href: '/getting-started/', label: 'Getting Started' },
-  { href: '/issues/', label: 'Issues' },
+  { href: '/issues/', label: 'Curated Issues' },
+  { href: '/contrib-champs/', label: 'Contrib Champs' },
 ]
 
 export function Sidebar() {

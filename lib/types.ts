@@ -56,3 +56,33 @@ export interface ResourceCard {
   url: string
   isExternal: boolean
 }
+
+// GitHub API pull request response
+export interface GitHubPullRequest {
+  id: number
+  number: number
+  title: string
+  state: string
+  html_url: string
+  user: {
+    login: string
+    html_url: string
+  }
+  labels?: Array<{
+    name: string
+    color: string
+  }>
+  created_at: string
+  merged_at: string | null
+  repository: string  // Added during processing to identify source repo
+}
+
+// ContribFest session information
+export interface ContribFestSession {
+  location: string
+  subtitle?: string
+  date: string
+  blogUrl: string
+  comingSoon?: boolean
+  linkText?: string
+}
