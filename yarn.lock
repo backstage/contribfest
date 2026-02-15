@@ -3062,8 +3062,8 @@ __metadata:
     "@types/react": "npm:^18.3.28"
     "@types/react-dom": "npm:^18.3.7"
     eslint: "npm:^9.39.2"
-    eslint-config-next: "npm:^15.1.6"
-    next: "npm:^15.1.6"
+    eslint-config-next: "npm:^15.5.12"
+    next: "npm:^15.5.12"
     papaparse: "npm:^5.5.3"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
@@ -3368,7 +3368,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-next@npm:^15.1.6":
+"eslint-config-next@npm:^15.5.12":
   version: 15.5.12
   resolution: "eslint-config-next@npm:15.5.12"
   dependencies:
@@ -4469,7 +4469,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:^15.1.6":
+"next@npm:^15.5.12":
   version: 15.5.12
   resolution: "next@npm:15.5.12"
   dependencies:
