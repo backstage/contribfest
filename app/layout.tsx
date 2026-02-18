@@ -8,7 +8,7 @@ export const metadata = {
   title: 'Backstage ContribFest',
   description: 'Backstage ContribFest Resources',
   icons: {
-    icon: '/favicon.ico',
+    icon: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/favicon.ico`,
   },
 }
 

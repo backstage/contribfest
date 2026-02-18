@@ -3,7 +3,7 @@ import type { IssueRow } from './types'
 
 export async function parseIssuesCSV(): Promise<IssueRow[]> {
   try {
-    const response = await fetch('/issues.csv')
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/issues.csv`)
     if (!response.ok) {
       throw new Error(`Failed to fetch CSV: ${response.statusText}`)
     }
