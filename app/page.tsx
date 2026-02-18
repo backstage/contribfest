@@ -6,7 +6,7 @@ const sessionResources: ResourceCard[] = [
     title: 'ContribFest Slide Deck',
     description:
       'Presentation slides with workshop overview, contribution tips, and resources. Reference this for workshop structure and guidance.',
-    url: 'https://backstage.github.io/contribfest/KubeCon-Amsterdam-Backstage-ContribFest-2026.pdf',
+    url: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/KubeCon-Amsterdam-Backstage-ContribFest-2026.pdf`,
     isExternal: true,
   },
   {
