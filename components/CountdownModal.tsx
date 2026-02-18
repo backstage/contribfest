@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
+import Link from 'next/link'
 
 interface CountdownModalProps {
   targetDate: Date
@@ -251,24 +252,24 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
           >
             While you wait make sure you&apos;ve completed<br />
             the{' '}
-            <a
+            <Link
               href="/getting-started"
               style={{
                 color: 'var(--bui-bg-solid, #1f5493)',
                 fontWeight: 600,
                 textDecoration: 'none',
                 borderBottom: '2px solid var(--bui-bg-solid, #1f5493)',
-                transition: 'opacity 0.2s',
+                transition: 'opacity 0.2s'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.opacity = '0.7'
+                e.currentTarget.style.opacity = '0.7';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.opacity = '1'
+                e.currentTarget.style.opacity = '1';
               }}
             >
               Getting Started checklist
-            </a>
+            </Link>
             !
           </p>
         </div>
