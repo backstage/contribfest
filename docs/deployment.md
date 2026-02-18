@@ -19,9 +19,9 @@ When you merge a PR to `main`:
 1. CI workflow runs (type check, lint, test, build)
 2. CD workflow waits for CI to complete
 3. If CI passes:
-   - CD builds the app for static export
+   - CD builds the app with `/contribfest` base path
    - Deploys to GitHub Pages
-   - Site updates at the configured GitHub Pages URL
+   - Site updates at `https://backstage.github.io/contribfest`
 4. If CI fails:
    - CD workflow is skipped
    - No deployment occurs
@@ -40,20 +40,20 @@ You can trigger a deployment manually:
 
 ## Local Development
 
-Start the development server:
+The app uses `/contribfest` base path to match production:
 
 ```bash
 # Start dev server
 yarn dev
 
 # Visit the app at:
-# http://localhost:3000
+# http://localhost:3000/contribfest
 ```
 
 ## Monitoring
 
 - **Deployment Status:** Check the Actions tab for workflow runs
-- **Live Site:** Check Settings → Pages for your deployment URL
+- **Live Site:** https://backstage.github.io/contribfest
 - **Environment:** View deployment history in Settings → Environments → github-pages
 
 ## Troubleshooting
@@ -63,8 +63,8 @@ yarn dev
 - Check workflow has `pages: write` and `id-token: write` permissions
 
 **Site shows 404 or assets don't load:**
+- Verify `basePath: '/contribfest'` is set in `next.config.ts`
 - Check build output includes all necessary files in the `out` directory
-- Verify Next.js config has `output: 'export'` enabled
 - Ensure trailing slash is enabled in config
 
 **CI passes but CD doesn't run:**
