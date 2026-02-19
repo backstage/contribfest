@@ -64,6 +64,14 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
     return () => clearInterval(interval)
   }, [targetDate])
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setDismissed(true)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
   const FlipCard = ({ digit, shouldFlip }: { digit: string; shouldFlip: boolean }) => (
     <div
       className="flip-card"
