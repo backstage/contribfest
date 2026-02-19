@@ -12,17 +12,16 @@ export function Celebration({ onClose }: CelebrationProps) {
   const [particles, setParticles] = useState<Array<{ id: number; left: number; bottom: number; delay: number; size: number; rotation: number; image: string }>>([])
 
   useEffect(() => {
-    const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
     const images = [
-      `${basePath}/img/astronaut_flying_drk.png`,
-      `${basePath}/img/astronaut_standing_drk.png`,
-      `${basePath}/img/community_avocado_drk.png`,
-      `${basePath}/img/community_organizer_drk.png`,
-      `${basePath}/img/contentalicious_drk.png`,
-      `${basePath}/img/looking_drk.png`,
-      `${basePath}/img/love_backstage_drk.png`,
-      `${basePath}/img/walking_drk.png`,
-      `${basePath}/img/waving_drk.png`,
+      `/img/astronaut_flying_drk.png`,
+      `/img/astronaut_standing_drk.png`,
+      `/img/community_avocado_drk.png`,
+      `/img/community_organizer_drk.png`,
+      `/img/contentalicious_drk.png`,
+      `/img/looking_drk.png`,
+      `/img/love_backstage_drk.png`,
+      `/img/walking_drk.png`,
+      `/img/waving_drk.png`,
     ]
     const newParticles = Array.from({ length: 40 }, (_, i) => ({
       id: i,
@@ -99,7 +98,7 @@ export function Celebration({ onClose }: CelebrationProps) {
       >
         <div style={{ marginBottom: '24px' }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/img/waving_drk.png`} alt="Bowie celebrating" width={96} height={96} style={{ objectFit: 'contain' }} />
+          <img src={`/img/waving_drk.png`} alt="Bowie celebrating" width={96} height={96} style={{ objectFit: 'contain' }} />
         </div>
         <h2
           style={{

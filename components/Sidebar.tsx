@@ -115,7 +115,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       <div style={{ marginTop: 'auto', textAlign: 'center' }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/img/${navigationLinks.find(l => l.href === pathname)?.image ?? 'waving_drk.png'}`}
+          src={`/img/${navigationLinks.find(l => l.href === pathname)?.image ?? 'waving_drk.png'}`}
           alt="Bowie the Backstage Beaver"
           style={{ width: '85%', height: 'auto' }}
         />
