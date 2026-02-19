@@ -115,6 +115,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
     <div>
       {/* Filters */}
       <div
+        className="issue-filters"
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
@@ -287,6 +288,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
       {/* Table */}
       <div style={{ overflowX: 'auto' }}>
         <table
+          className="issue-table"
           style={{
             width: '100%',
             borderCollapse: 'collapse',
@@ -298,42 +300,47 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
           <thead>
             <tr style={{ background: 'rgba(31, 84, 147, 0.08)' }}>
               <th
+                className="col-hide-mobile"
                 style={{ ...thStyle, cursor: 'pointer', userSelect: 'none' }}
                 onClick={() => handleSort('rowNumber')}
               >
-                Row # {sortColumn === 'rowNumber' && (sortDirection === 'asc' ? '↑' : '↓')}
+                Row # <span className="sort-indicator">{sortColumn === 'rowNumber' && (sortDirection === 'asc' ? '↑' : '↓')}</span>
               </th>
               <th
+                className="col-hide-mobile"
                 style={{ ...thStyle, cursor: 'pointer', userSelect: 'none' }}
                 onClick={() => handleSort('repository')}
               >
-                Repository {sortColumn === 'repository' && (sortDirection === 'asc' ? '↑' : '↓')}
+                Repository <span className="sort-indicator">{sortColumn === 'repository' && (sortDirection === 'asc' ? '↑' : '↓')}</span>
               </th>
               <th
+                className="col-compact"
                 style={{ ...thStyle, cursor: 'pointer', userSelect: 'none' }}
                 onClick={() => handleSort('level')}
               >
-                Level {sortColumn === 'level' && (sortDirection === 'asc' ? '↑' : '↓')}
+                Level <span className="sort-indicator">{sortColumn === 'level' && (sortDirection === 'asc' ? '↑' : '↓')}</span>
               </th>
               <th
+                className="col-compact"
                 style={{ ...thStyle, cursor: 'pointer', userSelect: 'none' }}
                 onClick={() => handleSort('issueId')}
               >
-                Issue # {sortColumn === 'issueId' && (sortDirection === 'asc' ? '↑' : '↓')}
+                Issue # <span className="sort-indicator">{sortColumn === 'issueId' && (sortDirection === 'asc' ? '↑' : '↓')}</span>
               </th>
               <th
                 style={{ ...thStyle, cursor: 'pointer', userSelect: 'none' }}
                 onClick={() => handleSort('title')}
               >
-                Title {sortColumn === 'title' && (sortDirection === 'asc' ? '↑' : '↓')}
+                Title <span className="sort-indicator">{sortColumn === 'title' && (sortDirection === 'asc' ? '↑' : '↓')}</span>
               </th>
               <th
+                className="col-hide-mobile"
                 style={{ ...thStyle, cursor: 'pointer', userSelect: 'none' }}
                 onClick={() => handleSort('state')}
               >
-                State {sortColumn === 'state' && (sortDirection === 'asc' ? '↑' : '↓')}
+                State <span className="sort-indicator">{sortColumn === 'state' && (sortDirection === 'asc' ? '↑' : '↓')}</span>
               </th>
-              <th style={thStyle}>Labels</th>
+              <th className="col-hide-mobile" style={thStyle}>Labels</th>
             </tr>
           </thead>
           <tbody>
@@ -345,11 +352,11 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
                   background: index % 2 === 0 ? 'transparent' : 'rgba(128, 128, 128, 0.1)',
                 }}
               >
-                <td style={tdStyle}>{issue.rowNumber}</td>
-                <td style={tdStyle}>
+                <td className="col-hide-mobile" style={tdStyle}>{issue.rowNumber}</td>
+                <td className="col-hide-mobile" style={tdStyle}>
                   <code style={{ fontSize: '12px' }}>{issue.repository}</code>
                 </td>
-                <td style={tdStyle}>
+                <td className="col-compact" style={tdStyle}>
                   <span
                     style={{
                       padding: '4px 8px',
@@ -362,7 +369,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
                     {issue.level}
                   </span>
                 </td>
-                <td style={tdStyle}>
+                <td className="col-compact" style={tdStyle}>
                   <a
                     href={`https://github.com/${issue.repository}/issues/${issue.issueId}`}
                     target="_blank"
@@ -382,7 +389,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
                     </span>
                   )}
                 </td>
-                <td style={tdStyle}>
+                <td className="col-hide-mobile" style={tdStyle}>
                   {issue.githubData?.state && (
                     <span
                       style={{
@@ -402,7 +409,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
                     </span>
                   )}
                 </td>
-                <td style={tdStyle}>
+                <td className="col-hide-mobile" style={tdStyle}>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                     {issue.githubData?.labels.slice(0, 3).map((label) => (
                       <span
