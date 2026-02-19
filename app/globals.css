@@ -75,13 +75,13 @@ body {
   --bui-white: #ffffff;
 
   /* Solid background colors */
-  --bui-bg-solid: #1f5493;
-  --bui-bg-solid-hover: #163a66;
-  --bui-bg-solid-pressed: #0f2b4e;
-  --bui-bg-solid-disabled: #163a66;
+  --bui-bg-solid: #268271;
+  --bui-bg-solid-hover: #1f6356;
+  --bui-bg-solid-pressed: #175044;
+  --bui-bg-solid-disabled: #1f6356;
 
   /* Neutral background colors */
-  --bui-bg-app: #f8f8f8;
+  --bui-bg-app: #f5f6f7;
   --bui-bg-popover: #ffffff;
 
   --bui-bg-neutral-1: #fff;
@@ -136,9 +136,14 @@ body {
   --bui-border-success: #53db83;
 
   /* Special colors */
-  --bui-ring: #1f5493;
+  --bui-ring: #268271;
   --bui-scrollbar: #a0a0a03b;
   --bui-scrollbar-thumb: #a0a0a0;
+
+  /* App-specific tokens */
+  --contribfest-sidebar-active-bg: #dcfce7;
+  --contribfest-progress-bg: #dcfce7;
+  --contribfest-checkbox-color: #dcfce7;
 
   /* Shadows */
   --bui-shadow: 0 10px 15px -3px rgba(0 0 0 / 0.1),
@@ -150,14 +155,14 @@ body {
 /* Dark theme */
 [data-theme-mode='dark'] {
   /* Solid background colors */
-  --bui-bg-solid: #9cc9ff;
-  --bui-bg-solid-hover: #83b9fd;
-  --bui-bg-solid-pressed: #83b9fd;
-  --bui-bg-solid-disabled: #1b3d68;
+  --bui-bg-solid: #40c8af;
+  --bui-bg-solid-hover: #36baa2;
+  --bui-bg-solid-pressed: #2e9e8a;
+  --bui-bg-solid-disabled: #1f6356;
 
   /* Neutral background colors */
-  --bui-bg-app: #333333;
-  --bui-bg-popover: #1a1a1a;
+  --bui-bg-app: #1b1b1d;
+  --bui-bg-popover: #242526;
 
   --bui-bg-neutral-1: oklch(100% 0 0 / 10%);
   --bui-bg-neutral-1-hover: oklch(100% 0 0 / 14%);
@@ -186,7 +191,7 @@ body {
   --bui-bg-info: #132049;
 
   /* Foreground colors */
-  --bui-fg-primary: var(--bui-white);
+  --bui-fg-primary: #e3e3e3;
   --bui-fg-secondary: oklch(100% 0 0 / 50%);
   --bui-fg-disabled: oklch(100% 0 0 / 28%);
   --bui-fg-solid: #101821;
@@ -211,12 +216,22 @@ body {
   --bui-border-success: #53db83;
 
   /* Special colors */
-  --bui-ring: #1f5493;
+  --bui-ring: #36baa2;
   --bui-scrollbar: #3636363a;
   --bui-scrollbar-thumb: #575757;
 
+  /* App-specific tokens */
+  --contribfest-sidebar-active-bg: rgba(64, 200, 175, 0.15);
+  --contribfest-progress-bg: rgba(64, 200, 175, 0.15);
+  --contribfest-checkbox-color: #40c8af;
+
   /* Shadows */
   --bui-shadow: none;
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  accent-color: var(--contribfest-checkbox-color);
 }
 
 a {

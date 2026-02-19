@@ -145,8 +145,17 @@ export function ChecklistItem({ item, onToggle, isChild = false }: ChecklistItem
           style={{
             border: '1px solid var(--bui-border-1, #d5d5d5)',
             borderRadius: '8px',
-            background: 'var(--bui-bg-app, #f8f8f8)',
+            background: 'var(--bui-bg-popover, #fff)',
             overflow: 'hidden',
+            transition: 'all 0.2s',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = 'var(--bui-bg-solid, #268271)'
+            e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)'
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = 'var(--bui-border-1, #d5d5d5)'
+            e.currentTarget.style.boxShadow = 'none'
           }}
         >
           <div
@@ -276,9 +285,22 @@ export function ChecklistItem({ item, onToggle, isChild = false }: ChecklistItem
       style={{
         border: isChild ? 'none' : '1px solid var(--bui-border-1, #d5d5d5)',
         borderRadius: isChild ? '0' : '8px',
-        background: isChild ? 'transparent' : 'var(--bui-bg-app, #f8f8f8)',
+        background: isChild ? 'transparent' : 'var(--bui-bg-popover, #fff)',
         marginBottom: isChild ? '0' : '12px',
         overflow: 'hidden',
+        transition: 'all 0.2s',
+      }}
+      onMouseEnter={(e) => {
+        if (!isChild) {
+          e.currentTarget.style.borderColor = 'var(--bui-bg-solid, #268271)'
+          e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)'
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (!isChild) {
+          e.currentTarget.style.borderColor = 'var(--bui-border-1, #d5d5d5)'
+          e.currentTarget.style.boxShadow = 'none'
+        }
       }}
     >
       <div
@@ -291,16 +313,6 @@ export function ChecklistItem({ item, onToggle, isChild = false }: ChecklistItem
           cursor: 'pointer',
           transition: 'all 0.2s',
           background: isChild ? 'transparent' : 'inherit',
-        }}
-        onMouseEnter={(e) => {
-          if (!isChild) {
-            e.currentTarget.style.background = 'var(--bui-bg-info, #dbeafe)'
-          }
-        }}
-        onMouseLeave={(e) => {
-          if (!isChild) {
-            e.currentTarget.style.background = 'var(--bui-bg-app, #f8f8f8)'
-          }
         }}
       >
         <input

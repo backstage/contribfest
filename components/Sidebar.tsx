@@ -95,7 +95,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                       ? 'var(--bui-bg-solid, #1f5493)'
                       : 'var(--bui-fg-primary, #000)',
                     background: isActive
-                      ? 'var(--bui-bg-info, #dbeafe)'
+                      ? 'var(--contribfest-sidebar-active-bg, #dcfce7)'
                       : 'transparent',
                     fontWeight: isActive ? 600 : 400,
                     fontSize: '14px',

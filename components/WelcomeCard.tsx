@@ -9,7 +9,7 @@ export function WelcomeCard({ title, description, url, isExternal }: ResourceCar
     border: '1px solid var(--bui-border-1, #d5d5d5)',
     borderRadius: '8px',
     padding: '24px',
-    background: 'var(--bui-bg-app, #f8f8f8)',
+    background: 'var(--bui-bg-popover, #fff)',
     transition: 'all 0.2s',
     cursor: 'pointer',
     height: '100%',
@@ -18,8 +18,8 @@ export function WelcomeCard({ title, description, url, isExternal }: ResourceCar
   }
 
   const hoverStyle = {
-    transform: 'translateY(-2px)',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+    borderColor: 'var(--bui-bg-solid, #268271)',
+    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
   }
 
   const content = (
@@ -81,7 +81,7 @@ export function WelcomeCard({ title, description, url, isExternal }: ResourceCar
           Object.assign(e.currentTarget.style, hoverStyle)
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'translateY(0)'
+          e.currentTarget.style.borderColor = 'var(--bui-border-1, #d5d5d5)'
           e.currentTarget.style.boxShadow = 'none'
         }}
       >
