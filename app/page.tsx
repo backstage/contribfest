@@ -164,6 +164,7 @@ export default function Page() {
       </div>
 
       <div
+        className="repo-resources-grid"
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
@@ -173,6 +174,7 @@ export default function Page() {
         {repositoryResources.map((resource) => (
           <WelcomeCard key={resource.title} {...resource} />
         ))}
+
       </div>
     </div>
   )

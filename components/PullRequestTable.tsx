@@ -103,6 +103,7 @@ export function PullRequestTable({ pullRequests }: PullRequestTableProps) {
       {/* Table */}
       <div style={{ overflowX: 'auto' }}>
         <table
+          className="pr-table"
           style={{
             width: '100%',
             borderCollapse: 'collapse',
@@ -114,12 +115,14 @@ export function PullRequestTable({ pullRequests }: PullRequestTableProps) {
           <thead>
             <tr style={{ background: 'rgba(31, 84, 147, 0.08)' }}>
               <th
+                className="col-compact"
                 style={{ ...thStyle, cursor: 'pointer', userSelect: 'none' }}
                 onClick={() => handleSort('number')}
               >
                 PR # {sortColumn === 'number' && (sortDirection === 'asc' ? '↑' : '↓')}
               </th>
               <th
+                className="col-compact"
                 style={{ ...thStyle, cursor: 'pointer', userSelect: 'none' }}
                 onClick={() => handleSort('user')}
               >
@@ -132,12 +135,14 @@ export function PullRequestTable({ pullRequests }: PullRequestTableProps) {
                 Title {sortColumn === 'title' && (sortDirection === 'asc' ? '↑' : '↓')}
               </th>
               <th
+                className="col-hide-mobile"
                 style={{ ...thStyle, cursor: 'pointer', userSelect: 'none' }}
                 onClick={() => handleSort('repository')}
               >
                 Repository {sortColumn === 'repository' && (sortDirection === 'asc' ? '↑' : '↓')}
               </th>
               <th
+                className="col-hide-mobile"
                 style={{ ...thStyle, cursor: 'pointer', userSelect: 'none' }}
                 onClick={() => handleSort('created_at')}
               >
@@ -154,7 +159,7 @@ export function PullRequestTable({ pullRequests }: PullRequestTableProps) {
                   background: index % 2 === 0 ? 'transparent' : 'rgba(128, 128, 128, 0.1)',
                 }}
               >
-                <td style={tdStyle}>
+                <td className="col-compact" style={tdStyle}>
                   <a
                     href={pr.html_url}
                     target="_blank"
@@ -168,7 +173,7 @@ export function PullRequestTable({ pullRequests }: PullRequestTableProps) {
                     #{pr.number}
                   </a>
                 </td>
-                <td style={tdStyle}>
+                <td className="col-compact" style={tdStyle}>
                   <a
                     href={pr.user.html_url}
                     target="_blank"
@@ -182,10 +187,10 @@ export function PullRequestTable({ pullRequests }: PullRequestTableProps) {
                   </a>
                 </td>
                 <td style={tdStyle}>{pr.title}</td>
-                <td style={tdStyle}>
+                <td className="col-hide-mobile" style={tdStyle}>
                   <code style={{ fontSize: '12px' }}>{pr.repository}</code>
                 </td>
-                <td style={tdStyle}>{formatDate(pr.created_at)}</td>
+                <td className="col-hide-mobile" style={tdStyle}>{formatDate(pr.created_at)}</td>
               </tr>
             ))}
           </tbody>

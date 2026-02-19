@@ -380,6 +380,34 @@ button {
     flex-direction: column;
   }
 
+  .repo-resources-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .issue-filters {
+    display: none !important;
+  }
+
+  .col-hide-mobile {
+    display: none;
+  }
+
+  .issue-table th,
+  .issue-table td,
+  .pr-table th,
+  .pr-table td {
+    padding: 8px 6px !important;
+  }
+
+  .col-compact {
+    width: 1%;
+    white-space: nowrap;
+  }
+
+  .sort-indicator {
+    display: none;
+  }
+
   .sessions-sidebar {
     width: 100%;
     min-width: unset;
