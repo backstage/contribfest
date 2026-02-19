@@ -5,6 +5,7 @@ import { IssueTable } from '@/components/IssueTable'
 import { CountdownModal } from '@/components/CountdownModal'
 import { useSearchParams } from 'next/navigation'
 import { useMemo } from 'react'
+import { RiRefreshLine } from '@remixicon/react'
 
 export default function IssuesPage() {
   const searchParams = useSearchParams()
@@ -43,7 +44,7 @@ export default function IssuesPage() {
   return (
     <div>
       <div style={{ marginBottom: '32px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px', flexWrap: 'wrap', gap: '12px' }}>
           <h1
             style={{
               fontSize: '32px',
@@ -74,6 +75,9 @@ export default function IssuesPage() {
                 cursor: loading ? 'not-allowed' : 'pointer',
                 transition: 'all 0.2s',
                 opacity: loading ? 0.6 : 1,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
               }}
               onMouseEnter={(e) => {
                 if (!loading) {
@@ -84,6 +88,7 @@ export default function IssuesPage() {
                 e.currentTarget.style.background = 'var(--bui-bg-app, #f8f8f8)'
               }}
             >
+              <RiRefreshLine size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
               {loading ? 'Refreshing...' : 'Refresh'}
             </button>
           </div>

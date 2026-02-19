@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useRef, useEffect } from 'react'
 import { BackstageLogo } from './BackstageLogo'
 import { ThemeToggle } from './ThemeToggle'
 
@@ -12,23 +13,34 @@ const navigationLinks = [
   { href: '/contrib-champs/', label: 'Contrib Champs', emoji: '🏆' },
 ]
 
-export function Sidebar() {
+interface SidebarProps {
+  isOpen: boolean
+  onClose: () => void
+}
+
+export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname()
+  const sidebarRef = useRef<HTMLElement>(null)
+
+  // Focus the sidebar when it opens on mobile
+  useEffect(() => {
+    if (isOpen && sidebarRef.current) {
+      sidebarRef.current.focus()
+    }
+  }, [isOpen])
 
   return (
     <aside
-      style={{
-        width: '250px',
-        padding: '24px 16px',
-        borderRight: '1px solid var(--bui-border-1, #d5d5d5)',
-        display: 'flex',
-        flexDirection: 'column',
-        background: 'var(--bui-bg-popover, #ffffff)',
-      }}
+      ref={sidebarRef}
+      id="sidebar-nav"
+      className={`sidebar ${isOpen ? 'sidebar-open' : ''}`}
+      role="navigation"
+      aria-label="Main navigation"
+      tabIndex={-1}
     >
       {/* Backstage Logo */}
       <div style={{ marginBottom: '24px', padding: '0 4px' }}>
-        <Link href="/" style={{ display: 'block', cursor: 'pointer' }}>
+        <Link href="/" style={{ display: 'block', cursor: 'pointer' }} onClick={onClose}>
           <BackstageLogo />
         </Link>
       </div>
@@ -57,8 +69,9 @@ export function Sidebar() {
       </div>
 
       {/* Navigation Links */}
-      <nav style={{ flex: 1 }}>
+      <nav aria-label="Site pages" style={{ flex: 1 }}>
         <ul
+          role="list"
           style={{
             listStyle: 'none',
             padding: 0,
@@ -71,6 +84,8 @@ export function Sidebar() {
               <li key={link.href} style={{ marginBottom: '8px' }}>
                 <Link
                   href={link.href}
+                  onClick={onClose}
+                  aria-current={isActive ? 'page' : undefined}
                   style={{
                     display: 'block',
                     padding: '10px 12px',
@@ -87,7 +102,7 @@ export function Sidebar() {
                     transition: 'all 0.2s',
                   }}
                 >
-                  <span style={{ marginRight: '8px' }}>{link.emoji}</span>
+                  <span aria-hidden="true" style={{ marginRight: '8px' }}>{link.emoji}</span>
                   {link.label}
                 </Link>
               </li>

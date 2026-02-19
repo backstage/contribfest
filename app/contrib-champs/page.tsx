@@ -4,6 +4,7 @@ import { usePullRequests } from '@/hooks/usePullRequests'
 import { PullRequestTable } from '@/components/PullRequestTable'
 import { SessionsSidebar } from '@/components/SessionsSidebar'
 import type { ContribFestSession } from '@/lib/types'
+import { RiRefreshLine } from '@remixicon/react'
 
 const sessions: ContribFestSession[] = [
   {
@@ -38,8 +39,8 @@ export default function ContribChampsPage() {
   const { pullRequests, loading, error, refresh } = usePullRequests()
 
   return (
-    <div style={{ display: 'flex' }}>
-      <div style={{ flex: 1 }}>
+    <div className="contrib-champs-layout">
+      <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ marginBottom: '32px' }}>
           <div
             style={{
@@ -47,6 +48,8 @@ export default function ContribChampsPage() {
               justifyContent: 'space-between',
               alignItems: 'flex-start',
               marginBottom: '12px',
+              flexWrap: 'wrap',
+              gap: '12px',
             }}
           >
             <h1
@@ -73,6 +76,9 @@ export default function ContribChampsPage() {
                 cursor: loading ? 'not-allowed' : 'pointer',
                 transition: 'all 0.2s',
                 opacity: loading ? 0.6 : 1,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
               }}
               onMouseEnter={(e) => {
                 if (!loading) {
@@ -83,6 +89,7 @@ export default function ContribChampsPage() {
                 e.currentTarget.style.background = 'var(--bui-bg-app, #f8f8f8)'
               }}
             >
+              <RiRefreshLine size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
               {loading ? 'Refreshing...' : 'Refresh'}
             </button>
           </div>

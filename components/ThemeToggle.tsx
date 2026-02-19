@@ -21,7 +21,7 @@ export function ThemeToggle() {
         alignItems: 'center',
         gap: '8px',
       }}
-      aria-label="Toggle theme"
+      aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
     >
       {theme === 'light' ? (
         <>

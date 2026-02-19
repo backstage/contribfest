@@ -2,8 +2,14 @@
 
 import { useState, useMemo } from 'react'
 import type { EnrichedIssue } from '@/lib/types'
-import { filterIssues, getUniqueRepositories, getUniqueLevels, getUniqueLabels } from '@/lib/filters'
+import {
+  filterIssues,
+  getUniqueRepositories,
+  getUniqueLevels,
+  getUniqueLabels,
+} from '@/lib/filters'
 import type { FilterOptions } from '@/lib/filters'
+import { RiSearchLine } from '@remixicon/react'
 
 interface IssueTableProps {
   issues: EnrichedIssue[]
@@ -132,14 +138,28 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
           >
             Search
           </label>
+          <div style={{ position: 'relative' }}>
           <input
             id="search"
             type="text"
             placeholder="Search by title..."
             value={filters.search}
             onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-            style={{ ...inputStyle, width: '100%' }}
+            style={{ ...inputStyle, width: '100%', paddingLeft: '36px' }}
           />
+          <RiSearchLine
+            size={16}
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              left: '12px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              color: 'var(--bui-fg-secondary, #666)',
+              pointerEvents: 'none',
+            }}
+          />
+          </div>
         </div>
 
         <div>
