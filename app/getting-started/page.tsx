@@ -309,6 +309,7 @@ export default function GettingStartedPage() {
       setNativeState(nativeChecklist)
       setDcState(devcontainerChecklist)
       setHasShownCelebration(false)
+      setDevEnv('native')
     }
   }
 

@@ -15,6 +15,7 @@ interface TimeRemaining {
 }
 
 export function CountdownModal({ targetDate }: CountdownModalProps) {
+  const [dismissed, setDismissed] = useState(false)
   const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>({
     days: 0,
     hours: 0,
@@ -146,6 +147,8 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
     )
   }
 
+  if (dismissed) return null
+
   return (
     <>
       <style>{`
@@ -244,8 +247,27 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
             borderRadius: '16px',
             textAlign: 'center',
             boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+            position: 'relative',
           }}
         >
+          <button
+            onClick={() => setDismissed(true)}
+            aria-label="Close"
+            style={{
+              position: 'absolute',
+              top: '16px',
+              right: '16px',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '24px',
+              lineHeight: 1,
+              color: 'var(--bui-fg-secondary, #666)',
+              padding: '4px',
+            }}
+          >
+            ×
+          </button>
           <h2
             className="countdown-modal-title"
             style={{
