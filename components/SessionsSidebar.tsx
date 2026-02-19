@@ -8,10 +8,8 @@ interface SessionsSidebarProps {
 export function SessionsSidebar({ sessions }: SessionsSidebarProps) {
   return (
     <aside
-      style={{
-        width: '300px',
-        marginLeft: '32px',
-      }}
+      className="sessions-sidebar"
+      aria-label="Past ContribFest sessions"
     >
       <div
         style={{

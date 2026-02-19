@@ -1,7 +1,7 @@
 import '@backstage/ui/css/styles.css'
 import './globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
-import { Sidebar } from '@/components/Sidebar'
+import { LayoutShell } from '@/components/LayoutShell'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 
 export const metadata = {
@@ -22,19 +22,10 @@ export default function RootLayout({
       <body>
         <GoogleAnalytics />
         <ThemeProvider>
-          <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
-            <Sidebar />
-            <main
-              style={{
-                flex: 1,
-                padding: '32px',
-                background: 'var(--bui-bg-popover, #ffffff)',
-                overflowY: 'auto',
-              }}
-            >
-              {children}
-            </main>
-          </div>
+          <a href="#main-content" className="skip-to-content">
+            Skip to content
+          </a>
+          <LayoutShell>{children}</LayoutShell>
         </ThemeProvider>
       </body>
     </html>

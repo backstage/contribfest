@@ -65,10 +65,9 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
 
   const FlipCard = ({ digit, shouldFlip }: { digit: string; shouldFlip: boolean }) => (
     <div
+      className="flip-card"
       style={{
         position: 'relative',
-        width: '60px',
-        height: '80px',
         perspective: '300px',
       }}
     >
@@ -84,12 +83,12 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontSize: '56px',
           fontWeight: 700,
           color: '#fff',
           boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
           animation: shouldFlip ? 'flip 0.6s ease-out' : 'none',
         }}
+        className="flip-card-inner"
       >
         {digit}
         {/* Divider line */}
@@ -121,14 +120,14 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
 
     return (
       <div
+        className="countdown-time-unit"
         style={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '12px',
         }}
       >
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div className="countdown-digit-row" style={{ display: 'flex' }}>
           <FlipCard digit={digits[0]} shouldFlip={digits[0] !== prevDigits[0]} />
           <FlipCard digit={digits[1]} shouldFlip={digits[1] !== prevDigits[1]} />
         </div>
@@ -165,6 +164,63 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
             transform: rotateX(0deg);
           }
         }
+        .flip-card {
+          width: 60px;
+          height: 80px;
+        }
+        .flip-card-inner {
+          font-size: 56px;
+        }
+        .countdown-modal-box {
+          padding: 48px;
+          max-width: 720px;
+        }
+        .countdown-modal-title {
+          font-size: 32px;
+        }
+        .countdown-modal-subtitle {
+          font-size: 18px;
+          margin-bottom: 48px;
+        }
+        .countdown-grid {
+          gap: 32px;
+        }
+        .countdown-time-unit {
+          gap: 12px;
+        }
+        .countdown-digit-row {
+          gap: 8px;
+        }
+        @media (max-width: 768px) {
+          .flip-card {
+            width: 36px;
+            height: 50px;
+          }
+          .flip-card-inner {
+            font-size: 28px;
+          }
+          .countdown-modal-box {
+            padding: 24px 16px;
+            max-width: 95vw;
+            margin: 0 8px;
+          }
+          .countdown-modal-title {
+            font-size: 22px;
+          }
+          .countdown-modal-subtitle {
+            font-size: 14px;
+            margin-bottom: 24px;
+          }
+          .countdown-grid {
+            gap: 12px;
+          }
+          .countdown-time-unit {
+            gap: 6px;
+          }
+          .countdown-digit-row {
+            gap: 4px;
+          }
+        }
       `}</style>
       <div
         style={{
@@ -182,18 +238,17 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
         }}
       >
         <div
+          className="countdown-modal-box"
           style={{
             background: 'var(--bui-bg-app, #f8f8f8)',
             borderRadius: '16px',
-            padding: '48px',
-            maxWidth: '720px',
             textAlign: 'center',
             boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
           }}
         >
           <h2
+            className="countdown-modal-title"
             style={{
-              fontSize: '32px',
               fontWeight: 700,
               marginBottom: '16px',
               color: 'var(--bui-fg-primary, #000)',
@@ -202,10 +257,9 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
             ContribFest Coming Soon!
           </h2>
           <p
+            className="countdown-modal-subtitle"
             style={{
-              fontSize: '18px',
               color: 'var(--bui-fg-secondary, #666)',
-              marginBottom: '48px',
               lineHeight: '1.6',
             }}
           >
@@ -214,10 +268,10 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
           </p>
 
           <div
+            className="countdown-grid"
             style={{
               display: 'flex',
               justifyContent: 'center',
-              gap: '32px',
               marginBottom: '32px',
             }}
           >
