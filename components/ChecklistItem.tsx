@@ -2,7 +2,46 @@
 
 import { useState } from 'react'
 import type { ChecklistItem as ChecklistItemType } from '@/lib/types'
-import { RiExternalLinkLine, RiFileCopyLine, RiCheckLine, RiArrowDownSLine } from '@remixicon/react'
+import {
+  RiExternalLinkLine,
+  RiFileCopyLine,
+  RiCheckLine,
+  RiArrowDownSLine,
+  RiComputerLine,
+  RiTerminalBoxLine,
+  RiToolsLine,
+  RiNodejsLine,
+  RiGitForkLine,
+  RiGitRepositoryLine,
+  RiDownloadLine,
+  RiEdit2Line,
+  RiHammerLine,
+  RiBookOpenLine,
+  RiTerminalLine,
+  RiCheckboxCircleLine,
+  RiShipLine,
+  RiCodeSSlashLine,
+  RiHardDriveLine,
+} from '@remixicon/react'
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const iconMap: Record<string, any> = {
+  computer: RiComputerLine,
+  terminal: RiTerminalBoxLine,
+  tools: RiToolsLine,
+  nodejs: RiNodejsLine,
+  'git-fork': RiGitForkLine,
+  'git-repo': RiGitRepositoryLine,
+  download: RiDownloadLine,
+  edit: RiEdit2Line,
+  hammer: RiHammerLine,
+  book: RiBookOpenLine,
+  'terminal-cmd': RiTerminalLine,
+  check: RiCheckboxCircleLine,
+  ship: RiShipLine,
+  code: RiCodeSSlashLine,
+  'hard-drive': RiHardDriveLine,
+}
 
 interface ChecklistItemProps {
   item: ChecklistItemType
@@ -126,14 +165,17 @@ export function ChecklistItem({ item, onToggle, isChild = false }: ChecklistItem
               style={{
                 width: '20px',
                 height: '20px',
-                marginRight: '16px',
+                marginRight: '12px',
                 marginTop: '2px',
                 cursor: 'pointer',
                 flexShrink: 0,
               }}
               aria-label={`Mark "${item.label}" as complete`}
             />
-            <div style={{ flex: 1 }}>
+            <div
+              style={{ flex: 1, cursor: 'pointer' }}
+              onClick={toggleExpanded}
+            >
               <div>
                 <span
                   style={{
@@ -141,8 +183,23 @@ export function ChecklistItem({ item, onToggle, isChild = false }: ChecklistItem
                     color: 'var(--bui-fg-primary, #000)',
                     textDecoration: item.completed ? 'line-through' : 'none',
                     fontWeight: item.completed ? 400 : 500,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
                   }}
                 >
+                  {item.icon && iconMap[item.icon] && (() => {
+                    const Icon = iconMap[item.icon!]
+                    return (
+                      <Icon
+                        size={20}
+                        style={{
+                          flexShrink: 0,
+                          color: 'var(--bui-fg-secondary, #666)',
+                        }}
+                      />
+                    )
+                  })()}
                   {item.label}
                 </span>
                 {item.link && (
@@ -253,7 +310,7 @@ export function ChecklistItem({ item, onToggle, isChild = false }: ChecklistItem
           style={{
             width: '20px',
             height: '20px',
-            marginRight: '16px',
+            marginRight: '12px',
             marginTop: '2px',
             cursor: 'pointer',
             flexShrink: 0,
@@ -268,8 +325,23 @@ export function ChecklistItem({ item, onToggle, isChild = false }: ChecklistItem
                 color: 'var(--bui-fg-primary, #000)',
                 textDecoration: item.completed ? 'line-through' : 'none',
                 fontWeight: item.completed ? 400 : 500,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px',
               }}
             >
+              {item.icon && iconMap[item.icon] && (() => {
+                const Icon = iconMap[item.icon!]
+                return (
+                  <Icon
+                    size={18}
+                    style={{
+                      flexShrink: 0,
+                      color: 'var(--bui-fg-secondary, #666)',
+                    }}
+                  />
+                )
+              })()}
               {item.label}
             </span>
             {item.link && (
