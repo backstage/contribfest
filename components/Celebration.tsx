@@ -9,19 +9,41 @@ interface CelebrationProps {
 
 export function Celebration({ onClose }: CelebrationProps) {
   const router = useRouter()
-  const [particles, setParticles] = useState<Array<{ id: number; left: number; delay: number; emoji: string }>>([])
+  const [particles, setParticles] = useState<Array<{ id: number; left: number; bottom: number; delay: number; size: number; rotation: number; image: string }>>([])
 
   useEffect(() => {
-    // Generate random confetti particles with emojis
-    const emojis = ['🎉', '🎊', '✨', '🌟', '⭐', '🎈', '🚀', '💪', '👏', '🙌', '🔥', '💯']
-    const newParticles = Array.from({ length: 50 }, (_, i) => ({
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
+    const images = [
+      `${basePath}/img/astronaut_flying_drk.png`,
+      `${basePath}/img/astronaut_standing_drk.png`,
+      `${basePath}/img/community_avocado_drk.png`,
+      `${basePath}/img/community_organizer_drk.png`,
+      `${basePath}/img/contentalicious_drk.png`,
+      `${basePath}/img/looking_drk.png`,
+      `${basePath}/img/love_backstage_drk.png`,
+      `${basePath}/img/walking_drk.png`,
+      `${basePath}/img/waving_drk.png`,
+    ]
+    const newParticles = Array.from({ length: 40 }, (_, i) => ({
       id: i,
-      left: Math.random() * 100,
-      delay: Math.random() * 0.5,
-      emoji: emojis[Math.floor(Math.random() * emojis.length)],
+      left: Math.random() * 96,
+      bottom: Math.random() * 8,
+      delay: Math.random() * 1.5,
+      size: 40 + Math.floor(Math.random() * 24),
+      rotation: Math.random() * 40 - 20,
+      image: images[Math.floor(Math.random() * images.length)],
     }))
     setParticles(newParticles)
   }, [])
+
+  useEffect(() => {
+    if (!onClose) return
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [onClose])
 
   const handleGoToIssues = () => {
     router.push('/issues')
@@ -50,13 +72,14 @@ export function Celebration({ onClose }: CelebrationProps) {
           style={{
             position: 'absolute',
             left: `${particle.left}%`,
-            top: '-10%',
-            fontSize: '24px',
-            animation: `fall 3s ease-in ${particle.delay}s`,
+            bottom: `${particle.bottom}%`,
+            transform: 'translateY(-110vh)',
+            animation: `fall 2s ease-in ${particle.delay}s forwards`,
             opacity: 0,
           }}
         >
-          {particle.emoji}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={particle.image} alt="" width={particle.size} height={particle.size} style={{ objectFit: 'contain', transform: `rotate(${particle.rotation}deg)` }} />
         </div>
       ))}
 
@@ -74,7 +97,10 @@ export function Celebration({ onClose }: CelebrationProps) {
           zIndex: 1,
         }}
       >
-        <div style={{ fontSize: '64px', marginBottom: '24px' }}>🎉</div>
+        <div style={{ marginBottom: '24px' }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/img/waving_drk.png`} alt="Bowie celebrating" width={96} height={96} style={{ objectFit: 'contain' }} />
+        </div>
         <h2
           style={{
             fontSize: '32px',
@@ -116,7 +142,7 @@ export function Celebration({ onClose }: CelebrationProps) {
               e.currentTarget.style.background = 'var(--bui-bg-solid, #1f5493)'
             }}
           >
-            Go to Issues 🎯
+            Go to Issues
           </button>
           {onClose && (
             <button
@@ -168,12 +194,15 @@ export function Celebration({ onClose }: CelebrationProps) {
 
         @keyframes fall {
           0% {
+            opacity: 0;
+            transform: translateY(-110vh);
+          }
+          20% {
             opacity: 1;
-            transform: translateY(0) rotate(0deg);
           }
           100% {
-            opacity: 0;
-            transform: translateY(100vh) rotate(360deg);
+            opacity: 1;
+            transform: translateY(0);
           }
         }
       `}</style>
