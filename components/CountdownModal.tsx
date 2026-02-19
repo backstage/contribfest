@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 interface CountdownModalProps {
@@ -14,15 +14,96 @@ interface TimeRemaining {
   seconds: number
 }
 
+const FlipCard = ({ digit, shouldFlip }: { digit: string; shouldFlip: boolean }) => (
+  <div
+    className="flip-card"
+    style={{
+      position: 'relative',
+      perspective: '300px',
+    }}
+  >
+    {/* Card container */}
+    <div
+      key={shouldFlip ? digit : undefined}
+      style={{
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        background: '#2d2d2d',
+        borderRadius: '8px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontWeight: 700,
+        color: '#fff',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+        animation: shouldFlip ? 'flip 0.6s ease-out' : 'none',
+      }}
+      className="flip-card-inner"
+    >
+      {digit}
+      {/* Divider line */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: 0,
+          right: 0,
+          height: '2px',
+          background: 'rgba(0, 0, 0, 0.2)',
+        }}
+      />
+    </div>
+  </div>
+)
+
+const TimeUnit = ({
+  value,
+  prevValue,
+  label,
+}: {
+  value: number
+  prevValue: number
+  label: string
+}) => {
+  const digits = String(value).padStart(2, '0').split('')
+  const prevDigits = String(prevValue).padStart(2, '0').split('')
+
+  return (
+    <div
+      className="countdown-time-unit"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
+      <div className="countdown-digit-row" style={{ display: 'flex' }}>
+        <FlipCard digit={digits[0]} shouldFlip={digits[0] !== prevDigits[0]} />
+        <FlipCard digit={digits[1]} shouldFlip={digits[1] !== prevDigits[1]} />
+      </div>
+      <div
+        style={{
+          fontSize: '14px',
+          fontWeight: 600,
+          color: 'var(--bui-fg-secondary, #666)',
+          textTransform: 'uppercase',
+          letterSpacing: '0.5px',
+        }}
+      >
+        {label}
+      </div>
+    </div>
+  )
+}
+
 export function CountdownModal({ targetDate }: CountdownModalProps) {
   const [dismissed, setDismissed] = useState(false)
-  const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
+  const zero = { days: 0, hours: 0, minutes: 0, seconds: 0 }
+  const [timeState, setTimeState] = useState<{ current: TimeRemaining; prev: TimeRemaining }>({
+    current: zero,
+    prev: zero,
   })
-  const prevTimeRef = useRef<TimeRemaining>(timeRemaining)
 
   useEffect(() => {
     const calculateTimeRemaining = () => {
@@ -31,12 +112,7 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
       const difference = target - now
 
       if (difference <= 0) {
-        return {
-          days: 0,
-          hours: 0,
-          minutes: 0,
-          seconds: 0,
-        }
+        return { days: 0, hours: 0, minutes: 0, seconds: 0 }
       }
 
       return {
@@ -47,18 +123,17 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
       }
     }
 
-    // Initial calculation
+    // Initial calculation — intentional setState in effect to sync with real clock
     const initial = calculateTimeRemaining()
-    setTimeRemaining(initial)
-    prevTimeRef.current = initial
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setTimeState({ current: initial, prev: initial })
 
     // Update every second
     const interval = setInterval(() => {
-      setTimeRemaining(prevTime => {
-        const newTime = calculateTimeRemaining()
-        prevTimeRef.current = prevTime
-        return newTime
-      })
+      setTimeState(({ current: prevTime }) => ({
+        current: calculateTimeRemaining(),
+        prev: prevTime,
+      }))
     }, 1000)
 
     return () => clearInterval(interval)
@@ -71,89 +146,6 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
-
-  const FlipCard = ({ digit, shouldFlip }: { digit: string; shouldFlip: boolean }) => (
-    <div
-      className="flip-card"
-      style={{
-        position: 'relative',
-        perspective: '300px',
-      }}
-    >
-      {/* Card container */}
-      <div
-        key={shouldFlip ? digit : undefined}
-        style={{
-          position: 'absolute',
-          width: '100%',
-          height: '100%',
-          background: '#2d2d2d',
-          borderRadius: '8px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontWeight: 700,
-          color: '#fff',
-          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
-          animation: shouldFlip ? 'flip 0.6s ease-out' : 'none',
-        }}
-        className="flip-card-inner"
-      >
-        {digit}
-        {/* Divider line */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: 0,
-            right: 0,
-            height: '2px',
-            background: 'rgba(0, 0, 0, 0.2)',
-          }}
-        />
-      </div>
-    </div>
-  )
-
-  const TimeUnit = ({
-    value,
-    prevValue,
-    label,
-  }: {
-    value: number
-    prevValue: number
-    label: string
-  }) => {
-    const digits = String(value).padStart(2, '0').split('')
-    const prevDigits = String(prevValue).padStart(2, '0').split('')
-
-    return (
-      <div
-        className="countdown-time-unit"
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <div className="countdown-digit-row" style={{ display: 'flex' }}>
-          <FlipCard digit={digits[0]} shouldFlip={digits[0] !== prevDigits[0]} />
-          <FlipCard digit={digits[1]} shouldFlip={digits[1] !== prevDigits[1]} />
-        </div>
-        <div
-          style={{
-            fontSize: '14px',
-            fontWeight: 600,
-            color: 'var(--bui-fg-secondary, #666)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.5px',
-          }}
-        >
-          {label}
-        </div>
-      </div>
-    )
-  }
 
   if (dismissed) return null
 
@@ -306,23 +298,23 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
             }}
           >
             <TimeUnit
-              value={timeRemaining.days}
-              prevValue={prevTimeRef.current.days}
+              value={timeState.current.days}
+              prevValue={timeState.prev.days}
               label="Days"
             />
             <TimeUnit
-              value={timeRemaining.hours}
-              prevValue={prevTimeRef.current.hours}
+              value={timeState.current.hours}
+              prevValue={timeState.prev.hours}
               label="Hours"
             />
             <TimeUnit
-              value={timeRemaining.minutes}
-              prevValue={prevTimeRef.current.minutes}
+              value={timeState.current.minutes}
+              prevValue={timeState.prev.minutes}
               label="Minutes"
             />
             <TimeUnit
-              value={timeRemaining.seconds}
-              prevValue={prevTimeRef.current.seconds}
+              value={timeState.current.seconds}
+              prevValue={timeState.prev.seconds}
               label="Seconds"
             />
           </div>

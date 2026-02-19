@@ -1,14 +1,14 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore, useEffect } from 'react'
 import type { Theme } from '@/lib/types'
 
+function subscribe() { return () => {} }
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [mounted, setMounted] = useState(false)
+  const mounted = useSyncExternalStore(subscribe, () => true, () => false)
 
   useEffect(() => {
-    setMounted(true)
-
     // Initialize theme from localStorage or system preference
     const stored = window.localStorage.getItem('contribfest-theme') as Theme | null
     if (stored) {

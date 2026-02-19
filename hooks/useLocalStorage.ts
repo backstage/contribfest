@@ -9,19 +9,17 @@ export function useLocalStorage<T>(
   // State to store our value
   // Pass initial state function to useState so logic is only executed once
   const [storedValue, setStoredValue] = useState<T>(initialValue)
-  const [isInitialized, setIsInitialized] = useState(false)
 
   // Load from localStorage on mount
   useEffect(() => {
     try {
       const item = window.localStorage.getItem(key)
       if (item) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setStoredValue(JSON.parse(item))
       }
     } catch (error) {
       console.error(`Error loading localStorage key "${key}":`, error)
-    } finally {
-      setIsInitialized(true)
     }
   }, [key])
 
