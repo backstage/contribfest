@@ -4,7 +4,6 @@ import { usePullRequests } from '@/hooks/usePullRequests'
 import { PullRequestTable } from '@/components/PullRequestTable'
 import { SessionsSidebar } from '@/components/SessionsSidebar'
 import type { ContribFestSession } from '@/lib/types'
-import { RiRefreshLine } from '@remixicon/react'
 
 const sessions: ContribFestSession[] = [
   {
@@ -36,63 +35,22 @@ const sessions: ContribFestSession[] = [
 ]
 
 export default function ContribChampsPage() {
-  const { pullRequests, loading, error, refresh } = usePullRequests()
+  const { pullRequests, loading, error } = usePullRequests()
 
   return (
     <div className="contrib-champs-layout">
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ marginBottom: '32px' }}>
-          <div
+          <h1
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
+              fontSize: '32px',
+              fontWeight: 700,
               marginBottom: '12px',
-              flexWrap: 'wrap',
-              gap: '12px',
+              color: 'var(--bui-fg-primary, #000)',
             }}
           >
-            <h1
-              style={{
-                fontSize: '32px',
-                fontWeight: 700,
-                margin: 0,
-                color: 'var(--bui-fg-primary, #000)',
-              }}
-            >
-              🏆 Contrib Champs
-            </h1>
-            <button
-              onClick={refresh}
-              disabled={loading}
-              style={{
-                padding: '8px 16px',
-                background: 'var(--bui-bg-app, #f8f8f8)',
-                border: '1px solid var(--bui-border-1, #d5d5d5)',
-                borderRadius: '6px',
-                fontSize: '14px',
-                fontWeight: 500,
-                color: 'var(--bui-fg-primary, #000)',
-                cursor: loading ? 'not-allowed' : 'pointer',
-                transition: 'all 0.2s',
-                opacity: loading ? 0.6 : 1,
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-              }}
-              onMouseEnter={(e) => {
-                if (!loading) {
-                  e.currentTarget.style.background = 'var(--bui-bg-info, #dbeafe)'
-                }
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'var(--bui-bg-app, #f8f8f8)'
-              }}
-            >
-              <RiRefreshLine size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
-              {loading ? 'Refreshing...' : 'Refresh'}
-            </button>
-          </div>
+            🏆 Contrib Champs
+          </h1>
           <p
             style={{
               fontSize: '16px',
