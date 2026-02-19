@@ -7,10 +7,10 @@ import { BackstageLogo } from './BackstageLogo'
 import { ThemeToggle } from './ThemeToggle'
 
 const navigationLinks = [
-  { href: '/', label: 'Welcome', emoji: '👋' },
-  { href: '/getting-started/', label: 'Getting Started', emoji: '🚀' },
-  { href: '/issues/', label: 'Curated Issues', emoji: '🔍' },
-  { href: '/contrib-champs/', label: 'Contrib Champs', emoji: '🏆' },
+  { href: '/', label: 'Welcome', emoji: '👋', image: 'waving_drk.png' },
+  { href: '/getting-started/', label: 'Getting Started', emoji: '🚀', image: 'walking_drk.png' },
+  { href: '/issues/', label: 'Curated Issues', emoji: '🔍', image: 'looking_drk.png' },
+  { href: '/contrib-champs/', label: 'Contrib Champs', emoji: '🏆', image: 'love_backstage_drk.png' },
 ]
 
 interface SidebarProps {
@@ -111,8 +111,18 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         </ul>
       </nav>
 
+      {/* Bowie the Backstage Beaver */}
+      <div style={{ marginTop: 'auto', textAlign: 'center' }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/img/${navigationLinks.find(l => l.href === pathname)?.image ?? 'waving_drk.png'}`}
+          alt="Bowie the Backstage Beaver"
+          style={{ width: '85%', height: 'auto' }}
+        />
+      </div>
+
       {/* Theme Toggle */}
-      <div style={{ marginTop: 'auto' }}>
+      <div>
         <ThemeToggle />
       </div>
     </aside>
