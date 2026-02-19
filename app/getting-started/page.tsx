@@ -374,7 +374,7 @@ export default function GettingStartedPage() {
             style={{
               flex: 1,
               padding: '16px',
-              background: 'var(--bui-bg-info, #dbeafe)',
+              background: 'var(--contribfest-progress-bg, #dcfce7)',
               borderRadius: '8px',
               fontSize: '18px',
               fontWeight: 600,
@@ -397,7 +397,7 @@ export default function GettingStartedPage() {
               transition: 'all 0.2s',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--bui-bg-info, #dbeafe)'
+              e.currentTarget.style.background = 'var(--contribfest-progress-bg, #dcfce7)'
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = 'var(--bui-bg-app, #f8f8f8)'

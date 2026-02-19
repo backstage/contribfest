@@ -14,10 +14,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (stored) {
       document.documentElement.setAttribute('data-theme-mode', stored)
     } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-      const theme = prefersDark ? 'dark' : 'light'
-      document.documentElement.setAttribute('data-theme-mode', theme)
-      window.localStorage.setItem('contribfest-theme', theme)
+      document.documentElement.setAttribute('data-theme-mode', 'dark')
+      window.localStorage.setItem('contribfest-theme', 'dark')
     }
   }, [])
 
