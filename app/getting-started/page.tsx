@@ -1,27 +1,29 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import { useLocalStorage } from '@/hooks/useLocalStorage'
-import { ChecklistItem } from '@/components/ChecklistItem'
-import { Celebration } from '@/components/Celebration'
-import type { ChecklistItem as ChecklistItemType } from '@/lib/types'
-import { WelcomeCard } from '@/components/WelcomeCard'
-import type { ResourceCard } from '@/lib/types'
+import { useState, useEffect } from 'react';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { ChecklistItem } from '@/components/ChecklistItem';
+import { Celebration } from '@/components/Celebration';
+import type { ChecklistItem as ChecklistItemType } from '@/lib/types';
+import { WelcomeCard } from '@/components/WelcomeCard';
+import type { ResourceCard } from '@/lib/types';
 
-type DevEnvironment = 'native' | 'devcontainer'
+type DevEnvironment = 'native' | 'devcontainer';
 
 const forkItems: ChecklistItemType[] = [
   {
     id: 'fork-backstage',
     label: 'Fork and Clone the Backstage Repository',
-    description: 'Follow these steps to get the Backstage repo ready for contributing.',
+    description:
+      'Follow these steps to get the Backstage repo ready for contributing.',
     icon: 'git-fork',
     completed: false,
     children: [
       {
         id: 'fork-backstage-fork',
         label: 'Fork Backstage Repository',
-        description: 'The link will bring you to a GitHub page that simplifies the process of creating a fork. All you need to do is pick the Owner from the drop down, in this case that will be your GitHub username. Then hit the Create fork button!',
+        description:
+          'The link will bring you to a GitHub page that simplifies the process of creating a fork. All you need to do is pick the Owner from the drop down, in this case that will be your GitHub username. Then hit the Create fork button!',
         link: 'https://github.com/backstage/backstage/fork',
         icon: 'git-fork',
         completed: false,
@@ -29,7 +31,8 @@ const forkItems: ChecklistItemType[] = [
       {
         id: 'fork-backstage-clone',
         label: 'Clone your Backstage fork',
-        description: '`git clone --filter=tree:0 https://github.com/{your-github-username}/backstage`\nMake sure to update the command with your GitHub username!',
+        description:
+          '`git clone --filter=tree:0 https://github.com/{your-github-username}/backstage`\nMake sure to update the command with your GitHub username!',
         icon: 'download',
         completed: false,
       },
@@ -38,14 +41,16 @@ const forkItems: ChecklistItemType[] = [
   {
     id: 'fork-plugins',
     label: 'Fork and Clone the Community Plugins Repository',
-    description: 'Follow these steps to get the Community Plugins repo ready for contributing.',
+    description:
+      'Follow these steps to get the Community Plugins repo ready for contributing.',
     icon: 'git-fork',
     completed: false,
     children: [
       {
         id: 'fork-plugins-fork',
         label: 'Fork Community Plugins Repository',
-        description: 'The link will bring you to a GitHub page that simplifies the process of creating a fork. All you need to do is pick the Owner from the drop down, in this case that will be your GitHub username. Then hit the Create fork button!',
+        description:
+          'The link will bring you to a GitHub page that simplifies the process of creating a fork. All you need to do is pick the Owner from the drop down, in this case that will be your GitHub username. Then hit the Create fork button!',
         link: 'https://github.com/backstage/community-plugins/fork',
         icon: 'git-fork',
         completed: false,
@@ -53,42 +58,45 @@ const forkItems: ChecklistItemType[] = [
       {
         id: 'fork-plugins-clone',
         label: 'Clone your Community Plugins fork',
-        description: '`git clone --filter=tree:0 https://github.com/{your-github-username}/community-plugins`\nMake sure to update the command with your GitHub username!',
+        description:
+          '`git clone --filter=tree:0 https://github.com/{your-github-username}/community-plugins`\nMake sure to update the command with your GitHub username!',
         icon: 'download',
         completed: false,
       },
     ],
   },
-]
+];
 
-const forkItemIds = new Set(['fork-backstage', 'fork-plugins'])
+const forkItemIds = new Set(['fork-backstage', 'fork-plugins']);
 
 const sidebarResources: ResourceCard[] = [
   {
-    title: 'Placeholder Title 1',
-    description: 'A short description of this Backstage resource.',
-    url: 'https://backstage.io',
+    title: 'Introduction to Plugins',
+    description: 'Learn more about plugin development in Backstage.',
+    url: 'https://backstage.io/docs/plugins/',
     isExternal: true,
   },
   {
-    title: 'Placeholder Title 2',
-    description: 'A short description of this Backstage resource.',
-    url: 'https://backstage.io',
+    title: 'New Frontend System Plugin Migration Guide',
+    description:
+      'A helpful guide for migrating plugins to the New Frontend System.',
+    url: 'https://backstage.io/docs/frontend-system/building-plugins/migrating',
     isExternal: true,
   },
   {
-    title: 'Placeholder Title 3',
-    description: 'A short description of this Backstage resource.',
-    url: 'https://backstage.io',
+    title: 'Backstage UI (BUI) Documentation',
+    description:
+      'The documentation for all the available Backstage UI (BUI) components and how to use them.',
+    url: 'https://ui.backstage.io/',
     isExternal: true,
   },
   {
-    title: 'Placeholder Title 4',
-    description: 'A short description of this Backstage resource.',
-    url: 'https://backstage.io',
+    title: 'Backend System',
+    description: 'Details about the Backend System used by Backstage.',
+    url: 'https://backstage.io/docs/backend-system/',
     isExternal: true,
   },
-]
+];
 
 const nativeChecklist: ChecklistItemType[] = [
   {
@@ -101,21 +109,24 @@ const nativeChecklist: ChecklistItemType[] = [
   {
     id: 'os-requirements',
     label: 'Operating System Requirements',
-    description: 'Access to a Unix-based operating system, such as Linux, macOS or Windows Subsystem for Linux (WSL). The Linux version must support the required Node.js version.',
+    description:
+      'Access to a Unix-based operating system, such as Linux, macOS or Windows Subsystem for Linux (WSL). The Linux version must support the required Node.js version.',
     icon: 'terminal',
     completed: false,
   },
   {
     id: 'tooling-requirements',
     label: 'Tooling Requirements',
-    description: 'The following tools need to be installed, these won\'t be covered in detail as they are very likely already installed and setup.',
+    description:
+      "The following tools need to be installed, these won't be covered in detail as they are very likely already installed and setup.",
     icon: 'tools',
     completed: false,
     children: [
       {
         id: 'tooling-build-environment',
         label: 'Build Environment',
-        description: 'A GNU-like build environment available at the command line. For example, on Debian/Ubuntu you will want to have the make and build-essential packages installed. On macOS, you will want to run `xcode-select --install` to get the XCode command line build tooling in place.',
+        description:
+          'A GNU-like build environment available at the command line. For example, on Debian/Ubuntu you will want to have the make and build-essential packages installed. On macOS, you will want to run `xcode-select --install` to get the XCode command line build tooling in place.',
         icon: 'hammer',
         completed: false,
       },
@@ -129,14 +140,16 @@ const nativeChecklist: ChecklistItemType[] = [
       {
         id: 'tooling-git',
         label: 'git installed',
-        description: 'git is used throughout the session and is the key method for contributing your changes.',
+        description:
+          'git is used throughout the session and is the key method for contributing your changes.',
         icon: 'git-repo',
         completed: false,
       },
       {
         id: 'tooling-text-editor',
         label: 'Text editor',
-        description: 'This can be VSCode, Cursor, vim, emacs or whatever your preferred editor might be!',
+        description:
+          'This can be VSCode, Cursor, vim, emacs or whatever your preferred editor might be!',
         icon: 'edit',
         completed: false,
       },
@@ -145,21 +158,24 @@ const nativeChecklist: ChecklistItemType[] = [
   {
     id: 'nodejs',
     label: 'Install Node.js',
-    description: 'Follow these steps to get Node installed on the version you\'ll need for ContribFest.',
+    description:
+      "Follow these steps to get Node installed on the version you'll need for ContribFest.",
     icon: 'nodejs',
     completed: false,
     children: [
       {
         id: 'nodejs-version-check',
         label: 'Node version check',
-        description: '`node --version`\nThis command should output v22.x.x, if you get an error like command not found you need to install Node, if you see a different version then you need to install the correct version.',
+        description:
+          '`node --version`\nThis command should output v22.x.x, if you get an error like command not found you need to install Node, if you see a different version then you need to install the correct version.',
         icon: 'check',
         completed: false,
       },
       {
         id: 'nodejs-nvm',
         label: 'Install nvm',
-        description: '`curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash`',
+        description:
+          '`curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash`',
         link: 'https://github.com/nvm-sh/nvm#installing-and-updating',
         icon: 'download',
         completed: false,
@@ -183,14 +199,16 @@ const nativeChecklist: ChecklistItemType[] = [
   {
     id: 'yarn',
     label: 'Install Yarn',
-    description: 'Follow these steps to install Yarn, this is the package manager Backstage and Community Plugins uses.',
+    description:
+      'Follow these steps to install Yarn, this is the package manager Backstage and Community Plugins uses.',
     icon: 'code',
     completed: false,
     children: [
       {
         id: 'yarn-version-check',
         label: 'Yarn version check',
-        description: '`yarn -v`\nThis command should output 4.x.x, if you get an error like command not found you need to install Yarn, if you don\'t see version 4 then you need to install the correct version.',
+        description:
+          "`yarn -v`\nThis command should output 4.x.x, if you get an error like command not found you need to install Yarn, if you don't see version 4 then you need to install the correct version.",
         icon: 'check',
         completed: false,
       },
@@ -204,42 +222,48 @@ const nativeChecklist: ChecklistItemType[] = [
     ],
   },
   ...forkItems,
-]
+];
 
 const devcontainerChecklist: ChecklistItemType[] = [
   {
     id: 'dc-system-requirements',
     label: 'System Requirements',
-    description: 'At least 2 CPU cores, 4GB of RAM, and 32GB of free disk space.',
+    description:
+      'At least 2 CPU cores, 4GB of RAM, and 32GB of free disk space.',
     icon: 'computer',
     completed: false,
   },
   {
     id: 'dc-os-requirements',
     label: 'Operating System Requirements',
-    description: 'A Docker-compatible operating system: Linux, macOS, or Windows (with WSL 2 enabled).',
+    description:
+      'A Docker-compatible operating system: Linux, macOS, or Windows (with WSL 2 enabled).',
     icon: 'terminal',
     completed: false,
   },
   {
     id: 'dc-tooling-requirements',
     label: 'Tooling Requirements',
-    description: 'The following tools need to be installed to use Dev Containers.',
+    description:
+      'The following tools need to be installed to use Dev Containers.',
     icon: 'tools',
     completed: false,
     children: [
       {
         id: 'dc-tooling-docker',
         label: 'Docker Desktop (or Docker Engine on Linux)',
-        description: 'Install Docker Desktop for Mac or Windows, or Docker Engine for Linux.',
+        description:
+          'Install Docker Desktop for Mac or Windows, or Docker Engine for Linux.',
         link: 'https://docs.docker.com/get-docker/',
         icon: 'ship',
         completed: false,
       },
       {
         id: 'dc-tooling-editor',
-        label: 'VS Code with Dev Containers extension or IntelliJ IDEA Ultimate',
-        description: 'Install VS Code and the Dev Containers extension from the Marketplace, or use IntelliJ IDEA Ultimate which has built-in support.',
+        label:
+          'VS Code with Dev Containers extension or IntelliJ IDEA Ultimate',
+        description:
+          'Install VS Code and the Dev Containers extension from the Marketplace, or use IntelliJ IDEA Ultimate which has built-in support.',
         link: 'https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers',
         icon: 'edit',
         completed: false,
@@ -247,14 +271,16 @@ const devcontainerChecklist: ChecklistItemType[] = [
       {
         id: 'dc-tooling-git',
         label: 'git installed',
-        description: 'git is used to clone the repository and contribute your changes.',
+        description:
+          'git is used to clone the repository and contribute your changes.',
         icon: 'git-repo',
         completed: false,
       },
       {
         id: 'dc-tooling-docs',
         label: 'Read the Dev Containers documentation',
-        description: 'Learn how Dev Containers work and how to use them effectively for backstage development.',
+        description:
+          'Learn how Dev Containers work and how to use them effectively for backstage development.',
         link: 'https://github.com/backstage/backstage/blob/master/contrib/docs/tutorials/devcontainer.md',
         icon: 'book',
         completed: false,
@@ -262,32 +288,32 @@ const devcontainerChecklist: ChecklistItemType[] = [
     ],
   },
   ...forkItems,
-]
+];
 
 export default function GettingStartedPage() {
   const [devEnv, setDevEnv] = useLocalStorage<DevEnvironment>(
     'contribfest-dev-environment',
-    'native'
-  )
+    'native',
+  );
   const [nativeState, setNativeState] = useLocalStorage<ChecklistItemType[]>(
     'contribfest-checklist-native',
-    nativeChecklist
-  )
+    nativeChecklist,
+  );
   const [dcState, setDcState] = useLocalStorage<ChecklistItemType[]>(
     'contribfest-checklist-devcontainer',
-    devcontainerChecklist
-  )
+    devcontainerChecklist,
+  );
 
-  const checklist = devEnv === 'devcontainer' ? dcState : nativeState
-  const setChecklist = devEnv === 'devcontainer' ? setDcState : setNativeState
+  const checklist = devEnv === 'devcontainer' ? dcState : nativeState;
+  const setChecklist = devEnv === 'devcontainer' ? setDcState : setNativeState;
 
-  const [showCelebration, setShowCelebration] = useState(false)
+  const [showCelebration, setShowCelebration] = useState(false);
   const [hasShownCelebration, setHasShownCelebration] = useState(() => {
     if (typeof window !== 'undefined') {
-      return localStorage.getItem('contribfest-celebration-shown') === 'true'
+      return localStorage.getItem('contribfest-celebration-shown') === 'true';
     }
-    return false
-  })
+    return false;
+  });
 
   const handleToggle = (id: string) => {
     setChecklist((prevChecklist) => {
@@ -295,7 +321,7 @@ export default function GettingStartedPage() {
         return items.map((item) => {
           // If this is the item being toggled
           if (item.id === id) {
-            const newCompleted = !item.completed
+            const newCompleted = !item.completed;
             // If it has children, toggle all children to match parent
             if (item.children && item.children.length > 0) {
               return {
@@ -305,66 +331,79 @@ export default function GettingStartedPage() {
                   ...child,
                   completed: newCompleted,
                 })),
-              }
+              };
             }
-            return { ...item, completed: newCompleted }
+            return { ...item, completed: newCompleted };
           }
 
           // If this item has children, check if any child was toggled
           if (item.children && item.children.length > 0) {
-            const updatedChildren = toggleItem(item.children)
-            const allChildrenCompleted = updatedChildren.every((child) => child.completed)
+            const updatedChildren = toggleItem(item.children);
+            const allChildrenCompleted = updatedChildren.every(
+              (child) => child.completed,
+            );
 
             return {
               ...item,
               children: updatedChildren,
               completed: allChildrenCompleted,
-            }
+            };
           }
 
-          return item
-        })
-      }
+          return item;
+        });
+      };
 
-      return toggleItem(prevChecklist)
-    })
-  }
+      return toggleItem(prevChecklist);
+    });
+  };
 
   const handleReset = () => {
-    if (window.confirm('Are you sure you want to reset all checkboxes? This will clear all your progress.')) {
-      window.localStorage.removeItem('contribfest-checklist-native')
-      window.localStorage.removeItem('contribfest-checklist-devcontainer')
-      window.localStorage.removeItem('contribfest-celebration-shown')
-      setNativeState(nativeChecklist)
-      setDcState(devcontainerChecklist)
-      setHasShownCelebration(false)
-      setDevEnv('native')
+    if (
+      window.confirm(
+        'Are you sure you want to reset all checkboxes? This will clear all your progress.',
+      )
+    ) {
+      window.localStorage.removeItem('contribfest-checklist-native');
+      window.localStorage.removeItem('contribfest-checklist-devcontainer');
+      window.localStorage.removeItem('contribfest-celebration-shown');
+      setNativeState(nativeChecklist);
+      setDcState(devcontainerChecklist);
+      setHasShownCelebration(false);
+      setDevEnv('native');
     }
-  }
+  };
 
   // Progress: non-fork items count individually, fork items count as 1 if either is done
-  const nonForkItems = checklist.filter((item) => !forkItemIds.has(item.id))
-  const forkItemsInList = checklist.filter((item) => forkItemIds.has(item.id))
-  const completedNonFork = nonForkItems.filter((item) => item.completed).length
-  const anyForkCompleted = forkItemsInList.some((item) => item.completed)
+  const nonForkItems = checklist.filter((item) => !forkItemIds.has(item.id));
+  const forkItemsInList = checklist.filter((item) => forkItemIds.has(item.id));
+  const completedNonFork = nonForkItems.filter((item) => item.completed).length;
+  const anyForkCompleted = forkItemsInList.some((item) => item.completed);
 
-  const completedCount = completedNonFork + (anyForkCompleted ? 1 : 0)
-  const totalCount = nonForkItems.length + (forkItemsInList.length > 0 ? 1 : 0)
-  const percentage = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0
+  const completedCount = completedNonFork + (anyForkCompleted ? 1 : 0);
+  const totalCount = nonForkItems.length + (forkItemsInList.length > 0 ? 1 : 0);
+  const percentage =
+    totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
   // Celebration: all non-fork items done AND at least one fork item done
   useEffect(() => {
-    const allNonForkDone = nonForkItems.every((item) => item.completed)
-    const ready = allNonForkDone && anyForkCompleted && totalCount > 0
+    const allNonForkDone = nonForkItems.every((item) => item.completed);
+    const ready = allNonForkDone && anyForkCompleted && totalCount > 0;
     if (ready && !hasShownCelebration) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setShowCelebration(true)
-      setHasShownCelebration(true)
+      setShowCelebration(true);
+      setHasShownCelebration(true);
       if (typeof window !== 'undefined') {
-        localStorage.setItem('contribfest-celebration-shown', 'true')
+        localStorage.setItem('contribfest-celebration-shown', 'true');
       }
     }
-  }, [checklist, nonForkItems, totalCount, hasShownCelebration, anyForkCompleted])
+  }, [
+    checklist,
+    nonForkItems,
+    totalCount,
+    hasShownCelebration,
+    anyForkCompleted,
+  ]);
 
   return (
     <div
@@ -372,7 +411,9 @@ export default function GettingStartedPage() {
       className="getting-started-layout"
     >
       <div style={{ flex: 1, minWidth: 0 }}>
-        {showCelebration && <Celebration onClose={() => setShowCelebration(false)} />}
+        {showCelebration && (
+          <Celebration onClose={() => setShowCelebration(false)} />
+        )}
         <div style={{ marginBottom: '32px' }}>
           <h1
             style={{
@@ -392,8 +433,8 @@ export default function GettingStartedPage() {
               marginBottom: '16px',
             }}
           >
-            Complete these steps to set up your development environment for contributing to
-            Backstage.
+            Complete these steps to set up your development environment for
+            contributing to Backstage.
           </p>
 
           <div
@@ -432,10 +473,11 @@ export default function GettingStartedPage() {
                 transition: 'all 0.2s',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'var(--contribfest-progress-bg, #dcfce7)'
+                e.currentTarget.style.background =
+                  'var(--contribfest-progress-bg, #dcfce7)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'var(--bui-bg-app, #f8f8f8)'
+                e.currentTarget.style.background = 'var(--bui-bg-app, #f8f8f8)';
               }}
             >
               Reset
@@ -469,11 +511,11 @@ export default function GettingStartedPage() {
                 marginBottom: '12px',
               }}
             >
-              Choose <strong>Native stack</strong> if you want to install Node.js, Yarn, and
-              other tools directly on your machine. Choose{' '}
-              <strong>Dev Containers</strong> if you prefer a Docker-based environment where
-              all dependencies are provided automatically — you only need Docker and a
-              supported editor.
+              Choose <strong>Native stack</strong> if you want to install
+              Node.js, Yarn, and other tools directly on your machine. Choose{' '}
+              <strong>Dev Containers</strong> if you prefer a Docker-based
+              environment where all dependencies are provided automatically —
+              you only need Docker and a supported editor.
             </p>
             <div style={{ display: 'flex', gap: '24px' }}>
               <label
@@ -539,7 +581,7 @@ export default function GettingStartedPage() {
             color: 'var(--bui-fg-primary, #000)',
           }}
         >
-          Resources
+          Post Setup Resources
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {sidebarResources.map((resource, index) => (
@@ -548,5 +590,5 @@ export default function GettingStartedPage() {
         </div>
       </aside>
     </div>
-  )
+  );
 }
