@@ -542,8 +542,8 @@ export default function GettingStartedPage() {
           Resources
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          {sidebarResources.map((resource) => (
-            <WelcomeCard key={resource.url} {...resource} />
+          {sidebarResources.map((resource, index) => (
+            <WelcomeCard key={index} {...resource} />
           ))}
         </div>
       </aside>
