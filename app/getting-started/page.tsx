@@ -5,6 +5,8 @@ import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { ChecklistItem } from '@/components/ChecklistItem'
 import { Celebration } from '@/components/Celebration'
 import type { ChecklistItem as ChecklistItemType } from '@/lib/types'
+import { WelcomeCard } from '@/components/WelcomeCard'
+import type { ResourceCard } from '@/lib/types'
 
 type DevEnvironment = 'native' | 'devcontainer'
 
@@ -60,6 +62,33 @@ const forkItems: ChecklistItemType[] = [
 ]
 
 const forkItemIds = new Set(['fork-backstage', 'fork-plugins'])
+
+const sidebarResources: ResourceCard[] = [
+  {
+    title: 'Placeholder Title 1',
+    description: 'A short description of this Backstage resource.',
+    url: 'https://backstage.io',
+    isExternal: true,
+  },
+  {
+    title: 'Placeholder Title 2',
+    description: 'A short description of this Backstage resource.',
+    url: 'https://backstage.io',
+    isExternal: true,
+  },
+  {
+    title: 'Placeholder Title 3',
+    description: 'A short description of this Backstage resource.',
+    url: 'https://backstage.io',
+    isExternal: true,
+  },
+  {
+    title: 'Placeholder Title 4',
+    description: 'A short description of this Backstage resource.',
+    url: 'https://backstage.io',
+    isExternal: true,
+  },
+]
 
 const nativeChecklist: ChecklistItemType[] = [
   {
@@ -338,160 +367,186 @@ export default function GettingStartedPage() {
   }, [checklist, nonForkItems, totalCount, hasShownCelebration, anyForkCompleted])
 
   return (
-    <div>
-      {showCelebration && <Celebration onClose={() => setShowCelebration(false)} />}
-      <div style={{ marginBottom: '32px' }}>
-        <h1
-          style={{
-            fontSize: '32px',
-            fontWeight: 700,
-            marginBottom: '12px',
-            color: 'var(--bui-fg-primary, #000)',
-          }}
-        >
-          🚀 Getting Started
-        </h1>
-        <p
-          style={{
-            fontSize: '16px',
-            color: 'var(--bui-fg-secondary, #666)',
-            lineHeight: '1.6',
-            marginBottom: '16px',
-          }}
-        >
-          Complete these steps to set up your development environment for contributing to
-          Backstage.
-        </p>
-
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '16px',
-            marginBottom: '16px',
-          }}
-        >
-          <div
+    <div
+      style={{ display: 'flex', gap: '32px', alignItems: 'flex-start' }}
+      className="getting-started-layout"
+    >
+      <div style={{ flex: 1, minWidth: 0 }}>
+        {showCelebration && <Celebration onClose={() => setShowCelebration(false)} />}
+        <div style={{ marginBottom: '32px' }}>
+          <h1
             style={{
-              flex: 1,
-              padding: '16px',
-              background: 'var(--contribfest-progress-bg, #dcfce7)',
-              borderRadius: '8px',
-              fontSize: '18px',
-              fontWeight: 600,
+              fontSize: '32px',
+              fontWeight: 700,
+              marginBottom: '12px',
               color: 'var(--bui-fg-primary, #000)',
             }}
           >
-            Progress: {completedCount} / {totalCount} ({percentage}%)
-          </div>
-          <button
-            onClick={handleReset}
+            🚀 Getting Started
+          </h1>
+          <p
             style={{
-              padding: '12px 24px',
+              fontSize: '16px',
+              color: 'var(--bui-fg-secondary, #666)',
+              lineHeight: '1.6',
+              marginBottom: '16px',
+            }}
+          >
+            Complete these steps to set up your development environment for contributing to
+            Backstage.
+          </p>
+
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '16px',
+              marginBottom: '16px',
+            }}
+          >
+            <div
+              style={{
+                flex: 1,
+                padding: '16px',
+                background: 'var(--contribfest-progress-bg, #dcfce7)',
+                borderRadius: '8px',
+                fontSize: '18px',
+                fontWeight: 600,
+                color: 'var(--bui-fg-primary, #000)',
+              }}
+            >
+              Progress: {completedCount} / {totalCount} ({percentage}%)
+            </div>
+            <button
+              onClick={handleReset}
+              style={{
+                padding: '12px 24px',
+                background: 'var(--bui-bg-app, #f8f8f8)',
+                border: '1px solid var(--bui-border-1, #d5d5d5)',
+                borderRadius: '8px',
+                fontSize: '16px',
+                fontWeight: 500,
+                color: 'var(--bui-fg-primary, #000)',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'var(--contribfest-progress-bg, #dcfce7)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'var(--bui-bg-app, #f8f8f8)'
+              }}
+            >
+              Reset
+            </button>
+          </div>
+
+          {/* Development environment selection */}
+          <div
+            style={{
+              padding: '16px',
               background: 'var(--bui-bg-app, #f8f8f8)',
               border: '1px solid var(--bui-border-1, #d5d5d5)',
               borderRadius: '8px',
-              fontSize: '16px',
-              fontWeight: 500,
-              color: 'var(--bui-fg-primary, #000)',
-              cursor: 'pointer',
-              transition: 'all 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--contribfest-progress-bg, #dcfce7)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'var(--bui-bg-app, #f8f8f8)'
             }}
           >
-            Reset
-          </button>
-        </div>
-
-        {/* Development environment selection */}
-        <div
-          style={{
-            padding: '16px',
-            background: 'var(--bui-bg-app, #f8f8f8)',
-            border: '1px solid var(--bui-border-1, #d5d5d5)',
-            borderRadius: '8px',
-          }}
-        >
-          <p
-            style={{
-              fontSize: '14px',
-              fontWeight: 600,
-              color: 'var(--bui-fg-primary, #000)',
-              marginBottom: '4px',
-            }}
-          >
-            How will you develop?
-          </p>
-          <p
-            style={{
-              fontSize: '13px',
-              color: 'var(--bui-fg-secondary, #666)',
-              lineHeight: '1.5',
-              marginBottom: '12px',
-            }}
-          >
-            Choose <strong>Native stack</strong> if you want to install Node.js, Yarn, and
-            other tools directly on your machine. Choose{' '}
-            <strong>Dev Containers</strong> if you prefer a Docker-based environment where
-            all dependencies are provided automatically — you only need Docker and a
-            supported editor.
-          </p>
-          <div style={{ display: 'flex', gap: '24px' }}>
-            <label
+            <p
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                cursor: 'pointer',
-                fontSize: '15px',
+                fontSize: '14px',
+                fontWeight: 600,
                 color: 'var(--bui-fg-primary, #000)',
+                marginBottom: '4px',
               }}
             >
-              <input
-                type="radio"
-                name="dev-environment"
-                value="native"
-                checked={devEnv === 'native'}
-                onChange={() => setDevEnv('native')}
-                style={{ width: '18px', height: '18px', cursor: 'pointer' }}
-              />
-              Native stack
-            </label>
-            <label
+              How will you develop?
+            </p>
+            <p
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                cursor: 'pointer',
-                fontSize: '15px',
-                color: 'var(--bui-fg-primary, #000)',
+                fontSize: '13px',
+                color: 'var(--bui-fg-secondary, #666)',
+                lineHeight: '1.5',
+                marginBottom: '12px',
               }}
             >
-              <input
-                type="radio"
-                name="dev-environment"
-                value="devcontainer"
-                checked={devEnv === 'devcontainer'}
-                onChange={() => setDevEnv('devcontainer')}
-                style={{ width: '18px', height: '18px', cursor: 'pointer' }}
-              />
-              Dev Containers
-            </label>
+              Choose <strong>Native stack</strong> if you want to install Node.js, Yarn, and
+              other tools directly on your machine. Choose{' '}
+              <strong>Dev Containers</strong> if you prefer a Docker-based environment where
+              all dependencies are provided automatically — you only need Docker and a
+              supported editor.
+            </p>
+            <div style={{ display: 'flex', gap: '24px' }}>
+              <label
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  cursor: 'pointer',
+                  fontSize: '15px',
+                  color: 'var(--bui-fg-primary, #000)',
+                }}
+              >
+                <input
+                  type="radio"
+                  name="dev-environment"
+                  value="native"
+                  checked={devEnv === 'native'}
+                  onChange={() => setDevEnv('native')}
+                  style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                />
+                Native stack
+              </label>
+              <label
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  cursor: 'pointer',
+                  fontSize: '15px',
+                  color: 'var(--bui-fg-primary, #000)',
+                }}
+              >
+                <input
+                  type="radio"
+                  name="dev-environment"
+                  value="devcontainer"
+                  checked={devEnv === 'devcontainer'}
+                  onChange={() => setDevEnv('devcontainer')}
+                  style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                />
+                Dev Containers
+              </label>
+            </div>
           </div>
         </div>
+
+        <div style={{ maxWidth: '600px' }}>
+          {checklist.map((item) => (
+            <ChecklistItem key={item.id} item={item} onToggle={handleToggle} />
+          ))}
+        </div>
       </div>
 
-      <div style={{ maxWidth: '600px' }}>
-        {checklist.map((item) => (
-          <ChecklistItem key={item.id} item={item} onToggle={handleToggle} />
-        ))}
-      </div>
+      <aside
+        style={{ width: '280px', flexShrink: 0 }}
+        className="getting-started-sidebar"
+      >
+        <h2
+          style={{
+            fontSize: '16px',
+            fontWeight: 600,
+            marginBottom: '16px',
+            color: 'var(--bui-fg-primary, #000)',
+          }}
+        >
+          Resources
+        </h2>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          {sidebarResources.map((resource) => (
+            <WelcomeCard key={resource.url} {...resource} />
+          ))}
+        </div>
+      </aside>
     </div>
   )
 }

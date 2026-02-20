@@ -414,6 +414,14 @@ button {
     margin-left: 0;
     margin-top: 32px;
   }
+
+  .getting-started-layout {
+    flex-direction: column !important;
+  }
+
+  .getting-started-sidebar {
+    width: 100% !important;
+  }
 }
 
 /* Small mobile adjustments */
