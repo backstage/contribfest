@@ -83,8 +83,8 @@ export default function HallOfHostsPage() {
               gap: '16px',
             }}
           >
-            {hosts.map((host) => (
-              <HostCard key={host.name} host={host} />
+            {hosts.map((host, i) => (
+              <HostCard key={`${host.name}-${i}`} host={host} />
             ))}
           </div>
         )}
