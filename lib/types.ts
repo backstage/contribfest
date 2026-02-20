@@ -86,4 +86,15 @@ export interface ContribFestSession {
   blogUrl: string
   comingSoon?: boolean
   linkText?: string
+  sched?: string  // e.g. "https://kccncna2024.sched.com/event/..."
+}
+
+// Hall of Hosts — individual host record
+export interface Host {
+  name: string
+  title: string
+  company: string
+  kubecon: string       // e.g. "KubeCon NA 2024 – Salt Lake City"
+  imagePath: string     // e.g. "/img/hosts/jane-doe.jpg"
+  linkedinUrl?: string  // e.g. "https://www.linkedin.com/in/username"
 }

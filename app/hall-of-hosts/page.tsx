@@ -1,9 +1,7 @@
-'use client'
-
-import { usePullRequests } from '@/hooks/usePullRequests'
-import { PullRequestTable } from '@/components/PullRequestTable'
-import { SessionsSidebar } from '@/components/SessionsSidebar'
-import type { ContribFestSession } from '@/lib/types'
+import { HostCard } from '@/components/HostCard';
+import { SessionsSidebar } from '@/components/SessionsSidebar';
+import { hosts } from '@/lib/hosts';
+import type { ContribFestSession } from '@/lib/types';
 
 const sessions: ContribFestSession[] = [
   {
@@ -44,12 +42,11 @@ const sessions: ContribFestSession[] = [
   },
 ];
 
-export default function ContribChampsPage() {
-  const { pullRequests, loading, error } = usePullRequests()
-
+export default function HallOfHostsPage() {
   return (
     <div className="contrib-champs-layout">
       <div style={{ flex: 1, minWidth: 0 }}>
+        {/* Page header */}
         <div style={{ marginBottom: '32px' }}>
           <h1
             style={{
@@ -59,7 +56,7 @@ export default function ContribChampsPage() {
               color: 'var(--bui-fg-primary, #000)',
             }}
           >
-            🏆 Contrib Champs
+            🙏 Hall of Hosts
           </h1>
           <p
             style={{
@@ -69,57 +66,43 @@ export default function ContribChampsPage() {
               margin: 0,
             }}
           >
-            Where commits become legendary! Browse merged pull requests with the contribfest label
-            from Backstage and Community Plugins repositories.
+            Meet the people who made ContribFest happen. These hosts organized
+            and facilitated Backstage ContribFest sessions at KubeCon events
+            around Europe and North America.
           </p>
         </div>
 
-        {/* Loading State */}
-        {loading && (
+        {/* Host cards grid */}
+        {hosts.length === 0 ? (
           <div
             style={{
               padding: '48px 32px',
               textAlign: 'center',
-              background: 'var(--bui-bg-app, #f8f8f8)',
+              background: 'var(--bui-bg-app, #f5f6f7)',
               borderRadius: '8px',
+              color: 'var(--bui-fg-secondary, #666)',
+              fontSize: '16px',
             }}
           >
-            <div
-              style={{
-                fontSize: '18px',
-                fontWeight: 600,
-                color: 'var(--bui-fg-primary, #000)',
-              }}
-            >
-              Loading pull requests...
-            </div>
+            Host profiles coming soon!
           </div>
-        )}
-
-        {/* Error State */}
-        {error && !loading && (
+        ) : (
           <div
             style={{
-              padding: '32px',
-              textAlign: 'center',
-              background: '#f8d7da',
-              color: '#721c24',
-              borderRadius: '8px',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+              gap: '16px',
             }}
           >
-            <div style={{ fontSize: '18px', fontWeight: 600, marginBottom: '8px' }}>
-              Error Loading Pull Requests
-            </div>
-            <div style={{ fontSize: '14px' }}>{error}</div>
+            {hosts.map((host, i) => (
+              <HostCard key={`${host.name}-${i}`} host={host} />
+            ))}
           </div>
         )}
-
-        {/* Pull Request Table */}
-        {!loading && !error && <PullRequestTable pullRequests={pullRequests} />}
       </div>
 
-      {/* Sessions Sidebar */}
+      {/* Sessions sidebar */}
       <SessionsSidebar sessions={sessions} />
     </div>
-  )
+  );
 }
