@@ -87,3 +87,12 @@ export interface ContribFestSession {
   comingSoon?: boolean
   linkText?: string
 }
+
+// Hall of Hosts — individual host record
+export interface Host {
+  name: string
+  title: string
+  company: string
+  kubecon: string    // e.g. "KubeCon NA 2024 – Salt Lake City"
+  imagePath: string  // e.g. "/img/hosts/jane-doe.jpg"
+}
