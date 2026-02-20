@@ -562,7 +562,7 @@ export default function GettingStartedPage() {
           </div>
         </div>
 
-        <div style={{ maxWidth: '600px' }}>
+        <div>
           {checklist.map((item) => (
             <ChecklistItem key={item.id} item={item} onToggle={handleToggle} />
           ))}
