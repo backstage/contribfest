@@ -1,3 +1,5 @@
+'use client'
+
 import type { ContribFestSession } from '@/lib/types'
 import { RiExternalLinkLine } from '@remixicon/react'
 
