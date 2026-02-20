@@ -328,13 +328,14 @@ export default function GettingStartedPage() {
     const allNonForkDone = nonForkItems.every((item) => item.completed)
     const ready = allNonForkDone && anyForkCompleted && totalCount > 0
     if (ready && !hasShownCelebration) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShowCelebration(true)
       setHasShownCelebration(true)
       if (typeof window !== 'undefined') {
         localStorage.setItem('contribfest-celebration-shown', 'true')
       }
     }
-  }, [checklist, totalCount, hasShownCelebration, anyForkCompleted])
+  }, [checklist, nonForkItems, totalCount, hasShownCelebration, anyForkCompleted])
 
   return (
     <div>

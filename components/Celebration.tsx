@@ -9,9 +9,7 @@ interface CelebrationProps {
 
 export function Celebration({ onClose }: CelebrationProps) {
   const router = useRouter()
-  const [particles, setParticles] = useState<Array<{ id: number; left: number; bottom: number; delay: number; size: number; rotation: number; image: string }>>([])
-
-  useEffect(() => {
+  const [particles] = useState(() => {
     const images = [
       `/img/astronaut_flying_drk.png`,
       `/img/astronaut_standing_drk.png`,
@@ -23,7 +21,7 @@ export function Celebration({ onClose }: CelebrationProps) {
       `/img/walking_drk.png`,
       `/img/waving_drk.png`,
     ]
-    const newParticles = Array.from({ length: 40 }, (_, i) => ({
+    return Array.from({ length: 40 }, (_, i) => ({
       id: i,
       left: Math.random() * 96,
       bottom: Math.random() * 8,
@@ -32,8 +30,7 @@ export function Celebration({ onClose }: CelebrationProps) {
       rotation: Math.random() * 40 - 20,
       image: images[Math.floor(Math.random() * images.length)],
     }))
-    setParticles(newParticles)
-  }, [])
+  })
 
   useEffect(() => {
     if (!onClose) return
