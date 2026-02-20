@@ -1,13 +1,95 @@
 import type { Host } from './types'
 
 export const hosts: Host[] = [
-  // Data will be populated by the user
-  // Example shape:
-  // {
-  //   name: 'Jane Doe',
-  //   title: 'Senior Engineer',
-  //   company: 'Acme Corp',
-  //   kubecon: 'KubeCon NA 2024 – Salt Lake City',
-  //   imagePath: '/img/hosts/jane-doe.jpg',
-  // },
+  {
+    name: 'Andre Wanlin',
+    title: '',
+    company: '',
+    kubecon: '',
+    imagePath: '/img/avatars/avatar-andre-wanlin.jpg',
+  },
+  {
+    name: 'Aranis Sennyey',
+    title: '',
+    company: '',
+    kubecon: '',
+    imagePath: '/img/avatars/avatar-aranis-sennyey.jpg',
+  },
+  {
+    name: 'Avantika Iyer',
+    title: '',
+    company: '',
+    kubecon: '',
+    imagePath: '/img/avatars/avatar-avantika-iyer.jpg',
+  },
+  {
+    name: 'Ben Lambert',
+    title: '',
+    company: '',
+    kubecon: '',
+    imagePath: '/img/avatars/avatar-ben-lambert.jpg',
+  },
+  {
+    name: 'Bethany Griggs',
+    title: '',
+    company: '',
+    kubecon: '',
+    imagePath: '/img/avatars/avatar-bethany-griggs.jpg',
+  },
+  {
+    name: 'Elaine De Mattos Silva Bezerra',
+    title: '',
+    company: '',
+    kubecon: '',
+    imagePath: '/img/avatars/avatar-elaine-de-mattos-silva-bezerra.jpg',
+  },
+  {
+    name: 'Heikki Hellgren',
+    title: '',
+    company: '',
+    kubecon: '',
+    imagePath: '/img/avatars/avatar-heikki-hellgren.jpg',
+  },
+  {
+    name: 'Kurt King',
+    title: '',
+    company: '',
+    kubecon: '',
+    imagePath: '/img/avatars/avatar-kurt-king.jpg',
+  },
+  {
+    name: 'Patrik Oldsberg',
+    title: '',
+    company: '',
+    kubecon: '',
+    imagePath: '/img/avatars/avatar-patrik-oldsberg.jpg',
+  },
+  {
+    name: 'Paul Schultz',
+    title: '',
+    company: '',
+    kubecon: '',
+    imagePath: '/img/avatars/avatar-paul-schultz.jpg',
+  },
+  {
+    name: 'Peter Macdonald',
+    title: '',
+    company: '',
+    kubecon: '',
+    imagePath: '/img/avatars/avatar-peter-macdonald.jpg',
+  },
+  {
+    name: 'Vincenzo Scamporlino',
+    title: '',
+    company: '',
+    kubecon: '',
+    imagePath: '/img/avatars/avatar-vincenzo-scamporlino.jpg',
+  },
+  {
+    name: 'Yi Cai',
+    title: '',
+    company: '',
+    kubecon: '',
+    imagePath: '/img/avatars/avatar-yi-cai.jpg',
+  },
 ]
