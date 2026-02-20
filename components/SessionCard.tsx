@@ -83,23 +83,44 @@ export function SessionCard({ session }: SessionCardProps) {
       >
         {session.date}
       </p>
-      <a
-        href={session.blogUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '4px',
-          fontSize: '14px',
-          color: 'var(--bui-bg-solid, #1f5493)',
-          textDecoration: 'none',
-          fontWeight: 500,
-        }}
-      >
-        {session.linkText || 'View Blog Post'}
-        <RiExternalLinkLine size={16} />
-      </a>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <a
+          href={session.blogUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '4px',
+            fontSize: '14px',
+            color: 'var(--bui-bg-solid, #1f5493)',
+            textDecoration: 'none',
+            fontWeight: 500,
+          }}
+        >
+          {session.linkText || 'View Blog Post'}
+          <RiExternalLinkLine size={16} />
+        </a>
+        {session.sched && (
+          <a
+            href={session.sched}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px',
+              fontSize: '14px',
+              color: 'var(--bui-bg-solid, #1f5493)',
+              textDecoration: 'none',
+              fontWeight: 500,
+            }}
+          >
+            View on Sched
+            <RiExternalLinkLine size={16} />
+          </a>
+        )}
+      </div>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import { RiLinkedinBoxFill } from '@remixicon/react'
 import type { Host } from '@/lib/types'
 
 interface HostCardProps {
@@ -95,6 +96,29 @@ export function HostCard({ host }: HostCardProps) {
       >
         {host.kubecon}
       </div>
+
+      {/* LinkedIn link */}
+      {host.linkedinUrl && (
+        <a
+          href={host.linkedinUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${host.name} on LinkedIn`}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '4px',
+            marginTop: '12px',
+            fontSize: '13px',
+            color: 'var(--bui-bg-solid, #268271)',
+            textDecoration: 'none',
+            fontWeight: 500,
+          }}
+        >
+          <RiLinkedinBoxFill size={16} />
+          LinkedIn
+        </a>
+      )}
     </div>
   )
 }
