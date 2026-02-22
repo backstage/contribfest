@@ -23,7 +23,7 @@
     "@types/papaparse": "^5.5.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "eslint": "^10.0.0",
+    "eslint": "^10.0.1",
     "eslint-config-next": "16.2.0-canary.53",
     "typescript": "^5.9.3"
   }
