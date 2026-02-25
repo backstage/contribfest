@@ -46,7 +46,7 @@ export default function IssuesPage() {
             margin: 0,
           }}
         >
-          Browse {issues.length > 0 ? issues.length : '...'} hand-picked GitHub issues from Backstage and Community Plugins
+          Browse {issues.length > 0 && `${issues.length} `}hand-picked GitHub issues from Backstage and Community Plugins
           repositories. Use filters to find issues that match your interests and skill level.
         </p>
       </div>
