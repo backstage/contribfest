@@ -115,7 +115,7 @@ export function Celebration({ onClose }: CelebrationProps) {
             lineHeight: '1.6',
           }}
         >
-          You&apos;ve completed all the setup steps! You&apos;re ready to start contributing to Backstage!
+          You&apos;ve completed all the setup steps! You&apos;re ready to start contributing to Backstage and Community Plugins!
         </p>
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
           <button

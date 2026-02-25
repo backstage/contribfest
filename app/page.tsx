@@ -5,7 +5,7 @@ const sessionResources: ResourceCard[] = [
   {
     title: 'ContribFest Slide Deck',
     description:
-      'Presentation slides with workshop overview, contribution tips, and resources. Reference this for workshop structure and guidance.',
+      'Presentation slides with workshop overview, contribution tips, and resources. A handy reference for workshop structure and guidance throughout the session.',
     url: `/KubeCon-Amsterdam-Backstage-ContribFest-2026.pdf`,
     isExternal: true,
   },
@@ -37,7 +37,7 @@ const repositoryResources: ResourceCard[] = [
   {
     title: 'Backstage Repository Issues',
     description:
-      'View curated issues specifically from the main Backstage repository. Perfect for contributing to the core platform and learning the codebase.',
+      'Browse curated issues specifically from the main Backstage repository. Perfect for contributing to the core platform and learning the codebase.',
     url: '/issues/?repository=backstage/backstage',
     isExternal: false,
   },
@@ -58,7 +58,7 @@ const repositoryResources: ResourceCard[] = [
   {
     title: 'Community Plugins Issues',
     description:
-      'View curated issues from the Community Plugins repository. Great for contributing to plugins and extending Backstage functionality.',
+      'Browse curated issues from the Community Plugins repository. Great for contributing to plugins and extending Backstage functionality.',
     url: '/issues/?repository=backstage/community-plugins',
     isExternal: false,
   },
@@ -102,7 +102,7 @@ export default function Page() {
         }}
       >
         The next Backstage ContribFest session takes place at KubeCon in Amsterdam on March 26,
-        2026 at 13:45 CET in room G107, make sure to{' '}
+        2026 at 13:45 CET in room G107, be sure to{' '}
         <a
           href="https://kccnceu2026.sched.com/event/2EF7v/contribfest-supercharge-your-open-source-impact-backstage-contribfest-live-andre-wanlin-emma-indal-spotify-heikki-hellgren-op-financial-group-elaine-bezerra-db-systel-gmbh"
           target="_blank"

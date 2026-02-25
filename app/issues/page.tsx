@@ -69,7 +69,7 @@ export default function IssuesPage() {
               color: 'var(--bui-fg-primary, #000)',
             }}
           >
-            Loading Issues...
+            Loading issues...
           </div>
           {progress && (
             <div>

@@ -45,7 +45,7 @@ export default function HallOfHostsPage() {
               fontSize: '16px',
             }}
           >
-            Host profiles coming soon!
+            No host profiles found.
           </div>
         ) : (
           <div

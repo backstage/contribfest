@@ -581,7 +581,7 @@ export default function GettingStartedPage() {
             color: 'var(--bui-fg-primary, #000)',
           }}
         >
-          Post Setup Resources
+          Post-Setup Resources
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {sidebarResources.map((resource, index) => (

@@ -75,7 +75,7 @@ export function WelcomeCard({ title, description, url, isExternal, note }: Resou
           </>
         ) : (
           <>
-            View
+            View Page
             <RiArrowRightLine size={16} />
           </>
         )}
