@@ -99,3 +99,11 @@ export interface Host {
   imagePath: string     // e.g. "/img/hosts/jane-doe.jpg"
   linkedinUrl?: string  // e.g. "https://www.linkedin.com/in/username"
 }
+
+// Pinned issue card data
+export interface PinnedIssue {
+  issueId: number
+  repository: string
+  level: string
+  title: string
+}
