@@ -3,8 +3,9 @@ import './globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { LayoutShell } from '@/components/LayoutShell'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
+import type { Metadata } from 'next'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: {
     default: 'Backstage ContribFest',
     template: '%s | Backstage ContribFest',
