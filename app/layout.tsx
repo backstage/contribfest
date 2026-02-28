@@ -5,7 +5,10 @@ import { LayoutShell } from '@/components/LayoutShell'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 
 export const metadata = {
-  title: 'Backstage ContribFest',
+  title: {
+    default: 'Backstage ContribFest',
+    template: '%s | Backstage ContribFest',
+  },
   description: 'Backstage ContribFest Resources',
   icons: {
     icon: `/favicon.ico`,
