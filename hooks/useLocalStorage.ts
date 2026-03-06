@@ -15,8 +15,14 @@ export function useLocalStorage<T>(
     try {
       const item = window.localStorage.getItem(key)
       if (item) {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setStoredValue(JSON.parse(item))
+        try {
+          // eslint-disable-next-line react-hooks/set-state-in-effect
+          setStoredValue(JSON.parse(item))
+        } catch {
+          // Value was stored as a raw string (not JSON-encoded), use it as-is
+          // eslint-disable-next-line react-hooks/set-state-in-effect
+          setStoredValue(item as unknown as T)
+        }
       }
     } catch (error) {
       console.error(`Error loading localStorage key "${key}":`, error)

@@ -221,6 +221,40 @@ const nativeChecklist: ChecklistItemType[] = [
       },
     ],
   },
+  {
+    id: 'dco',
+    label: 'Sign your commits (DCO)',
+    description:
+      'Backstage requires a [Developer Certificate of Origin (DCO)](https://github.com/backstage/backstage/blob/master/CONTRIBUTING.md#developer-certificate-of-origin) sign-off on every commit. Pick how you commit below.',
+    icon: 'verified-filled',
+    completed: false,
+    children: [
+      {
+        id: 'dco-git-cli',
+        label: 'Using git CLI',
+        description:
+          'Add -s to your commit command: `git commit -s -m "Your message"`\nMake sure user.name and user.email are set in your git config first:\n`git config --global user.name "Your Name"`\n`git config --global user.email "you@example.com"`',
+        icon: 'terminal',
+        completed: false,
+      },
+      {
+        id: 'dco-vscode',
+        label: 'Using VS Code',
+        description:
+          'Enable **Git: Always Sign Off** in your settings (`"git.alwaysSignOff": true`) and VS Code will automatically add the sign-off to every commit.',
+        icon: 'vscode',
+        completed: false,
+      },
+      {
+        id: 'dco-github-desktop',
+        label: 'Using GitHub Desktop',
+        description:
+          'Manually add the sign-off line in the Description field before committing:\n`Signed-off-by: Your Name <you@example.com>`',
+        icon: 'desktop-download',
+        completed: false,
+      },
+    ],
+  },
   ...forkItems,
 ];
 
@@ -283,6 +317,40 @@ const devcontainerChecklist: ChecklistItemType[] = [
           'Learn how Dev Containers work and how to use them effectively for backstage development.',
         link: 'https://github.com/backstage/backstage/blob/master/contrib/docs/tutorials/devcontainer.md',
         icon: 'book',
+        completed: false,
+      },
+    ],
+  },
+  {
+    id: 'dco',
+    label: 'Sign your commits (DCO)',
+    description:
+      'Backstage requires a [Developer Certificate of Origin (DCO)](https://github.com/backstage/backstage/blob/master/CONTRIBUTING.md#developer-certificate-of-origin) sign-off on every commit. Pick how you commit below.',
+    icon: 'verified-filled',
+    completed: false,
+    children: [
+      {
+        id: 'dco-git-cli',
+        label: 'Using git CLI',
+        description:
+          'Add -s to your commit command: `git commit -s -m "Your message"`\nMake sure user.name and user.email are set in your git config first:\n`git config --global user.name "Your Name"`\n`git config --global user.email "you@example.com"`',
+        icon: 'terminal',
+        completed: false,
+      },
+      {
+        id: 'dco-vscode',
+        label: 'Using VS Code',
+        description:
+          'Enable **Git: Always Sign Off** in your settings (`"git.alwaysSignOff": true`) and VS Code will automatically add the sign-off to every commit.',
+        icon: 'vscode',
+        completed: false,
+      },
+      {
+        id: 'dco-github-desktop',
+        label: 'Using GitHub Desktop',
+        description:
+          'Manually add the sign-off line in the Description field before committing:\n`Signed-off-by: Your Name <you@example.com>`',
+        icon: 'desktop-download',
         completed: false,
       },
     ],

@@ -101,23 +101,40 @@ function CodeBlock({ code }: { code: string }) {
   )
 }
 
-function renderDescription(text: string) {
+function renderInlineText(text: string, keyPrefix: string) {
   const parts = text.split(/(`[^`]+`)/)
   return parts.map((part, index) => {
     if (part.startsWith('`') && part.endsWith('`')) {
       const code = part.slice(1, -1)
-      return <CodeBlock key={index} code={code} />
+      return <CodeBlock key={`${keyPrefix}-${index}`} code={code} />
     }
-    // Handle newlines
-    if (part.includes('\n')) {
-      return part.split('\n').map((line, i) => (
-        <span key={`${index}-${i}`}>
-          {i > 0 && <br />}
-          {line}
-        </span>
-      ))
+    return <span key={`${keyPrefix}-${index}`}>{part}</span>
+  })
+}
+
+function renderDescription(text: string) {
+  // Split on markdown links [label](url) or newlines, keeping delimiters
+  const parts = text.split(/(\[[^\]]+\]\([^)]+\)|\n)/)
+  return parts.map((part, index) => {
+    if (part === '\n') {
+      return <br key={index} />
     }
-    return <span key={index}>{part}</span>
+    const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+    if (linkMatch) {
+      return (
+        <a
+          key={index}
+          href={linkMatch[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: 'var(--bui-fg-link, #268271)', textDecoration: 'underline' }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {linkMatch[1]}
+        </a>
+      )
+    }
+    return <span key={index}>{renderInlineText(part, String(index))}</span>
   })
 }
 
