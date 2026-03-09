@@ -10,12 +10,80 @@ import type { ResourceCard } from '@/lib/types';
 
 type DevEnvironment = 'native' | 'devcontainer';
 
+const githubAccountItem: ChecklistItemType = {
+  id: 'github-account',
+  label: 'GitHub Account Setup',
+  description: 'Verify you have a public GitHub account and permission to contribute.',
+  icon: 'person',
+  completed: false,
+  children: [
+    {
+      id: 'github-account-exists',
+      label: 'Have a GitHub account',
+      description: 'Ensure you have an active GitHub account. If not, sign up at github.com.',
+      link: 'https://github.com/signup',
+      icon: 'person',
+      completed: false
+    },
+    {
+      id: 'github-account-public',
+      label: 'Verify account is public',
+      description:
+        'Your GitHub account must be able to contribute to public repositories. If your account was created only for an organization, you may need to adjust settings or create a separate public account.',
+      icon: 'globe',
+      completed: false
+    },
+    {
+      id: 'github-account-org-policy',
+      label: 'Check organizational policies',
+      description:
+        'If you are employed, verify with your organization that you have permission to contribute to open source projects. Some organizations have policies around external contributions.',
+      icon: 'shield-check',
+      completed: false
+    }
+  ]
+};
+
+const dcoItems: ChecklistItemType = {
+  id: 'dco',
+  label: 'Sign your commits (DCO)',
+  description:
+    'Backstage requires a [Developer Certificate of Origin (DCO)](https://github.com/backstage/backstage/blob/master/CONTRIBUTING.md#developer-certificate-of-origin) sign-off on every commit. Pick how you commit below.',
+  icon: 'verified-filled',
+  completed: false,
+  children: [
+    {
+      id: 'dco-git-cli',
+      label: 'Using git CLI',
+      description:
+        'Add -s to your commit command: `git commit -s -m "Your message"`\nMake sure user.name and user.email are set in your git config first:\n`git config --global user.name "Your Name"`\n`git config --global user.email "you@example.com"`',
+      icon: 'terminal',
+      completed: false
+    },
+    {
+      id: 'dco-vscode',
+      label: 'Using VS Code',
+      description:
+        'Enable **Git: Always Sign Off** in your settings (`"git.alwaysSignOff": true`) and VS Code will automatically add the sign-off to every commit.',
+      icon: 'vscode',
+      completed: false
+    },
+    {
+      id: 'dco-github-desktop',
+      label: 'Using GitHub Desktop',
+      description:
+        'Manually add the sign-off line in the Description field before committing:\n`Signed-off-by: Your Name <you@example.com>`',
+      icon: 'desktop-download',
+      completed: false
+    }
+  ]
+};
+
 const forkItems: ChecklistItemType[] = [
   {
     id: 'fork-backstage',
     label: 'Fork and Clone the Backstage Repository',
-    description:
-      'Follow these steps to get the Backstage repo ready for contributing.',
+    description: 'Follow these steps to get the Backstage repo ready for contributing.',
     icon: 'git-fork',
     completed: false,
     children: [
@@ -26,7 +94,7 @@ const forkItems: ChecklistItemType[] = [
           'The link will bring you to a GitHub page that simplifies the process of creating a fork. All you need to do is pick the Owner from the drop down, in this case that will be your GitHub username. Then hit the Create fork button!',
         link: 'https://github.com/backstage/backstage/fork',
         icon: 'git-fork',
-        completed: false,
+        completed: false
       },
       {
         id: 'fork-backstage-clone',
@@ -34,15 +102,14 @@ const forkItems: ChecklistItemType[] = [
         description:
           '`git clone --filter=tree:0 https://github.com/{your-github-username}/backstage`\nMake sure to update the command with your GitHub username!',
         icon: 'download',
-        completed: false,
-      },
-    ],
+        completed: false
+      }
+    ]
   },
   {
     id: 'fork-plugins',
     label: 'Fork and Clone the Community Plugins Repository',
-    description:
-      'Follow these steps to get the Community Plugins repo ready for contributing.',
+    description: 'Follow these steps to get the Community Plugins repo ready for contributing.',
     icon: 'git-fork',
     completed: false,
     children: [
@@ -53,7 +120,7 @@ const forkItems: ChecklistItemType[] = [
           'The link will bring you to a GitHub page that simplifies the process of creating a fork. All you need to do is pick the Owner from the drop down, in this case that will be your GitHub username. Then hit the Create fork button!',
         link: 'https://github.com/backstage/community-plugins/fork',
         icon: 'git-fork',
-        completed: false,
+        completed: false
       },
       {
         id: 'fork-plugins-clone',
@@ -61,10 +128,10 @@ const forkItems: ChecklistItemType[] = [
         description:
           '`git clone --filter=tree:0 https://github.com/{your-github-username}/community-plugins`\nMake sure to update the command with your GitHub username!',
         icon: 'download',
-        completed: false,
-      },
-    ],
-  },
+        completed: false
+      }
+    ]
+  }
 ];
 
 const forkItemIds = new Set(['fork-backstage', 'fork-plugins']);
@@ -74,37 +141,36 @@ const sidebarResources: ResourceCard[] = [
     title: 'Introduction to Plugins',
     description: 'Learn more about plugin development in Backstage.',
     url: 'https://backstage.io/docs/plugins/',
-    isExternal: true,
+    isExternal: true
   },
   {
     title: 'New Frontend System Plugin Migration Guide',
-    description:
-      'A helpful guide for migrating plugins to the New Frontend System.',
+    description: 'A helpful guide for migrating plugins to the New Frontend System.',
     url: 'https://backstage.io/docs/frontend-system/building-plugins/migrating',
-    isExternal: true,
+    isExternal: true
   },
   {
     title: 'Backstage UI (BUI) Documentation',
-    description:
-      'The documentation for all the available Backstage UI (BUI) components and how to use them.',
+    description: 'The documentation for all the available Backstage UI (BUI) components and how to use them.',
     url: 'https://ui.backstage.io/',
-    isExternal: true,
+    isExternal: true
   },
   {
     title: 'Backend System',
     description: 'Details about the Backend System used by Backstage.',
     url: 'https://backstage.io/docs/backend-system/',
-    isExternal: true,
-  },
+    isExternal: true
+  }
 ];
 
 const nativeChecklist: ChecklistItemType[] = [
+  githubAccountItem,
   {
     id: 'system-requirements',
     label: 'System Requirements',
     description: '20GB of free disk space and 6GB of memory',
     icon: 'hard-drive',
-    completed: false,
+    completed: false
   },
   {
     id: 'os-requirements',
@@ -112,7 +178,7 @@ const nativeChecklist: ChecklistItemType[] = [
     description:
       'Access to a Unix-based operating system, such as Linux, macOS or Windows Subsystem for Linux (WSL). The Linux version must support the required Node.js version.',
     icon: 'terminal',
-    completed: false,
+    completed: false
   },
   {
     id: 'tooling-requirements',
@@ -128,38 +194,35 @@ const nativeChecklist: ChecklistItemType[] = [
         description:
           'A GNU-like build environment available at the command line. For example, on Debian/Ubuntu you will want to have the make and build-essential packages installed. On macOS, you will want to run `xcode-select --install` to get the XCode command line build tooling in place.',
         icon: 'hammer',
-        completed: false,
+        completed: false
       },
       {
         id: 'tooling-curl-wget',
         label: 'curl or wget installed',
         description: 'These are used to install tooling in further steps.',
         icon: 'download',
-        completed: false,
+        completed: false
       },
       {
         id: 'tooling-git',
         label: 'git installed',
-        description:
-          'git is used throughout the session and is the key method for contributing your changes.',
+        description: 'git is used throughout the session and is the key method for contributing your changes.',
         icon: 'git-repo',
-        completed: false,
+        completed: false
       },
       {
         id: 'tooling-text-editor',
         label: 'Text editor',
-        description:
-          'This can be VSCode, Cursor, vim, emacs or whatever your preferred editor might be!',
+        description: 'This can be VSCode, Cursor, vim, emacs or whatever your preferred editor might be!',
         icon: 'edit',
-        completed: false,
-      },
-    ],
+        completed: false
+      }
+    ]
   },
   {
     id: 'nodejs',
     label: 'Install Node.js',
-    description:
-      "Follow these steps to get Node installed on the version you'll need for ContribFest.",
+    description: "Follow these steps to get Node installed on the version you'll need for ContribFest.",
     icon: 'nodejs',
     completed: false,
     children: [
@@ -169,32 +232,31 @@ const nativeChecklist: ChecklistItemType[] = [
         description:
           '`node --version`\nThis command should output v22.x.x, if you get an error like command not found you need to install Node, if you see a different version then you need to install the correct version.',
         icon: 'check',
-        completed: false,
+        completed: false
       },
       {
         id: 'nodejs-nvm',
         label: 'Install nvm',
-        description:
-          '`curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash`',
+        description: '`curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash`',
         link: 'https://github.com/nvm-sh/nvm#installing-and-updating',
         icon: 'download',
-        completed: false,
+        completed: false
       },
       {
         id: 'nodejs-22',
         label: 'Use nvm to install Node 22',
         description: '`nvm install lts/jod`',
         icon: 'terminal-cmd',
-        completed: false,
+        completed: false
       },
       {
         id: 'nodejs-default',
         label: 'Set the default Node version for nvm',
         description: '`nvm alias default lts/jod`',
         icon: 'terminal-cmd',
-        completed: false,
-      },
-    ],
+        completed: false
+      }
+    ]
   },
   {
     id: 'yarn',
@@ -210,51 +272,18 @@ const nativeChecklist: ChecklistItemType[] = [
         description:
           "`yarn -v`\nThis command should output 4.x.x, if you get an error like command not found you need to install Yarn, if you don't see version 4 then you need to install the correct version.",
         icon: 'check',
-        completed: false,
+        completed: false
       },
       {
         id: 'yarn-install-corepack',
         label: 'Install Yarn using corepack',
         description: '`corepack enable`',
         icon: 'terminal-cmd',
-        completed: false,
-      },
-    ],
+        completed: false
+      }
+    ]
   },
-  {
-    id: 'dco',
-    label: 'Sign your commits (DCO)',
-    description:
-      'Backstage requires a [Developer Certificate of Origin (DCO)](https://github.com/backstage/backstage/blob/master/CONTRIBUTING.md#developer-certificate-of-origin) sign-off on every commit. Pick how you commit below.',
-    icon: 'verified-filled',
-    completed: false,
-    children: [
-      {
-        id: 'dco-git-cli',
-        label: 'Using git CLI',
-        description:
-          'Add -s to your commit command: `git commit -s -m "Your message"`\nMake sure user.name and user.email are set in your git config first:\n`git config --global user.name "Your Name"`\n`git config --global user.email "you@example.com"`',
-        icon: 'terminal',
-        completed: false,
-      },
-      {
-        id: 'dco-vscode',
-        label: 'Using VS Code',
-        description:
-          'Enable **Git: Always Sign Off** in your settings (`"git.alwaysSignOff": true`) and VS Code will automatically add the sign-off to every commit.',
-        icon: 'vscode',
-        completed: false,
-      },
-      {
-        id: 'dco-github-desktop',
-        label: 'Using GitHub Desktop',
-        description:
-          'Manually add the sign-off line in the Description field before committing:\n`Signed-off-by: Your Name <you@example.com>`',
-        icon: 'desktop-download',
-        completed: false,
-      },
-    ],
-  },
+  dcoItems,
   ...forkItems,
   {
     id: 'contributing-guidelines',
@@ -270,7 +299,7 @@ const nativeChecklist: ChecklistItemType[] = [
         description:
           'Read the [Backstage Contributing Guidelines](https://github.com/backstage/backstage/blob/master/CONTRIBUTING.md).',
         icon: 'book',
-        completed: false,
+        completed: false
       },
       {
         id: 'contributing-guidelines-community-plugins',
@@ -278,109 +307,70 @@ const nativeChecklist: ChecklistItemType[] = [
         description:
           'Read the [Community Plugins Contributing Guidelines](https://github.com/backstage/community-plugins/blob/main/CONTRIBUTING.md).',
         icon: 'book',
-        completed: false,
-      },
-    ],
-  },
+        completed: false
+      }
+    ]
+  }
 ];
 
 const devcontainerChecklist: ChecklistItemType[] = [
+  githubAccountItem,
   {
     id: 'dc-system-requirements',
     label: 'System Requirements',
-    description:
-      'At least 2 CPU cores, 4GB of RAM, and 32GB of free disk space.',
+    description: 'At least 2 CPU cores, 4GB of RAM, and 32GB of free disk space.',
     icon: 'computer',
-    completed: false,
+    completed: false
   },
   {
     id: 'dc-os-requirements',
     label: 'Operating System Requirements',
-    description:
-      'A Docker-compatible operating system: Linux, macOS, or Windows (with WSL 2 enabled).',
+    description: 'A Docker-compatible operating system: Linux, macOS, or Windows (with WSL 2 enabled).',
     icon: 'terminal',
-    completed: false,
+    completed: false
   },
   {
     id: 'dc-tooling-requirements',
     label: 'Tooling Requirements',
-    description:
-      'The following tools need to be installed to use Dev Containers.',
+    description: 'The following tools need to be installed to use Dev Containers.',
     icon: 'tools',
     completed: false,
     children: [
       {
         id: 'dc-tooling-docker',
         label: 'Docker Desktop (or Docker Engine on Linux)',
-        description:
-          'Install Docker Desktop for Mac or Windows, or Docker Engine for Linux.',
+        description: 'Install Docker Desktop for Mac or Windows, or Docker Engine for Linux.',
         link: 'https://docs.docker.com/get-docker/',
         icon: 'ship',
-        completed: false,
+        completed: false
       },
       {
         id: 'dc-tooling-editor',
-        label:
-          'VS Code with Dev Containers extension or IntelliJ IDEA Ultimate',
+        label: 'VS Code with Dev Containers extension or IntelliJ IDEA Ultimate',
         description:
           'Install VS Code and the Dev Containers extension from the Marketplace, or use IntelliJ IDEA Ultimate which has built-in support.',
         link: 'https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers',
         icon: 'edit',
-        completed: false,
+        completed: false
       },
       {
         id: 'dc-tooling-git',
         label: 'git installed',
-        description:
-          'git is used to clone the repository and contribute your changes.',
+        description: 'git is used to clone the repository and contribute your changes.',
         icon: 'git-repo',
-        completed: false,
+        completed: false
       },
       {
         id: 'dc-tooling-docs',
         label: 'Read the Dev Containers documentation',
-        description:
-          'Learn how Dev Containers work and how to use them effectively for backstage development.',
+        description: 'Learn how Dev Containers work and how to use them effectively for backstage development.',
         link: 'https://github.com/backstage/backstage/blob/master/contrib/docs/tutorials/devcontainer.md',
         icon: 'book',
-        completed: false,
-      },
-    ],
+        completed: false
+      }
+    ]
   },
-  {
-    id: 'dco',
-    label: 'Sign your commits (DCO)',
-    description:
-      'Backstage requires a [Developer Certificate of Origin (DCO)](https://github.com/backstage/backstage/blob/master/CONTRIBUTING.md#developer-certificate-of-origin) sign-off on every commit. Pick how you commit below.',
-    icon: 'verified-filled',
-    completed: false,
-    children: [
-      {
-        id: 'dco-git-cli',
-        label: 'Using git CLI',
-        description:
-          'Add -s to your commit command: `git commit -s -m "Your message"`\nMake sure user.name and user.email are set in your git config first:\n`git config --global user.name "Your Name"`\n`git config --global user.email "you@example.com"`',
-        icon: 'terminal',
-        completed: false,
-      },
-      {
-        id: 'dco-vscode',
-        label: 'Using VS Code',
-        description:
-          'Enable **Git: Always Sign Off** in your settings (`"git.alwaysSignOff": true`) and VS Code will automatically add the sign-off to every commit.',
-        icon: 'vscode',
-        completed: false,
-      },
-      {
-        id: 'dco-github-desktop',
-        label: 'Using GitHub Desktop',
-        description:
-          'Manually add the sign-off line in the Description field before committing:\n`Signed-off-by: Your Name <you@example.com>`',
-        icon: 'desktop-download',
-        completed: false,
-      },
-    ],
-  },
+  dcoItems,
   ...forkItems,
   {
     id: 'contributing-guidelines',
@@ -396,7 +386,7 @@ const devcontainerChecklist: ChecklistItemType[] = [
         description:
           'Read the [Backstage Contributing Guidelines](https://github.com/backstage/backstage/blob/master/CONTRIBUTING.md).',
         icon: 'book',
-        completed: false,
+        completed: false
       },
       {
         id: 'contributing-guidelines-community-plugins',
@@ -404,24 +394,21 @@ const devcontainerChecklist: ChecklistItemType[] = [
         description:
           'Read the [Community Plugins Contributing Guidelines](https://github.com/backstage/community-plugins/blob/main/CONTRIBUTING.md).',
         icon: 'book',
-        completed: false,
-      },
-    ],
-  },
+        completed: false
+      }
+    ]
+  }
 ];
 
 export default function GettingStartedPage() {
-  const [devEnv, setDevEnv] = useLocalStorage<DevEnvironment>(
-    'contribfest-dev-environment',
-    'native',
-  );
+  const [devEnv, setDevEnv] = useLocalStorage<DevEnvironment>('contribfest-dev-environment', 'native');
   const [nativeState, setNativeState] = useLocalStorage<ChecklistItemType[]>(
     'contribfest-checklist-native',
-    nativeChecklist,
+    nativeChecklist
   );
   const [dcState, setDcState] = useLocalStorage<ChecklistItemType[]>(
     'contribfest-checklist-devcontainer',
-    devcontainerChecklist,
+    devcontainerChecklist
   );
 
   const checklist = devEnv === 'devcontainer' ? dcState : nativeState;
@@ -449,8 +436,8 @@ export default function GettingStartedPage() {
                 completed: newCompleted,
                 children: item.children.map((child) => ({
                   ...child,
-                  completed: newCompleted,
-                })),
+                  completed: newCompleted
+                }))
               };
             }
             return { ...item, completed: newCompleted };
@@ -459,14 +446,12 @@ export default function GettingStartedPage() {
           // If this item has children, check if any child was toggled
           if (item.children && item.children.length > 0) {
             const updatedChildren = toggleItem(item.children);
-            const allChildrenCompleted = updatedChildren.every(
-              (child) => child.completed,
-            );
+            const allChildrenCompleted = updatedChildren.every((child) => child.completed);
 
             return {
               ...item,
               children: updatedChildren,
-              completed: allChildrenCompleted,
+              completed: allChildrenCompleted
             };
           }
 
@@ -479,11 +464,7 @@ export default function GettingStartedPage() {
   };
 
   const handleReset = () => {
-    if (
-      window.confirm(
-        'Are you sure you want to reset all checkboxes? This will clear all your progress.',
-      )
-    ) {
+    if (window.confirm('Are you sure you want to reset all checkboxes? This will clear all your progress.')) {
       window.localStorage.removeItem('contribfest-checklist-native');
       window.localStorage.removeItem('contribfest-checklist-devcontainer');
       window.localStorage.removeItem('contribfest-celebration-shown');
@@ -502,8 +483,7 @@ export default function GettingStartedPage() {
 
   const completedCount = completedNonFork + (anyForkCompleted ? 1 : 0);
   const totalCount = nonForkItems.length + (forkItemsInList.length > 0 ? 1 : 0);
-  const percentage =
-    totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
+  const percentage = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
   // Celebration: all non-fork items done AND at least one fork item done
   useEffect(() => {
@@ -517,30 +497,19 @@ export default function GettingStartedPage() {
         localStorage.setItem('contribfest-celebration-shown', 'true');
       }
     }
-  }, [
-    checklist,
-    nonForkItems,
-    totalCount,
-    hasShownCelebration,
-    anyForkCompleted,
-  ]);
+  }, [checklist, nonForkItems, totalCount, hasShownCelebration, anyForkCompleted]);
 
   return (
-    <div
-      style={{ display: 'flex', gap: '32px', alignItems: 'flex-start' }}
-      className="getting-started-layout"
-    >
+    <div style={{ display: 'flex', gap: '32px', alignItems: 'flex-start' }} className="getting-started-layout">
       <div style={{ flex: 1, minWidth: 0 }}>
-        {showCelebration && (
-          <Celebration onClose={() => setShowCelebration(false)} />
-        )}
+        {showCelebration && <Celebration onClose={() => setShowCelebration(false)} />}
         <div style={{ marginBottom: '32px' }}>
           <h1
             style={{
               fontSize: '32px',
               fontWeight: 700,
               marginBottom: '12px',
-              color: 'var(--bui-fg-primary, #000)',
+              color: 'var(--bui-fg-primary, #000)'
             }}
           >
             🚀 Getting Started
@@ -550,11 +519,10 @@ export default function GettingStartedPage() {
               fontSize: '16px',
               color: 'var(--bui-fg-secondary, #666)',
               lineHeight: '1.6',
-              marginBottom: '16px',
+              marginBottom: '16px'
             }}
           >
-            Complete these steps to set up your development environment for
-            contributing to Backstage.
+            Complete these steps to set up your development environment for contributing to Backstage.
           </p>
 
           <div
@@ -563,7 +531,7 @@ export default function GettingStartedPage() {
               alignItems: 'center',
               justifyContent: 'space-between',
               gap: '16px',
-              marginBottom: '16px',
+              marginBottom: '16px'
             }}
           >
             <div
@@ -574,7 +542,7 @@ export default function GettingStartedPage() {
                 borderRadius: '8px',
                 fontSize: '18px',
                 fontWeight: 600,
-                color: 'var(--bui-fg-primary, #000)',
+                color: 'var(--bui-fg-primary, #000)'
               }}
             >
               Progress: {completedCount} / {totalCount} ({percentage}%)
@@ -590,11 +558,10 @@ export default function GettingStartedPage() {
                 fontWeight: 500,
                 color: 'var(--bui-fg-primary, #000)',
                 cursor: 'pointer',
-                transition: 'all 0.2s',
+                transition: 'all 0.2s'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background =
-                  'var(--contribfest-progress-bg, #dcfce7)';
+                e.currentTarget.style.background = 'var(--contribfest-progress-bg, #dcfce7)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = 'var(--bui-bg-app, #f8f8f8)';
@@ -610,7 +577,7 @@ export default function GettingStartedPage() {
               padding: '16px',
               background: 'var(--bui-bg-app, #f8f8f8)',
               border: '1px solid var(--bui-border-1, #d5d5d5)',
-              borderRadius: '8px',
+              borderRadius: '8px'
             }}
           >
             <p
@@ -618,7 +585,7 @@ export default function GettingStartedPage() {
                 fontSize: '14px',
                 fontWeight: 600,
                 color: 'var(--bui-fg-primary, #000)',
-                marginBottom: '4px',
+                marginBottom: '4px'
               }}
             >
               How will you develop?
@@ -628,14 +595,12 @@ export default function GettingStartedPage() {
                 fontSize: '13px',
                 color: 'var(--bui-fg-secondary, #666)',
                 lineHeight: '1.5',
-                marginBottom: '12px',
+                marginBottom: '12px'
               }}
             >
-              Choose <strong>Native stack</strong> if you want to install
-              Node.js, Yarn, and other tools directly on your machine. Choose{' '}
-              <strong>Dev Containers</strong> if you prefer a Docker-based
-              environment where all dependencies are provided automatically —
-              you only need Docker and a supported editor.
+              Choose <strong>Native stack</strong> if you want to install Node.js, Yarn, and other tools directly on
+              your machine. Choose <strong>Dev Containers</strong> if you prefer a Docker-based environment where all
+              dependencies are provided automatically — you only need Docker and a supported editor.
             </p>
             <div style={{ display: 'flex', gap: '24px' }}>
               <label
@@ -645,7 +610,7 @@ export default function GettingStartedPage() {
                   gap: '8px',
                   cursor: 'pointer',
                   fontSize: '15px',
-                  color: 'var(--bui-fg-primary, #000)',
+                  color: 'var(--bui-fg-primary, #000)'
                 }}
               >
                 <input
@@ -665,7 +630,7 @@ export default function GettingStartedPage() {
                   gap: '8px',
                   cursor: 'pointer',
                   fontSize: '15px',
-                  color: 'var(--bui-fg-primary, #000)',
+                  color: 'var(--bui-fg-primary, #000)'
                 }}
               >
                 <input
@@ -689,16 +654,13 @@ export default function GettingStartedPage() {
         </div>
       </div>
 
-      <aside
-        style={{ width: '280px', flexShrink: 0 }}
-        className="getting-started-sidebar"
-      >
+      <aside style={{ width: '280px', flexShrink: 0 }} className="getting-started-sidebar">
         <h2
           style={{
             fontSize: '16px',
             fontWeight: 600,
             marginBottom: '16px',
-            color: 'var(--bui-fg-primary, #000)',
+            color: 'var(--bui-fg-primary, #000)'
           }}
         >
           Post-Setup Resources
