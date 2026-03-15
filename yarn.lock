@@ -3280,7 +3280,7 @@ __metadata:
     "@types/papaparse": "npm:^5.5.2"
     "@types/react": "npm:^19.2.14"
     "@types/react-dom": "npm:^19.2.3"
-    eslint: "npm:^10.0.2"
+    eslint: "npm:^10.0.3"
     eslint-config-next: "npm:16.2.0-canary.80"
     next: "npm:16.2.0-canary.80"
     papaparse: "npm:^5.5.3"
@@ -3809,7 +3809,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^10.0.2":
+"eslint@npm:^10.0.3":
   version: 10.0.3
   resolution: "eslint@npm:10.0.3"
   dependencies:
