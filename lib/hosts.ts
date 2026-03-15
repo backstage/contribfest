@@ -42,6 +42,14 @@ export const hosts: Host[] = [
     linkedinUrl: 'https://www.linkedin.com/in/elaine-mattos/',
   },
   {
+    name: 'Emma Indal',
+    title: 'Engineering Manager',
+    company: 'Spotify',
+    kubecon: 'Amsterdam',
+    imagePath: '/img/avatars/avatar-emma-indal.jpg',
+    linkedinUrl: 'https://www.linkedin.com/in/emma-indal/',
+  },
+  {
     name: 'Heikki Hellgren',
     title: 'Expert Lead Developer',
     company: 'OP Financial Group',
