@@ -1,4 +1,6 @@
 repo,level,issueId
+backstage/backstage,Intermediate,33330
+backstage/backstage,Intermediate,33328
 backstage/backstage,Advanced,32407
 backstage/backstage,Advanced,32509
 backstage/backstage,Beginner,29662
@@ -6,14 +8,12 @@ backstage/backstage,Beginner,30442
 backstage/backstage,Beginner,31175
 backstage/backstage,Beginner,31446
 backstage/backstage,Beginner,31539
-backstage/backstage,Beginner,31540
 backstage/backstage,Beginner,31541
 backstage/backstage,Beginner,31542
 backstage/backstage,Beginner,32745
 backstage/backstage,Beginner,32746
 backstage/backstage,Beginner,32747
 backstage/backstage,Beginner,32748
-backstage/backstage,Beginner,32749
 backstage/community-plugins,Beginner,413
 backstage/community-plugins,Beginner,705
 backstage/community-plugins,Beginner,3898
@@ -34,8 +34,6 @@ backstage/backstage,Intermediate,6366
 backstage/backstage,Intermediate,13402
 backstage/backstage,Intermediate,13668
 backstage/backstage,Intermediate,20955
-backstage/backstage,Intermediate,27009
-backstage/backstage,Intermediate,29670
 backstage/backstage,Intermediate,29671
 backstage/backstage,Intermediate,30740
 backstage/backstage,Intermediate,30979
@@ -57,11 +55,9 @@ backstage/community-plugins,Intermediate,5267
 backstage/community-plugins,Intermediate,7532
 backstage/community-plugins,Intermediate,7533
 backstage/community-plugins,Intermediate,7534
-backstage/backstage,Intermediate,31315
 backstage/backstage,Intermediate,31919
 backstage/backstage,Intermediate,32246
 backstage/backstage,Intermediate,32271
-backstage/backstage,Intermediate,32315
 backstage/backstage,Intermediate,32353
 backstage/backstage,Beginner,32677
 backstage/backstage,Intermediate,32785
@@ -80,7 +76,6 @@ backstage/community-plugins,Intermediate,6402
 backstage/community-plugins,Intermediate,6409
 backstage/community-plugins,Beginner,7073
 backstage/community-plugins,Intermediate,7435
-backstage/community-plugins,Beginner,7462
 backstage/community-plugins,Intermediate,7574
 backstage/community-plugins,Beginner,7859
 backstage/community-plugins,Beginner,7860
