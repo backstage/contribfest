@@ -180,15 +180,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/ui@npm:^0.12.0":
-  version: 0.12.0
-  resolution: "@backstage/ui@npm:0.12.0"
+"@backstage/ui@npm:^0.13.2":
+  version: 0.13.2
+  resolution: "@backstage/ui@npm:0.13.2"
   dependencies:
     "@backstage/version-bridge": "npm:^1.0.12"
     "@remixicon/react": "npm:^4.6.0"
     "@tanstack/react-table": "npm:^8.21.3"
     clsx: "npm:^2.1.1"
     react-aria-components: "npm:^1.14.0"
+    use-sync-external-store: "npm:^1.4.0"
   peerDependencies:
     "@types/react": ^17.0.0 || ^18.0.0
     react: ^17.0.0 || ^18.0.0
@@ -197,7 +198,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10/89c894d6dbc1e4028e5f47bfda3f13f071595df4db71e01f9add37ec4074cf534bb86018c0dad864eb21cdfae05a0c337694fab62d7c923b0e47fd1dc9aa16b6
+  checksum: 10/b916c3882f9b5a6b75e65bd435cc54fea2bec93de660a35ebdd3acb73e16ab8a2e45ba288393bc5d3248e4ab8ce3d720b490b0bbf60d2ce208f59f49404ce5a8
   languageName: node
   linkType: hard
 
@@ -3273,7 +3274,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "contribfest@workspace:."
   dependencies:
-    "@backstage/ui": "npm:^0.12.0"
+    "@backstage/ui": "npm:^0.13.2"
     "@eslint/compat": "npm:^2.0.5"
     "@eslint/eslintrc": "npm:^3.3.5"
     "@types/node": "npm:^24.12.2"
@@ -6003,7 +6004,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-sync-external-store@npm:^1.6.0":
+"use-sync-external-store@npm:^1.4.0, use-sync-external-store@npm:^1.6.0":
   version: 1.6.0
   resolution: "use-sync-external-store@npm:1.6.0"
   peerDependencies:
