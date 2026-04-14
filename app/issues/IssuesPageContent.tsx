@@ -3,13 +3,19 @@
 import { useIssues } from '@/hooks/useIssues'
 import { IssueTable } from '@/components/IssueTable'
 import { CountdownModal } from '@/components/CountdownModal'
+import { InactiveIssuesPage } from '@/components/InactiveIssuesPage'
 import { useSearchParams } from 'next/navigation'
 import { useMemo } from 'react'
+
+// Set to true when ContribFest is active
+const CONTRIBFEST_ACTIVE = false
 
 export default function IssuesPageContent() {
   const searchParams = useSearchParams()
   const initialRepository = searchParams.get('repository') || undefined
   const isAdmin = searchParams.get('admin') === 'true'
+
+  const showCuratedList = CONTRIBFEST_ACTIVE || isAdmin
 
   // Check if access is allowed (after March 26, 2026 or admin bypass)
   const { accessAllowed, targetDate } = useMemo(() => {
@@ -23,7 +29,11 @@ export default function IssuesPageContent() {
     }
   }, [isAdmin])
 
-  const { issues, loading, error, progress } = useIssues(accessAllowed)
+  const { issues, loading, error, progress } = useIssues(showCuratedList && accessAllowed)
+
+  if (!showCuratedList) {
+    return <InactiveIssuesPage />
+  }
 
   return (
     <div>
