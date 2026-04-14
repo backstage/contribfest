@@ -1,6 +1,9 @@
 import { WelcomeCard } from '@/components/WelcomeCard'
 import type { ResourceCard } from '@/lib/types'
 
+// Set to true when ContribFest is active
+const CONTRIBFEST_ACTIVE = false
+
 const sessionResources: ResourceCard[] = [
   {
     title: 'ContribFest Slide Deck',
@@ -90,29 +93,48 @@ export default function Page() {
         </p>
       </div>
 
-      <div
-        style={{
-          background: 'var(--contribfest-progress-bg, #dcfce7)',
-          borderRadius: '8px',
-          padding: '16px',
-          marginBottom: '32px',
-          fontSize: '17px',
-          color: 'var(--bui-fg-primary, #000)',
-          lineHeight: '1.6',
-        }}
-      >
-        The next Backstage ContribFest session takes place at KubeCon in Amsterdam on March 26,
-        2026 at 13:45 CET in room G107, be sure to{' '}
-        <a
-          href="https://kccnceu2026.sched.com/event/2EF7v/contribfest-supercharge-your-open-source-impact-backstage-contribfest-live-andre-wanlin-emma-indal-spotify-heikki-hellgren-op-financial-group-elaine-bezerra-db-systel-gmbh"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: 'var(--bui-bg-solid, #1f5493)', fontWeight: 600 }}
+      {!CONTRIBFEST_ACTIVE && (
+        <div
+          style={{
+            background: 'var(--contribfest-progress-bg, #dcfce7)',
+            borderRadius: '8px',
+            padding: '16px',
+            marginBottom: '32px',
+            fontSize: '17px',
+            color: 'var(--bui-fg-primary, #000)',
+            lineHeight: '1.6',
+          }}
         >
-          add it to your schedule
-        </a>
-        .
-      </div>
+          Backstage ContribFest will return in November, with more details to be shared nearer
+          the date.
+        </div>
+      )}
+
+      {CONTRIBFEST_ACTIVE && (
+        <div
+          style={{
+            background: 'var(--contribfest-progress-bg, #dcfce7)',
+            borderRadius: '8px',
+            padding: '16px',
+            marginBottom: '32px',
+            fontSize: '17px',
+            color: 'var(--bui-fg-primary, #000)',
+            lineHeight: '1.6',
+          }}
+        >
+          The next Backstage ContribFest session takes place at KubeCon in Amsterdam on March 26,
+          2026 at 13:45 CET in room G107, be sure to{' '}
+          <a
+            href="https://kccnceu2026.sched.com/event/2EF7v/contribfest-supercharge-your-open-source-impact-backstage-contribfest-live-andre-wanlin-emma-indal-spotify-heikki-hellgren-op-financial-group-elaine-bezerra-db-systel-gmbh"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: 'var(--bui-bg-solid, #1f5493)', fontWeight: 600 }}
+          >
+            add it to your schedule
+          </a>
+          .
+        </div>
+      )}
 
       <div style={{ marginBottom: '32px' }}>
         <h2
@@ -152,30 +174,34 @@ export default function Page() {
         </p>
       </div>
 
-      <div style={{ marginBottom: '24px' }}>
-        <h2
-          style={{
-            fontSize: '24px',
-            fontWeight: 700,
-            color: 'var(--bui-fg-primary, #000)',
-          }}
-        >
-          Session Resources
-        </h2>
-      </div>
+      {CONTRIBFEST_ACTIVE && (
+        <>
+          <div style={{ marginBottom: '24px' }}>
+            <h2
+              style={{
+                fontSize: '24px',
+                fontWeight: 700,
+                color: 'var(--bui-fg-primary, #000)',
+              }}
+            >
+              Session Resources
+            </h2>
+          </div>
 
-      <div
-        className="session-resources-grid"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '24px',
-        }}
-      >
-        {sessionResources.map((resource) => (
-          <WelcomeCard key={resource.title} {...resource} />
-        ))}
-      </div>
+          <div
+            className="session-resources-grid"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, 1fr)',
+              gap: '24px',
+            }}
+          >
+            {sessionResources.map((resource) => (
+              <WelcomeCard key={resource.title} {...resource} />
+            ))}
+          </div>
+        </>
+      )}
 
       <div style={{ marginTop: '48px', marginBottom: '24px' }}>
         <h2
