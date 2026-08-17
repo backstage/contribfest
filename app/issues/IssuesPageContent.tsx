@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation'
 import { useMemo } from 'react'
 
 // Set to true when ContribFest is active
-const CONTRIBFEST_ACTIVE = false
+const CONTRIBFEST_ACTIVE = true
 
 export default function IssuesPageContent() {
   const searchParams = useSearchParams()
@@ -19,7 +19,7 @@ export default function IssuesPageContent() {
 
   // Check if access is allowed (after March 26, 2026 or admin bypass)
   const { accessAllowed, targetDate } = useMemo(() => {
-    const target = new Date('2026-03-26T00:00:00')
+    const target = new Date('2026-11-11T00:00:00')
     const now = new Date()
     const allowed = now >= target || isAdmin
 
