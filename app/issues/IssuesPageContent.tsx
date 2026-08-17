@@ -17,7 +17,7 @@ export default function IssuesPageContent() {
 
   const showCuratedList = CONTRIBFEST_ACTIVE || isAdmin
 
-  // Check if access is allowed (after March 26, 2026 or admin bypass)
+  // Check if access is allowed (after November 11, 2026 or admin bypass)
   const { accessAllowed, targetDate } = useMemo(() => {
     const target = new Date('2026-11-11T00:00:00')
     const now = new Date()

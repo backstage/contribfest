@@ -286,7 +286,7 @@ export function CountdownModal({ targetDate }: CountdownModalProps) {
             }}
           >
             The curated issues list will be available on<br />
-            <strong>March 26, 2026</strong>
+            <strong>November 11, 2026</strong>
           </p>
 
           <div
