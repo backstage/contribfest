@@ -2,13 +2,21 @@ import type { ContribFestSession } from './types';
 
 export const sessions: ContribFestSession[] = [
   {
+    location: 'Salt Lake City',
+    subtitle: 'KubeCon + CloudNativeCon North America',
+    date: 'November 2026',
+    blogUrl:
+      'https://kubecon-cloudnativecon-north-america-2026.sessionize.com/session/1294770',
+    comingSoon: true,
+    linkText: 'View Session',
+  },
+  {
     location: 'Amsterdam',
     subtitle: 'KubeCon + CloudNativeCon Europe',
     date: 'March 2026',
     blogUrl:
       'https://kccnceu2026.sched.com/event/2EF7v/contribfest-supercharge-your-open-source-impact-backstage-contribfest-live-andre-wanlin-emma-indal-spotify-heikki-hellgren-op-financial-group-elaine-bezerra-db-systel-gmbh?iframe=no',
-    comingSoon: true,
-    linkText: 'Add to Schedule',
+    linkText: 'View on Sched',
   },
   {
     location: 'Atlanta',

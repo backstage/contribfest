@@ -2,21 +2,22 @@ import { WelcomeCard } from '@/components/WelcomeCard'
 import type { ResourceCard } from '@/lib/types'
 
 // Set to true when ContribFest is active
-const CONTRIBFEST_ACTIVE = false
+const CONTRIBFEST_ACTIVE = true
 
 const sessionResources: ResourceCard[] = [
   {
     title: 'ContribFest Slide Deck',
     description:
       'Presentation slides with workshop overview, contribution tips, and resources. A handy reference for workshop structure and guidance throughout the session.',
-    url: `/KubeCon-Amsterdam-Backstage-ContribFest-2026.pdf`,
+    url: `/KubeCon-SLC-Backstage-ContribFest-2026.pdf`,
     isExternal: true,
+    note: 'The slide deck will be available before the event.',
   },
   {
     title: 'Assignment Sheet',
     description:
       'Google Sheet for participants to assign themselves to issues they want to work on. Claim your issue and track progress during the session.',
-    url: 'https://docs.google.com/spreadsheets/d/1lltOy3A25zWUXb3XdtkHBD5CHzrmfm8DRaWt7vh0WKU/edit?gid=232343915#gid=232343915',
+    url: 'https://docs.google.com/spreadsheets/d/1Bw3fclWcIt7_x7NlpWnJ0DTiaEQqjQ2KkvySiofoHZQ/edit?gid=232343915#gid=232343915',
     isExternal: true,
     note: 'Access to the Assignment Sheet will be provided on the day of the event.',
   },
@@ -105,8 +106,8 @@ export default function Page() {
             lineHeight: '1.6',
           }}
         >
-          Backstage ContribFest will return in November, with more details to be shared nearer
-          the date.
+          Backstage ContribFest will return at KubeCon Barcelona in March 2027, with more
+          details to be shared nearer the date.
         </div>
       )}
 
@@ -122,15 +123,15 @@ export default function Page() {
             lineHeight: '1.6',
           }}
         >
-          The next Backstage ContribFest session takes place at KubeCon in Amsterdam on March 26,
-          2026 at 13:45 CET in room G107, be sure to{' '}
+          The next Backstage ContribFest session takes place at KubeCon in Salt Lake City on
+          November 11, 2026 at 4:10 PM MST in Room 255 D (Salt Palace, Level 2), be sure to{' '}
           <a
-            href="https://kccnceu2026.sched.com/event/2EF7v/contribfest-supercharge-your-open-source-impact-backstage-contribfest-live-andre-wanlin-emma-indal-spotify-heikki-hellgren-op-financial-group-elaine-bezerra-db-systel-gmbh"
+            href="https://kubecon-cloudnativecon-north-america-2026.sessionize.com/session/1294770"
             target="_blank"
             rel="noopener noreferrer"
             style={{ color: 'var(--bui-bg-solid, #1f5493)', fontWeight: 600 }}
           >
-            add it to your schedule
+            check out the session
           </a>
           .
         </div>
