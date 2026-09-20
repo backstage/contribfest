@@ -180,9 +180,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/ui@npm:^0.17.0":
-  version: 0.17.0
-  resolution: "@backstage/ui@npm:0.17.0"
+"@backstage/ui@npm:^0.18.0":
+  version: 0.18.0
+  resolution: "@backstage/ui@npm:0.18.0"
   dependencies:
     "@backstage/version-bridge": "npm:^1.0.12"
     "@braintree/sanitize-url": "npm:^7.1.2"
@@ -203,7 +203,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10/62282be4e2b3361d58236d8d0bbffa328ef875bdd35ac19f3764edb2799f55e23d426b3deb844d622a39e092f63c8abb5947b98e955c1cdb18388d1c853059f3
+  checksum: 10/65257db9c71f2af026310e8cc511d77dff3e42fba567212c9ac8a3cc19a4265839f30bd41dbf81899d5f4c9e9d8f8fcc3129d73a349643f68983a293a09005f5
   languageName: node
   linkType: hard
 
@@ -1562,7 +1562,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "contribfest@workspace:."
   dependencies:
-    "@backstage/ui": "npm:^0.17.0"
+    "@backstage/ui": "npm:^0.18.0"
     "@eslint/compat": "npm:^2.1.0"
     "@eslint/eslintrc": "npm:^3.3.6"
     "@types/node": "npm:^24.13.3"
