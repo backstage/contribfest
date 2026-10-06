@@ -3,11 +3,11 @@ name: CD
 on:
   push:
     branches: [main]
-  # Refresh the GitHub data snapshot every 15 minutes (offset from the top of
+  # Refresh the GitHub data snapshot every hour (offset from the top of
   # the hour, when scheduled runs are most often delayed). During the session,
   # use "Run workflow" for an immediate refresh.
   schedule:
-    - cron: '7,22,37,52 * * * *'
+    - cron: '17 * * * *'
   workflow_dispatch:
 
 # Cancel in-progress deployments for same branch

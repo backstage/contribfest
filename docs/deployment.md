@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This project deploys to GitHub Pages at `https://contribfest.backstage.io` when code is merged to `main`, and every 15 minutes on a schedule to refresh GitHub data.
+This project deploys to GitHub Pages at `https://contribfest.backstage.io` when code is merged to `main`, and every hour on a schedule to refresh GitHub data.
 
 ## GitHub Pages Setup
 
@@ -36,7 +36,7 @@ When you merge a PR to `main`:
 
 ### Scheduled Refresh
 
-CD also runs every 15 minutes (`7,22,37,52 * * * *`) to refresh the GitHub data. Scheduled runs rebuild the current `main`, which has already passed CI, so they skip the CI wait. GitHub can delay or drop scheduled runs during busy periods, so don't rely on the schedule during the session.
+CD also runs every hour (`17 * * * *`) to refresh the GitHub data. Scheduled runs rebuild the current `main`, which has already passed CI, so they skip the CI wait. GitHub can delay or drop scheduled runs during busy periods, so don't rely on the schedule during the session.
 
 ### Manual Deployment / Refresh
 

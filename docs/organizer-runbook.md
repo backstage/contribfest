@@ -36,7 +36,7 @@ Replace them with fresh issues if needed. If the list runs low, that's fine: the
 
 ## During the Session
 
-- GitHub data refreshes every 15 minutes. For an immediate refresh, run the **CD** workflow from the Actions tab (takes about 2-3 minutes).
+- GitHub data refreshes every hour. For an immediate refresh, run the **CD** workflow from the Actions tab (takes about 2-3 minutes).
 - Attendees claim issues in the assignment sheet; the site's availability badges show what's already taken on GitHub.
 
 ## After the Event
