@@ -26,13 +26,19 @@ cp .env.example .env.local
 yarn install
 ```
 
-4. Run the development server:
+4. Fetch the GitHub data snapshot used by the issues and Contrib Champs pages:
+
+```bash
+GITHUB_TOKEN=$(gh auth token) yarn fetch-data
+```
+
+5. Run the development server:
 
 ```bash
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the application.
+Open [http://localhost:3000](http://localhost:3000) to view the application. See [docs/deployment.md](docs/deployment.md) for how the snapshot is refreshed in production, and [docs/organizer-runbook.md](docs/organizer-runbook.md) for running an event.
 
 ## Build
 

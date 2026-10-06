@@ -10,6 +10,7 @@ const navigationLinks = [
   { href: '/', label: 'Welcome', emoji: '👋', image: 'waving_drk.png' },
   { href: '/getting-started/', label: 'Getting Started', emoji: '🚀', image: 'walking_drk.png' },
   { href: '/issues/', label: 'Curated Issues', emoji: '🔍', image: 'looking_drk.png' },
+  { href: '/ideas/', label: 'Your Ideas', emoji: '💡', image: 'building_drk.png' },
   { href: '/contrib-champs/', label: 'Contrib Champs', emoji: '🏆', image: 'love_backstage_drk.png' },
   { href: '/hall-of-hosts/', label: 'Hall of Hosts', emoji: '🙏', image: 'community_organizer_drk.png' },
 ]

@@ -3,6 +3,11 @@ name: CD
 on:
   push:
     branches: [main]
+  # Refresh the GitHub data snapshot every 15 minutes (offset from the top of
+  # the hour, when scheduled runs are most often delayed). During the session,
+  # use "Run workflow" for an immediate refresh.
+  schedule:
+    - cron: '7,22,37,52 * * * *'
   workflow_dispatch:
 
 # Cancel in-progress deployments for same branch
@@ -19,8 +24,10 @@ permissions:
 
 jobs:
   # Wait for CI to complete before deploying
+  # Scheduled and manual runs rebuild an already-tested commit, so only pushes wait for CI
   check-ci:
     name: Wait for CI
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: Wait for CI workflow
@@ -34,6 +41,7 @@ jobs:
   build:
     name: Build
     needs: check-ci
+    if: ${{ !cancelled() && (needs.check-ci.result == 'success' || needs.check-ci.result == 'skipped') }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -66,6 +74,12 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --immutable
+
+      # Fails the run on any GitHub error, so Pages keeps serving the last good deploy
+      - name: Fetch GitHub data snapshot
+        run: yarn fetch-data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build
         run: yarn build

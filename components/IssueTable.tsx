@@ -1,9 +1,12 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import type { EnrichedIssue } from '@/lib/types'
+import Link from 'next/link'
+import type { EnrichedIssue, IssueAvailability } from '@/lib/types'
 import {
+  availabilityOptions,
   filterIssues,
+  getAvailabilitySortOrder,
   getUniqueRepositories,
   getUniqueLevels,
   getUniqueLabels,
@@ -17,14 +20,14 @@ interface IssueTableProps {
   initialRepository?: string
 }
 
-type SortColumn = 'rowNumber' | 'repository' | 'level' | 'issueId' | 'title' | 'state'
+type SortColumn = 'rowNumber' | 'repository' | 'level' | 'issueId' | 'title' | 'availability'
 type SortDirection = 'asc' | 'desc'
 
 export function IssueTable({ issues, initialRepository }: IssueTableProps) {
   const [filters, setFilters] = useState<FilterOptions>({
     search: '',
     repository: initialRepository || 'all',
-    state: 'all',
+    availability: 'available',
     level: 'all',
     label: 'all',
   })
@@ -39,6 +42,15 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
   // Apply filters
   const filteredIssues = useMemo(
     () => filterIssues(issues, filters),
+    [issues, filters]
+  )
+
+  // How many issues are still up for grabs given the other filters
+  const availableCount = useMemo(
+    () =>
+      filterIssues(issues, { ...filters, availability: 'all' }).filter(
+        (issue) => issue.availability === 'available'
+      ).length,
     [issues, filters]
   )
 
@@ -83,22 +95,26 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
           aValue = a.githubData?.title || ''
           bValue = b.githubData?.title || ''
           break
-        case 'state':
-          aValue = a.githubData?.state || ''
-          bValue = b.githubData?.state || ''
+        case 'availability':
+          aValue = getAvailabilitySortOrder(a.availability)
+          bValue = getAvailabilitySortOrder(b.availability)
           break
       }
 
       if (typeof aValue === 'number' && typeof bValue === 'number') {
-        return sortDirection === 'asc' ? aValue - bValue : bValue - aValue
+        if (aValue !== bValue) {
+          return sortDirection === 'asc' ? aValue - bValue : bValue - aValue
+        }
+      } else {
+        // String comparison
+        const aStr = String(aValue).toLowerCase()
+        const bStr = String(bValue).toLowerCase()
+        if (aStr < bStr) return sortDirection === 'asc' ? -1 : 1
+        if (aStr > bStr) return sortDirection === 'asc' ? 1 : -1
       }
 
-      // String comparison
-      const aStr = String(aValue).toLowerCase()
-      const bStr = String(bValue).toLowerCase()
-      if (aStr < bStr) return sortDirection === 'asc' ? -1 : 1
-      if (aStr > bStr) return sortDirection === 'asc' ? 1 : -1
-      return 0
+      // Tie-break so available issues are listed first
+      return getAvailabilitySortOrder(a.availability) - getAvailabilitySortOrder(b.availability)
     })
     return sorted
   }, [filteredIssues, sortColumn, sortDirection])
@@ -321,7 +337,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
 
         <div>
           <label
-            htmlFor="state"
+            htmlFor="availability"
             style={{
               display: 'block',
               marginBottom: '8px',
@@ -330,17 +346,20 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
               color: 'var(--bui-fg-primary, #000)',
             }}
           >
-            State
+            Availability
           </label>
           <select
-            id="state"
-            value={filters.state}
-            onChange={(e) => setFilters({ ...filters, state: e.target.value })}
+            id="availability"
+            value={filters.availability}
+            onChange={(e) => setFilters({ ...filters, availability: e.target.value })}
             style={{ ...inputStyle, width: '100%' }}
           >
             <option value="all">All</option>
-            <option value="open">Open</option>
-            <option value="closed">Closed</option>
+            {availabilityOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -382,8 +401,30 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
           color: 'var(--bui-fg-secondary, #666)',
         }}
       >
-        Showing {sortedIssues.length} of {issues.length} issues
+        Showing {sortedIssues.length} of {issues.length} issues · {availableCount} available
       </div>
+
+      {/* Fallback when the small issues have all been picked up */}
+      {availableCount <= 3 && (
+        <div
+          role="note"
+          style={{
+            marginBottom: '16px',
+            padding: '16px',
+            borderRadius: '8px',
+            background: 'var(--contribfest-progress-bg, #dcfce7)',
+            color: 'var(--bui-fg-primary, #000)',
+            fontSize: '15px',
+            lineHeight: '1.6',
+          }}
+        >
+          {availableCount === 0 ? 'All of these issues have been picked up' : 'Only a few of these issues are still available'}
+          {' '}— nice work, everyone! Small issues aren&apos;t the only way to contribute:{' '}
+          <Link href="/ideas/" style={{ color: 'var(--bui-bg-solid, #1f5493)', fontWeight: 600 }}>
+            bring your own idea →
+          </Link>
+        </div>
+      )}
 
       {/* Table */}
       <div style={{ overflowX: 'auto' }}>
@@ -436,9 +477,9 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
               <th
                 className="col-hide-mobile"
                 style={{ ...thStyle, cursor: 'pointer', userSelect: 'none' }}
-                onClick={() => handleSort('state')}
+                onClick={() => handleSort('availability')}
               >
-                State <span className="sort-indicator">{sortColumn === 'state' && (sortDirection === 'asc' ? '↑' : '↓')}</span>
+                Availability <span className="sort-indicator">{sortColumn === 'availability' && (sortDirection === 'asc' ? '↑' : '↓')}</span>
               </th>
               <th className="col-hide-mobile" style={thStyle}>Labels</th>
             </tr>
@@ -490,24 +531,7 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
                   )}
                 </td>
                 <td className="col-hide-mobile" style={tdStyle}>
-                  {issue.githubData?.state && (
-                    <span
-                      style={{
-                        padding: '4px 8px',
-                        borderRadius: '4px',
-                        fontSize: '12px',
-                        fontWeight: 500,
-                        background:
-                          issue.githubData.state === 'open'
-                            ? '#d4edda'
-                            : '#f8d7da',
-                        color:
-                          issue.githubData.state === 'open' ? '#155724' : '#721c24',
-                      }}
-                    >
-                      {issue.githubData.state}
-                    </span>
-                  )}
+                  <AvailabilityBadge issue={issue} />
                 </td>
                 <td className="col-hide-mobile" style={tdStyle}>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
@@ -556,6 +580,60 @@ export function IssueTable({ issues, initialRepository }: IssueTableProps) {
       )}
     </div>
   )
+}
+
+function AvailabilityBadge({ issue }: { issue: EnrichedIssue }) {
+  if (!issue.availability) return null
+
+  const style = {
+    padding: '4px 8px',
+    borderRadius: '4px',
+    fontSize: '12px',
+    fontWeight: 500,
+    whiteSpace: 'nowrap' as const,
+    ...getAvailabilityBadgeColor(issue.availability),
+  }
+  const label = availabilityOptions.find((option) => option.value === issue.availability)?.label
+
+  // Link straight to the PR so people can see who is already on it
+  const pr = issue.linkedPRs?.[0]
+  if (issue.availability === 'has-pr' && pr) {
+    return (
+      <a
+        href={pr.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        title={`${pr.state === 'merged' ? 'Merged' : 'Open'} PR #${pr.number} by @${pr.author}`}
+        style={{ ...style, textDecoration: 'none' }}
+      >
+        {label} #{pr.number}
+      </a>
+    )
+  }
+
+  const title =
+    issue.availability === 'assigned' && issue.assignees?.length
+      ? `Assigned to ${issue.assignees.map((login) => `@${login}`).join(', ')}`
+      : undefined
+
+  return (
+    <span style={style} title={title}>
+      {label}
+    </span>
+  )
+}
+
+function getAvailabilityBadgeColor(availability: IssueAvailability): { background: string; color: string } {
+  switch (availability) {
+    case 'available':
+      return { background: '#d4edda', color: '#155724' }
+    case 'assigned':
+      return { background: '#fef3c7', color: '#92400e' }
+    case 'has-pr':
+      return { background: '#dbeafe', color: '#1e40af' }
+    case 'closed':
+      return { background: '#e5e7eb', color: '#374151' }
+  }
 }
 
 const thStyle: React.CSSProperties = {

@@ -6,9 +6,9 @@ import { CountdownModal } from '@/components/CountdownModal'
 import { InactiveIssuesPage } from '@/components/InactiveIssuesPage'
 import { useSearchParams } from 'next/navigation'
 import { useMemo } from 'react'
-
-// Set to true when ContribFest is active
-const CONTRIBFEST_ACTIVE = true
+import Link from 'next/link'
+import { CONTRIBFEST_ACTIVE, EVENT_TIMEZONE, ISSUES_UNLOCK_AT } from '@/lib/event'
+import { formatUpdatedAgo } from '@/lib/snapshot'
 
 export default function IssuesPageContent() {
   const searchParams = useSearchParams()
@@ -17,19 +17,10 @@ export default function IssuesPageContent() {
 
   const showCuratedList = CONTRIBFEST_ACTIVE || isAdmin
 
-  // Check if access is allowed (after November 11, 2026 or admin bypass)
-  const { accessAllowed, targetDate } = useMemo(() => {
-    const target = new Date('2026-11-11T00:00:00')
-    const now = new Date()
-    const allowed = now >= target || isAdmin
+  // Check if access is allowed (after the unlock date or admin bypass)
+  const accessAllowed = useMemo(() => new Date() >= ISSUES_UNLOCK_AT || isAdmin, [isAdmin])
 
-    return {
-      accessAllowed: allowed,
-      targetDate: target,
-    }
-  }, [isAdmin])
-
-  const { issues, loading, error, progress } = useIssues(showCuratedList && accessAllowed)
+  const { issues, generatedAt, loading, error } = useIssues(showCuratedList && accessAllowed)
 
   if (!showCuratedList) {
     return <InactiveIssuesPage />
@@ -58,7 +49,25 @@ export default function IssuesPageContent() {
         >
           Browse {issues.length > 0 && `${issues.length} `}hand-picked GitHub issues from Backstage and Community Plugins
           repositories. Use filters to find issues that match your interests and skill level.
+          Have something else in mind?{' '}
+          <Link href="/ideas/" style={{ color: 'var(--bui-bg-solid, #1f5493)', fontWeight: 600 }}>
+            Bring your own idea
+          </Link>
+          .
         </p>
+        {generatedAt && (
+          <p
+            style={{
+              fontSize: '13px',
+              color: 'var(--bui-fg-secondary, #666)',
+              marginTop: '8px',
+              marginBottom: 0,
+            }}
+            title={new Date(generatedAt).toLocaleString()}
+          >
+            GitHub data updated {formatUpdatedAgo(generatedAt)}
+          </p>
+        )}
       </div>
 
       {/* Loading State */}
@@ -81,37 +90,6 @@ export default function IssuesPageContent() {
           >
             Loading issues...
           </div>
-          {progress && (
-            <div>
-              <div
-                style={{
-                  fontSize: '14px',
-                  color: 'var(--bui-fg-secondary, #666)',
-                  marginBottom: '12px',
-                }}
-              >
-                Fetching metadata: {progress.current} / {progress.total}
-              </div>
-              <div
-                style={{
-                  width: '100%',
-                  height: '8px',
-                  background: 'var(--bui-bg-popover, #fff)',
-                  borderRadius: '4px',
-                  overflow: 'hidden',
-                }}
-              >
-                <div
-                  style={{
-                    width: `${(progress.current / progress.total) * 100}%`,
-                    height: '100%',
-                    background: 'var(--bui-bg-solid, #1f5493)',
-                    transition: 'width 0.3s ease',
-                  }}
-                />
-              </div>
-            </div>
-          )}
         </div>
       )}
 
@@ -149,12 +127,14 @@ export default function IssuesPageContent() {
             color: 'var(--bui-fg-secondary, #666)',
           }}
         >
-          No issues found.
+          {accessAllowed
+            ? 'No issues found.'
+            : `The curated issues list unlocks on ${ISSUES_UNLOCK_AT.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric', timeZone: EVENT_TIMEZONE })}.`}
         </div>
       )}
 
       {/* Countdown Modal - shown if access is not allowed */}
-      {!accessAllowed && <CountdownModal targetDate={targetDate} />}
+      {!accessAllowed && <CountdownModal targetDate={ISSUES_UNLOCK_AT} />}
     </div>
   )
 }
