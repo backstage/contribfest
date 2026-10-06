@@ -60,6 +60,31 @@ yarn dev
 
 Add `?admin=true` to the issues page URL to bypass the countdown.
 
+### Mock Issues
+
+Pass one or more JSON files to add made-up issues, for example to build or demo the issues page before the real list is curated:
+
+```bash
+# Real issues from GitHub, plus mocks
+GITHUB_TOKEN=$(gh auth token) yarn fetch-data mocks/issues.example.json
+
+# Mocks only: skips GitHub, so no token is needed (Contrib Champs will be empty)
+yarn fetch-data --no-github mocks/issues.example.json mocks/my-extra.json
+```
+
+Each file is a JSON array. Only `repository`, `issueId`, `level`, and `title` are required:
+
+| Field | Default | Notes |
+| --- | --- | --- |
+| `availability` | `available` | `available`, `assigned`, `has-pr`, or `closed` |
+| `labels` | `[]` | Strings, or `{ "name", "color" }` objects |
+| `assignees` | `[]` | GitHub logins, shown in the Assigned tooltip |
+| `linkedPRs` | `[]` | `{ "number", "url"?, "state"?, "author"? }`; the first one is linked from the Has PR badge |
+
+Mocks are added after the real issues. A mock with the same repository and issue number as a real issue (or an earlier mock) replaces it, which is handy for simulating an issue being picked up. Invalid entries stop the script with the file and index of the problem.
+
+`mocks/issues.example.json` covers every availability state, level, and repository, using issue numbers from 90001 so they don't collide with real issues. CD runs `yarn fetch-data` with no arguments, so mock data never reaches production.
+
 ## Monitoring
 
 - **Deployment Status:** Check the Actions tab for workflow runs

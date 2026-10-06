@@ -30,6 +30,12 @@ yarn install
 
 ```bash
 GITHUB_TOKEN=$(gh auth token) yarn fetch-data
+
+# Optionally add mock issues (see mocks/issues.example.json)
+GITHUB_TOKEN=$(gh auth token) yarn fetch-data mocks/issues.example.json
+
+# Or use only mock issues, with no GitHub token needed
+yarn fetch-data --no-github mocks/issues.example.json
 ```
 
 5. Run the development server:
