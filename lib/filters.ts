@@ -1,11 +1,24 @@
-import type { EnrichedIssue } from './types'
+import type { EnrichedIssue, IssueAvailability } from './types'
 
 export interface FilterOptions {
   search: string
   repository: string // 'all' | 'backstage/backstage' | 'backstage/community-plugins'
-  state: string // 'all' | 'open' | 'closed'
+  availability: string // 'all' | IssueAvailability
   level: string // 'all' | 'Beginner' | 'Intermediate' | 'Advanced'
   label: string // 'all' | specific label name
+}
+
+export const availabilityOptions: Array<{ value: IssueAvailability; label: string }> = [
+  { value: 'available', label: 'Available' },
+  { value: 'assigned', label: 'Assigned' },
+  { value: 'has-pr', label: 'Has PR' },
+  { value: 'closed', label: 'Closed' },
+]
+
+// Sort order used to list available issues first
+export function getAvailabilitySortOrder(availability?: IssueAvailability): number {
+  const index = availabilityOptions.findIndex((option) => option.value === availability)
+  return index === -1 ? availabilityOptions.length : index
 }
 
 export function filterIssues(
@@ -29,9 +42,9 @@ export function filterIssues(
       }
     }
 
-    // Filter by state
-    if (filters.state !== 'all' && issue.githubData) {
-      if (issue.githubData.state !== filters.state) {
+    // Filter by availability
+    if (filters.availability !== 'all') {
+      if (issue.availability !== filters.availability) {
         return false
       }
     }

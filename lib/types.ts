@@ -1,14 +1,5 @@
-// CSV row format: {row_number}→{repo},{level},{issue_id}
-export interface IssueRow {
-  rowNumber: number
-  repository: string
-  level: string
-  issueId: number
-}
-
-// GitHub API issue response
+// GitHub issue data from the build-time snapshot (scripts/fetch-github-data.mjs)
 export interface GitHubIssue {
-  id: number
   number: number
   title: string
   state: 'open' | 'closed'
@@ -23,7 +14,17 @@ export interface GitHubIssue {
   }>
   created_at: string
   updated_at: string
-  body?: string
+}
+
+// Whether someone has already picked up a curated issue
+export type IssueAvailability = 'available' | 'assigned' | 'has-pr' | 'closed'
+
+// A pull request that would close a curated issue
+export interface LinkedPullRequest {
+  number: number
+  url: string
+  state: 'open' | 'merged'
+  author: string
 }
 
 // Combined data: CSV + GitHub metadata
@@ -32,8 +33,17 @@ export interface EnrichedIssue {
   repository: string
   level: string
   issueId: number
+  availability?: IssueAvailability
+  assignees?: string[]
+  linkedPRs?: LinkedPullRequest[]
   githubData?: GitHubIssue
   error?: string
+}
+
+// Shape of the JSON files in public/data/
+export interface Snapshot<T> {
+  generatedAt: string
+  items: T[]
 }
 
 // Checklist item
@@ -59,7 +69,7 @@ export interface ResourceCard {
   note?: string
 }
 
-// GitHub API pull request response
+// GitHub pull request data from the build-time snapshot
 export interface GitHubPullRequest {
   id: number
   number: number

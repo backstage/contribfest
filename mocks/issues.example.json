@@ -1,0 +1,65 @@
+[
+  {
+    "repository": "backstage/backstage",
+    "issueId": 90001,
+    "level": "Beginner",
+    "title": "Mock: Fix typos in the Software Catalog docs",
+    "labels": ["contribfest", "area:documentation"]
+  },
+  {
+    "repository": "backstage/backstage",
+    "issueId": 90002,
+    "level": "Intermediate",
+    "title": "Mock: Add keyboard navigation to the entity table",
+    "labels": ["contribfest", { "name": "area:catalog", "color": "c2e0c6" }],
+    "assignees": ["mock-contributor"],
+    "availability": "assigned"
+  },
+  {
+    "repository": "backstage/backstage",
+    "issueId": 90003,
+    "level": "Advanced",
+    "title": "Mock: Support pagination in the catalog search collator",
+    "labels": ["contribfest", "area:search"]
+  },
+  {
+    "repository": "backstage/backstage",
+    "issueId": 90004,
+    "level": "Beginner",
+    "title": "Mock: Add missing alt text to TechDocs images",
+    "labels": ["contribfest", "area:techdocs"],
+    "availability": "closed"
+  },
+  {
+    "repository": "backstage/community-plugins",
+    "issueId": 90005,
+    "level": "Beginner",
+    "title": "Mock: Migrate the badges plugin to Jest 30",
+    "labels": ["contribfest", "good first issue"]
+  },
+  {
+    "repository": "backstage/community-plugins",
+    "issueId": 90006,
+    "level": "Intermediate",
+    "title": "Mock: Migrate the tech-radar plugin from MUI to BUI",
+    "labels": ["contribfest", "help wanted"],
+    "linkedPRs": [{ "number": 90106, "author": "mock-contributor" }],
+    "availability": "has-pr"
+  },
+  {
+    "repository": "backstage/community-plugins",
+    "issueId": 90007,
+    "level": "Intermediate",
+    "title": "Mock: Add New Frontend System support to the linguist plugin",
+    "labels": ["contribfest", "help wanted"]
+  },
+  {
+    "repository": "backstage/community-plugins",
+    "issueId": 90008,
+    "level": "Advanced",
+    "title": "Mock: Add translation refs to the Jenkins plugin",
+    "labels": ["contribfest"],
+    "linkedPRs": [{ "number": 90108, "state": "merged" }],
+    "availability": "has-pr"
+  }
+]

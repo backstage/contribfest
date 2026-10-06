@@ -23,6 +23,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
+      url: `${BASE_URL}/ideas/`,
+      lastModified: new Date(),
+    },
+    {
       url: `${BASE_URL}/issues/`,
       lastModified: new Date(),
     },

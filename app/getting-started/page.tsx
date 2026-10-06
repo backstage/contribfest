@@ -160,6 +160,12 @@ const sidebarResources: ResourceCard[] = [
     description: 'Details about the Backend System used by Backstage.',
     url: 'https://backstage.io/docs/backend-system/',
     isExternal: true
+  },
+  {
+    title: 'Using AI Tools',
+    description: 'AI assistants are welcome, but you must understand and test every change, and mark largely AI-generated PRs as such.',
+    url: 'https://github.com/backstage/backstage/blob/master/CONTRIBUTING.md#ai-use-policy-and-guidelines',
+    isExternal: true
   }
 ];
 
