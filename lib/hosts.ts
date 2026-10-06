@@ -99,7 +99,7 @@ export const hosts: Host[] = [
   },
   {
     name: 'Stephen Glass',
-    title: 'Lead Software Engineer',
+    title: 'Principal Software Engineer',
     company: 'AT&T',
     kubecon: 'Salt Lake City 2026',
     imagePath: '/img/avatars/avatar-stephen-glass.jpg',
