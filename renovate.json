@@ -19,6 +19,7 @@
       "allowedVersions": "<7.0.0"
     }
   ],
+  "minimumReleaseAge": "3 days",
   "labels": ["dependencies"],
   "lockFileMaintenance": {
     "enabled": false
