@@ -16,8 +16,7 @@
   ],
   "labels": ["dependencies"],
   "lockFileMaintenance": {
-    "enabled": true,
-    "automerge": true
+    "enabled": false
   },
   "constraints": {
     "yarn": "4.4.1"
