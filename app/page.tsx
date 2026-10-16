@@ -1,25 +1,30 @@
 import { WelcomeCard } from '@/components/WelcomeCard'
 import type { ResourceCard } from '@/lib/types'
-
-// Set to true when ContribFest is active
-const CONTRIBFEST_ACTIVE = true
+import { CONTRIBFEST_ACTIVE, currentSession, offSeasonMessage } from '@/lib/event'
 
 const sessionResources: ResourceCard[] = [
   {
     title: 'ContribFest Slide Deck',
     description:
       'Presentation slides with workshop overview, contribution tips, and resources. A handy reference for workshop structure and guidance throughout the session.',
-    url: `/KubeCon-SLC-Backstage-ContribFest-2026.pdf`,
+    url: currentSession.slideDeckPath,
     isExternal: true,
     note: 'The slide deck will be available before the event.',
   },
   {
     title: 'Assignment Sheet',
     description:
-      'Google Sheet for participants to assign themselves to issues they want to work on. Claim your issue and track progress during the session.',
-    url: 'https://docs.google.com/spreadsheets/d/1Bw3fclWcIt7_x7NlpWnJ0DTiaEQqjQ2KkvySiofoHZQ/edit?gid=232343915#gid=232343915',
+      'Google Sheet for participants to assign themselves to issues they want to work on. Check the availability badge on Curated Issues first, then claim your issue and track progress during the session.',
+    url: currentSession.assignmentSheetUrl,
     isExternal: true,
     note: 'Access to the Assignment Sheet will be provided on the day of the event.',
+  },
+  {
+    title: 'Bring Your Own Idea',
+    description:
+      'Have an idea for Backstage? Explore topic areas, pick the right path (feature request, BEP, or plugin proposal), and shape it with help from the hosts.',
+    url: '/ideas/',
+    isExternal: false,
   },
 ]
 
@@ -106,8 +111,7 @@ export default function Page() {
             lineHeight: '1.6',
           }}
         >
-          Backstage ContribFest will return at KubeCon Barcelona in March 2027, with more
-          details to be shared nearer the date.
+          {offSeasonMessage}
         </div>
       )}
 
@@ -123,10 +127,10 @@ export default function Page() {
             lineHeight: '1.6',
           }}
         >
-          The next Backstage ContribFest session takes place at KubeCon in Salt Lake City on
-          November 11, 2026 at 4:10 PM MST in Room 255 D (Salt Palace, Level 2), be sure to{' '}
+          The next Backstage ContribFest session takes place at KubeCon in {currentSession.city} on{' '}
+          {currentSession.details}, be sure to{' '}
           <a
-            href="https://kubecon-cloudnativecon-north-america-2026.sessionize.com/session/1294770"
+            href={currentSession.sessionUrl}
             target="_blank"
             rel="noopener noreferrer"
             style={{ color: 'var(--bui-bg-solid, #1f5493)', fontWeight: 600 }}
@@ -193,7 +197,7 @@ export default function Page() {
             className="session-resources-grid"
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
+              gridTemplateColumns: 'repeat(3, 1fr)',
               gap: '24px',
             }}
           >

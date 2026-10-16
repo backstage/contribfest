@@ -4,9 +4,10 @@ import { usePullRequests } from '@/hooks/usePullRequests'
 import { PullRequestTable } from '@/components/PullRequestTable'
 import { SessionsSidebar } from '@/components/SessionsSidebar'
 import { sessions } from '@/lib/sessions'
+import { formatUpdatedAgo } from '@/lib/snapshot'
 
 export default function ContribChampsPage() {
-  const { pullRequests, loading, error } = usePullRequests()
+  const { pullRequests, generatedAt, loading, error } = usePullRequests()
 
   return (
     <div className="contrib-champs-layout">
@@ -34,6 +35,19 @@ export default function ContribChampsPage() {
             Backstage and Community Plugins repositories — huge thanks to everyone who made them
             happen!
           </p>
+          {generatedAt && (
+            <p
+              style={{
+                fontSize: '13px',
+                color: 'var(--bui-fg-secondary, #666)',
+                marginTop: '8px',
+                marginBottom: 0,
+              }}
+              title={new Date(generatedAt).toLocaleString()}
+            >
+              GitHub data updated {formatUpdatedAgo(generatedAt)}
+            </p>
+          )}
         </div>
 
         {/* Loading State */}
