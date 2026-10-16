@@ -12,6 +12,11 @@
     {
       "matchManagers": ["npm"],
       "rangeStrategy": "bump"
+    },
+    {
+      "description": "Hold TypeScript below 7 until typescript-eslint supports it",
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "<7.0.0"
     }
   ],
   "labels": ["dependencies"],
