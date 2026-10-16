@@ -14,6 +14,7 @@
       "rangeStrategy": "bump"
     }
   ],
+  "minimumReleaseAge": "3 days",
   "labels": ["dependencies"],
   "lockFileMaintenance": {
     "enabled": true,
