@@ -19,7 +19,16 @@ How to run the site for each ContribFest. Event-specific settings live in `lib/e
 2. Add the `contribfest` label. Don't use `good first issue` before the event; those get picked up quickly.
 3. Leave a comment so nobody picks it up early:
 
-   > Do not work on this issue: it's reserved for the Backstage ContribFest at KubeCon on <date>. If it's still open afterwards, it'll be opened up to everyone.
+   > Do not work on this issue: it's reserved for the Backstage ContribFest at KubeCon on November 11, 2026. If it's still open afterwards, it'll be opened up to everyone.
+
+   Optionally, if you can edit the issue, also add this note at the top of its description:
+
+   ```markdown
+   > [!NOTE]
+   > Do not work on this issue: it's reserved for the [Backstage ContribFest](https://contribfest.backstage.io/) at KubeCon on November 11, 2026. If it's still open afterwards, it'll be opened up to everyone. 👍
+   ```
+
+   Remove the note after the event, along with the `contribfest` label.
 
 4. Add a row to `public/issues.csv`: `repo,level,issueId` (level is `Beginner`, `Intermediate`, or `Advanced`).
 5. Optionally pin umbrella issues in `lib/pinned-issues.ts`.
