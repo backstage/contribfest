@@ -1,6 +1,5 @@
 repo,level,issueId
 backstage/backstage,Beginner,30442
-backstage/backstage,Beginner,32745
 backstage/backstage,Beginner,32748
 backstage/backstage,Beginner,32746
 backstage/backstage,Beginner,36002
@@ -19,7 +18,6 @@ backstage/backstage,Beginner,34271
 backstage/backstage,Beginner,34115
 backstage/backstage,Beginner,34055
 backstage/community-plugins,Beginner,413
-backstage/community-plugins,Beginner,3898
 backstage/community-plugins,Beginner,4056
 backstage/community-plugins,Beginner,4841
 backstage/community-plugins,Beginner,5992
@@ -30,7 +28,6 @@ backstage/backstage,Intermediate,13668
 backstage/backstage,Intermediate,6366
 backstage/backstage,Intermediate,20955
 backstage/backstage,Intermediate,30740
-backstage/backstage,Intermediate,31273
 backstage/backstage,Intermediate,31487
 backstage/backstage,Intermediate,31749
 backstage/backstage,Intermediate,31750
@@ -46,7 +43,6 @@ backstage/backstage,Intermediate,32787
 backstage/backstage,Intermediate,32834
 backstage/backstage,Intermediate,33330
 backstage/backstage,Intermediate,36155
-backstage/backstage,Intermediate,36089
 backstage/backstage,Intermediate,35309
 backstage/backstage,Intermediate,35245
 backstage/backstage,Intermediate,35367
@@ -55,7 +51,6 @@ backstage/backstage,Intermediate,34593
 backstage/backstage,Intermediate,34907
 backstage/backstage,Intermediate,34281
 backstage/community-plugins,Intermediate,186
-backstage/community-plugins,Intermediate,629
 backstage/community-plugins,Intermediate,844
 backstage/community-plugins,Intermediate,894
 backstage/community-plugins,Intermediate,1776
@@ -70,12 +65,10 @@ backstage/backstage,Advanced,32858
 backstage/backstage,Advanced,34457
 backstage/backstage,Advanced,35394
 backstage/backstage,Advanced,35267
-backstage/community-plugins,Advanced,11477
 backstage/community-plugins,Beginner,2600
 backstage/community-plugins,Intermediate,6402
 backstage/community-plugins,Beginner,7073
 backstage/community-plugins,Intermediate,7435
-backstage/community-plugins,Intermediate,7574
 backstage/community-plugins,Beginner,7868
 backstage/community-plugins,Beginner,11456
 backstage/community-plugins,Beginner,11471
