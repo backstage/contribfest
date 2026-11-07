@@ -2,21 +2,21 @@ import type { PinnedIssue } from '@/lib/types'
 
 export const pinnedIssues: PinnedIssue[] = [
   {
-    issueId: 7868,
+    issueId: 2600,
     repository: 'backstage/community-plugins',
     level: 'Beginner',
-    title: 'Migrate Maintainer Owned Workspaces to Jest 30',
+    title: 'Deprecate React 16 and 17',
   },
   {
-    issueId: 2458,
+    issueId: 5992,
     repository: 'backstage/community-plugins',
-    level: 'Intermediate',
-    title: 'Help wanted: Adding Support for the New Frontend System',
+    level: 'Beginner',
+    title: 'Enable knipReports for Maintainer Owned Workspaces',
   },
   {
-    issueId: 7869,
+    issueId: 11740,
     repository: 'backstage/community-plugins',
     level: 'Intermediate',
-    title: 'Community Maintainer Owned Plugin Migration from Material UI (MUI) to Backstage UI (BUI)',
+    title: 'Plugin-Owner-Maintained Plugin Migration from Material UI (MUI) to Backstage UI (BUI)',
   },
 ]
