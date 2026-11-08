@@ -8,10 +8,10 @@ export const pinnedIssues: PinnedIssue[] = [
     title: 'Deprecate React 16 and 17',
   },
   {
-    issueId: 5992,
-    repository: 'backstage/community-plugins',
+    issueId: 36703,
+    repository: 'backstage/backstage',
     level: 'Beginner',
-    title: 'Enable knipReports for Maintainer Owned Workspaces',
+    title: 'Move package README content into backstage.io/docs',
   },
   {
     issueId: 11740,
