@@ -1,7 +1,7 @@
 repo,level,issueId
 backstage/backstage,Beginner,30442
 backstage/backstage,Beginner,32748
-backstage/backstage,Beginner,36002
+backstage/backstage,Intermediate,36002
 backstage/backstage,Beginner,35009
 backstage/backstage,Beginner,35008
 backstage/backstage,Beginner,35961
@@ -12,7 +12,7 @@ backstage/backstage,Beginner,21916
 backstage/backstage,Beginner,21920
 backstage/backstage,Beginner,21942
 backstage/backstage,Beginner,21921
-backstage/backstage,Beginner,34820
+backstage/backstage,Intermediate,34820
 backstage/backstage,Beginner,34271
 backstage/backstage,Beginner,36505
 backstage/backstage,Beginner,36506
@@ -39,7 +39,7 @@ backstage/backstage,Intermediate,32271
 backstage/backstage,Intermediate,32353
 backstage/backstage,Intermediate,32750
 backstage/backstage,Intermediate,32785
-backstage/backstage,Intermediate,32787
+backstage/backstage,Beginner,32787
 backstage/backstage,Intermediate,32834
 backstage/backstage,Intermediate,33330
 backstage/backstage,Intermediate,36155
@@ -56,9 +56,9 @@ backstage/community-plugins,Intermediate,6409
 backstage/community-plugins,Intermediate,5267
 backstage/backstage,Advanced,32833
 backstage/backstage,Advanced,32509
-backstage/backstage,Advanced,32802
+backstage/backstage,Intermediate,32802
 backstage/backstage,Advanced,32850
-backstage/backstage,Advanced,32858
+backstage/backstage,Intermediate,32858
 backstage/backstage,Advanced,34457
 backstage/backstage,Advanced,35394
 backstage/community-plugins,Beginner,2600
@@ -73,4 +73,4 @@ backstage/community-plugins,Beginner,9119
 backstage/community-plugins,Intermediate,7869
 backstage/community-plugins,Intermediate,11740
 backstage/community-plugins,Intermediate,2458
-backstage/community-plugins,Intermediate,9774
+backstage/community-plugins,Advanced,9774
