@@ -23,25 +23,25 @@ permissions:
   checks: read  # Required for wait-on-check-action to query CI status
 
 jobs:
-  # Wait for CI to complete before deploying
-  # Scheduled and manual runs rebuild an already-tested commit, so only pushes wait for CI
+  # Wait for CI to pass on the exact commit being deployed, for every trigger.
+  # Don't skip this job: a skipped job also skips everything after it,
+  # including Deploy.
   check-ci:
     name: Wait for CI
-    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: Wait for CI workflow
         uses: lewagon/wait-on-check-action@v1.9.1
         with:
-          ref: ${{ github.ref }}
+          ref: ${{ github.sha }}
           check-name: 'Type Check, Lint, Test & Build'
+          allowed-conclusions: success
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
 
   build:
     name: Build
     needs: check-ci
-    if: ${{ !cancelled() && (needs.check-ci.result == 'success' || needs.check-ci.result == 'skipped') }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
