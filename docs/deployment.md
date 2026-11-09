@@ -36,7 +36,7 @@ When you merge a PR to `main`:
 
 ### Scheduled Refresh
 
-CD also runs every hour (`17 * * * *`) to refresh the GitHub data. Scheduled runs rebuild the current `main`, which has already passed CI, so they skip the CI wait. GitHub can delay or drop scheduled runs during busy periods, so don't rely on the schedule during the session.
+CD also runs every hour (`17 * * * *`) to refresh the GitHub data. Scheduled and manual runs rebuild the current `main` and, like merges, only deploy once CI has passed on that exact commit. This is usually instant, since CI already ran when the commit was merged. GitHub can delay or drop scheduled runs during busy periods, so don't rely on the schedule during the session.
 
 ### Manual Deployment / Refresh
 
@@ -104,3 +104,6 @@ Mocks are added after the real issues. A mock with the same repository and issue
 **CI passes but CD doesn't run:**
 - Check the `check-ci` job logs for the CI workflow status
 - Verify the CI job name matches: "Type Check, Lint, Test & Build"
+
+**Scheduled or manual refresh doesn't deploy:**
+- Check that CI passed on the latest commit on `main`. If it failed, refreshes stop until a fix is merged, and the live site keeps serving the last good deployment.
