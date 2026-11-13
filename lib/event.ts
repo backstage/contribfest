@@ -2,7 +2,7 @@
 // See docs/organizer-runbook.md for the full kickoff checklist.
 
 // Set to true when ContribFest is active
-export const CONTRIBFEST_ACTIVE = true
+export const CONTRIBFEST_ACTIVE = false
 
 // When the curated issues list unlocks. Include the venue's UTC offset so
 // the countdown is the same for everyone regardless of their timezone.
@@ -22,4 +22,4 @@ export const currentSession = {
 
 // Shown on the welcome page while CONTRIBFEST_ACTIVE is false
 export const offSeasonMessage =
-  'Backstage ContribFest will return at KubeCon Barcelona in March 2027, with more details to be shared nearer the date.'
+  'Details about the next Backstage ContribFest will be shared in mid-December.'
