@@ -7,7 +7,6 @@ export const sessions: ContribFestSession[] = [
     date: 'November 2026',
     blogUrl:
       'https://kubecon-cloudnativecon-north-america-2026.sessionize.com/session/1294770',
-    comingSoon: true,
     linkText: 'View Session',
   },
   {
