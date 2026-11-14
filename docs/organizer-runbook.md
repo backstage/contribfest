@@ -51,5 +51,10 @@ Replace them with fresh issues if needed. If the list runs low, that's fine: the
 ## After the Event
 
 1. Set `CONTRIBFEST_ACTIVE = false` in `lib/event.ts`.
-2. Run the `remove-contribfest-label` Claude skill to remove the label and add `good first issue` to Beginner issues.
+2. Run the `remove-contribfest-label` Claude skill. For every issue in `public/issues.csv` it:
+   - removes the `contribfest` label and the reserve note
+   - adds `good first issue` to Beginner and Intermediate issues that are open for contributions
+   - posts a comment saying the issue is open again, or, if a ContribFest PR is in progress, pointing people to other issues
+
+   Issues with an active ContribFest PR don't get `good first issue`.
 3. Merged PRs labeled `contribfest` will keep appearing on Contrib Champs.
