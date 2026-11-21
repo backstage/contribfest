@@ -180,11 +180,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/ui@npm:^0.19.0":
-  version: 0.19.0
-  resolution: "@backstage/ui@npm:0.19.0"
+"@backstage/ui@npm:^0.20.0":
+  version: 0.20.0
+  resolution: "@backstage/ui@npm:0.20.0"
   dependencies:
-    "@backstage/version-bridge": "npm:^1.0.12"
+    "@backstage/version-bridge": "npm:^1.1.0"
     "@braintree/sanitize-url": "npm:^7.1.2"
     "@internationalized/date": "npm:^3.12.0"
     "@remixicon/react": "npm:>=4.6.0 <4.9.0"
@@ -194,7 +194,20 @@ __metadata:
     react-aria: "npm:~3.53.0"
     react-aria-components: "npm:~1.22.0"
     react-stately: "npm:~3.51.0"
-    use-sync-external-store: "npm:^1.4.0"
+  peerDependencies:
+    "@types/react": ^18.0.0
+    react: ^18.0.0
+    react-dom: ^18.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10/e52019d2b45e748e32b7b1070992245ae4fc20108f939dd0f7d7a9807464b077de0de3a92e9243c4ba481359ac0d28dbb252d326585289d8abc58a544a36460d
+  languageName: node
+  linkType: hard
+
+"@backstage/version-bridge@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@backstage/version-bridge@npm:1.1.0"
   peerDependencies:
     "@types/react": ^18.0.0
     react: ^18.0.0
@@ -203,22 +216,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10/4724e910dda37e20778e38aa3be986aafc77c8c37654f6fd6c51591e9dc3c296e53be50cbcea8763f53787a6d083755a634428904dec3e107740215bdb8a1132
-  languageName: node
-  linkType: hard
-
-"@backstage/version-bridge@npm:^1.0.12":
-  version: 1.0.12
-  resolution: "@backstage/version-bridge@npm:1.0.12"
-  peerDependencies:
-    "@types/react": ^17.0.0 || ^18.0.0
-    react: ^17.0.0 || ^18.0.0
-    react-dom: ^17.0.0 || ^18.0.0
-    react-router-dom: ^6.30.2
-  peerDependenciesMeta:
-    "@types/react":
-      optional: true
-  checksum: 10/a577e272e0c5ca1aa6cd5222faa33b44bd98ee9c777ce05d0c9904cc2d70b002be0a8467d8e4228f74fc0da5a95d08d2c413f091e74d34eb3d658b152338692f
+  checksum: 10/75b266077b3276952f9ab8339c21509af8e146d4cfd49a0b2ec0084da5ce29e678f4e640e1bbba7f239f6511dd951c245b6e4531094f034b1feccc71c96931fc
   languageName: node
   linkType: hard
 
@@ -1609,7 +1607,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "contribfest@workspace:."
   dependencies:
-    "@backstage/ui": "npm:^0.19.0"
+    "@backstage/ui": "npm:^0.20.0"
     "@eslint/compat": "npm:^2.1.1"
     "@eslint/eslintrc": "npm:^3.3.7"
     "@types/node": "npm:^26.6.6"
@@ -4244,7 +4242,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-sync-external-store@npm:^1.4.0, use-sync-external-store@npm:^1.6.0":
+"use-sync-external-store@npm:^1.6.0":
   version: 1.6.0
   resolution: "use-sync-external-store@npm:1.6.0"
   peerDependencies:
